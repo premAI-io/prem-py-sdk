@@ -15,7 +15,7 @@ pip install premai
 
 ## Documentation and Usage
 
-Checkout the full PremAI documentation here.
+Checkout the full [PremAI SDK documentation](https://docs.premai.io/get-started/sdks).
 
-- Use with prem-sdk [here](https://docs.premai.io/get-started/quick-start)
-- Use with openai-sdk [here](https://docs.premai.io/get-started/quick-start)
+- Use with [PremAI SDK](https://docs.premai.io/get-started/sdks#use-with-premai-sdk)
+- Use with [OpenAI compatible SDK](https://docs.premai.io/get-started/sdks#use-with-openai-compatible-sdk)
