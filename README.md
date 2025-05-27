@@ -29,8 +29,6 @@ from premai import Premai
 
 client = Premai(
     api_key=os.environ.get("PREMAI_API_KEY"),  # This is the default and can be omitted
-    # defaults to "production".
-    environment="environment_1",
 )
 
 response = client.chat.retrieve_internal_models()
@@ -52,8 +50,6 @@ from premai import AsyncPremai
 
 client = AsyncPremai(
     api_key=os.environ.get("PREMAI_API_KEY"),  # This is the default and can be omitted
-    # defaults to "production".
-    environment="environment_1",
 )
 
 
