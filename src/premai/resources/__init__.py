@@ -8,14 +8,6 @@ from .chat import (
     ChatResourceWithStreamingResponse,
     AsyncChatResourceWithStreamingResponse,
 )
-from .models import (
-    ModelsResource,
-    AsyncModelsResource,
-    ModelsResourceWithRawResponse,
-    AsyncModelsResourceWithRawResponse,
-    ModelsResourceWithStreamingResponse,
-    AsyncModelsResourceWithStreamingResponse,
-)
 
 __all__ = [
     "ChatResource",
@@ -24,10 +16,4 @@ __all__ = [
     "AsyncChatResourceWithRawResponse",
     "ChatResourceWithStreamingResponse",
     "AsyncChatResourceWithStreamingResponse",
-    "ModelsResource",
-    "AsyncModelsResource",
-    "ModelsResourceWithRawResponse",
-    "AsyncModelsResourceWithRawResponse",
-    "ModelsResourceWithStreamingResponse",
-    "AsyncModelsResourceWithStreamingResponse",
 ]

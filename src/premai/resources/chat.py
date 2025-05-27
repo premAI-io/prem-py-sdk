@@ -19,6 +19,7 @@ from .._response import (
 )
 from .._base_client import make_request_options
 from ..types.chat_completions_response import ChatCompletionsResponse
+from ..types.chat_list_models_response import ChatListModelsResponse
 
 __all__ = ["ChatResource", "AsyncChatResource"]
 
@@ -100,6 +101,44 @@ class ChatResource(SyncAPIResource):
             cast_to=ChatCompletionsResponse,
         )
 
+    def list_models(
+        self,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> ChatListModelsResponse:
+        """Get available AI models in OpenAI compatible format."""
+        return self._get(
+            "/api/internal/chat/models",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=ChatListModelsResponse,
+        )
+
+    def list_models_internal(
+        self,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> object:
+        """Get available AI models in the raw internal format."""
+        return self._get(
+            "/api/internal/chat/internalModels",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=object,
+        )
+
 
 class AsyncChatResource(AsyncAPIResource):
     @cached_property
@@ -178,6 +217,44 @@ class AsyncChatResource(AsyncAPIResource):
             cast_to=ChatCompletionsResponse,
         )
 
+    async def list_models(
+        self,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> ChatListModelsResponse:
+        """Get available AI models in OpenAI compatible format."""
+        return await self._get(
+            "/api/internal/chat/models",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=ChatListModelsResponse,
+        )
+
+    async def list_models_internal(
+        self,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> object:
+        """Get available AI models in the raw internal format."""
+        return await self._get(
+            "/api/internal/chat/internalModels",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=object,
+        )
+
 
 class ChatResourceWithRawResponse:
     def __init__(self, chat: ChatResource) -> None:
@@ -185,6 +262,12 @@ class ChatResourceWithRawResponse:
 
         self.completions = to_raw_response_wrapper(
             chat.completions,
+        )
+        self.list_models = to_raw_response_wrapper(
+            chat.list_models,
+        )
+        self.list_models_internal = to_raw_response_wrapper(
+            chat.list_models_internal,
         )
 
 
@@ -195,6 +278,12 @@ class AsyncChatResourceWithRawResponse:
         self.completions = async_to_raw_response_wrapper(
             chat.completions,
         )
+        self.list_models = async_to_raw_response_wrapper(
+            chat.list_models,
+        )
+        self.list_models_internal = async_to_raw_response_wrapper(
+            chat.list_models_internal,
+        )
 
 
 class ChatResourceWithStreamingResponse:
@@ -204,6 +293,12 @@ class ChatResourceWithStreamingResponse:
         self.completions = to_streamed_response_wrapper(
             chat.completions,
         )
+        self.list_models = to_streamed_response_wrapper(
+            chat.list_models,
+        )
+        self.list_models_internal = to_streamed_response_wrapper(
+            chat.list_models_internal,
+        )
 
 
 class AsyncChatResourceWithStreamingResponse:
@@ -212,4 +307,10 @@ class AsyncChatResourceWithStreamingResponse:
 
         self.completions = async_to_streamed_response_wrapper(
             chat.completions,
+        )
+        self.list_models = async_to_streamed_response_wrapper(
+            chat.list_models,
+        )
+        self.list_models_internal = async_to_streamed_response_wrapper(
+            chat.list_models_internal,
         )
