@@ -113,7 +113,7 @@ class ChatResource(SyncAPIResource):
     ) -> ChatListModelsResponse:
         """Get available AI models in OpenAI compatible format."""
         return self._get(
-            "/api/internal/chat/models",
+            "/api/v1/chat/models",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -132,7 +132,7 @@ class ChatResource(SyncAPIResource):
     ) -> object:
         """Get available AI models in the raw internal format."""
         return self._get(
-            "/api/internal/chat/internalModels",
+            "/api/v1/chat/internalModels",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -229,7 +229,7 @@ class AsyncChatResource(AsyncAPIResource):
     ) -> ChatListModelsResponse:
         """Get available AI models in OpenAI compatible format."""
         return await self._get(
-            "/api/internal/chat/models",
+            "/api/v1/chat/models",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -248,7 +248,7 @@ class AsyncChatResource(AsyncAPIResource):
     ) -> object:
         """Get available AI models in the raw internal format."""
         return await self._get(
-            "/api/internal/chat/internalModels",
+            "/api/v1/chat/internalModels",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
