@@ -21,14 +21,8 @@ class TestChat:
     @parametrize
     def test_method_create_completion(self, client: Premai) -> None:
         chat = client.chat.create_completion(
-            frequency_penalty=-2,
-            max_completion_tokens=1,
             messages=[{"role": "system"}],
             model="model",
-            presence_penalty=-2,
-            stream=True,
-            temperature=0,
-            top_p=0,
         )
         assert_matches_type(ChatCreateCompletionResponse, chat, path=["response"])
 
@@ -36,8 +30,6 @@ class TestChat:
     @parametrize
     def test_method_create_completion_with_all_params(self, client: Premai) -> None:
         chat = client.chat.create_completion(
-            frequency_penalty=-2,
-            max_completion_tokens=1,
             messages=[
                 {
                     "role": "system",
@@ -45,16 +37,18 @@ class TestChat:
                 }
             ],
             model="model",
+            frequency_penalty=-2,
+            max_completion_tokens=1,
             presence_penalty=-2,
-            stream=True,
-            temperature=0,
-            top_p=0,
             response_format={
                 "json_schema": {"foo": "bar"},
                 "type": "text",
             },
             seed=0,
             stop="string",
+            stream=True,
+            temperature=0,
+            top_p=0,
         )
         assert_matches_type(ChatCreateCompletionResponse, chat, path=["response"])
 
@@ -62,14 +56,8 @@ class TestChat:
     @parametrize
     def test_raw_response_create_completion(self, client: Premai) -> None:
         response = client.chat.with_raw_response.create_completion(
-            frequency_penalty=-2,
-            max_completion_tokens=1,
             messages=[{"role": "system"}],
             model="model",
-            presence_penalty=-2,
-            stream=True,
-            temperature=0,
-            top_p=0,
         )
 
         assert response.is_closed is True
@@ -81,14 +69,8 @@ class TestChat:
     @parametrize
     def test_streaming_response_create_completion(self, client: Premai) -> None:
         with client.chat.with_streaming_response.create_completion(
-            frequency_penalty=-2,
-            max_completion_tokens=1,
             messages=[{"role": "system"}],
             model="model",
-            presence_penalty=-2,
-            stream=True,
-            temperature=0,
-            top_p=0,
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -162,14 +144,8 @@ class TestAsyncChat:
     @parametrize
     async def test_method_create_completion(self, async_client: AsyncPremai) -> None:
         chat = await async_client.chat.create_completion(
-            frequency_penalty=-2,
-            max_completion_tokens=1,
             messages=[{"role": "system"}],
             model="model",
-            presence_penalty=-2,
-            stream=True,
-            temperature=0,
-            top_p=0,
         )
         assert_matches_type(ChatCreateCompletionResponse, chat, path=["response"])
 
@@ -177,8 +153,6 @@ class TestAsyncChat:
     @parametrize
     async def test_method_create_completion_with_all_params(self, async_client: AsyncPremai) -> None:
         chat = await async_client.chat.create_completion(
-            frequency_penalty=-2,
-            max_completion_tokens=1,
             messages=[
                 {
                     "role": "system",
@@ -186,16 +160,18 @@ class TestAsyncChat:
                 }
             ],
             model="model",
+            frequency_penalty=-2,
+            max_completion_tokens=1,
             presence_penalty=-2,
-            stream=True,
-            temperature=0,
-            top_p=0,
             response_format={
                 "json_schema": {"foo": "bar"},
                 "type": "text",
             },
             seed=0,
             stop="string",
+            stream=True,
+            temperature=0,
+            top_p=0,
         )
         assert_matches_type(ChatCreateCompletionResponse, chat, path=["response"])
 
@@ -203,14 +179,8 @@ class TestAsyncChat:
     @parametrize
     async def test_raw_response_create_completion(self, async_client: AsyncPremai) -> None:
         response = await async_client.chat.with_raw_response.create_completion(
-            frequency_penalty=-2,
-            max_completion_tokens=1,
             messages=[{"role": "system"}],
             model="model",
-            presence_penalty=-2,
-            stream=True,
-            temperature=0,
-            top_p=0,
         )
 
         assert response.is_closed is True
@@ -222,14 +192,8 @@ class TestAsyncChat:
     @parametrize
     async def test_streaming_response_create_completion(self, async_client: AsyncPremai) -> None:
         async with async_client.chat.with_streaming_response.create_completion(
-            frequency_penalty=-2,
-            max_completion_tokens=1,
             messages=[{"role": "system"}],
             model="model",
-            presence_penalty=-2,
-            stream=True,
-            temperature=0,
-            top_p=0,
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"

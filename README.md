@@ -85,14 +85,8 @@ from premai import Premai
 client = Premai()
 
 response = client.chat.create_completion(
-    frequency_penalty=-2,
-    max_completion_tokens=1,
     messages=[{"role": "system"}],
     model="model",
-    presence_penalty=-2,
-    stream=True,
-    temperature=0,
-    top_p=0,
     response_format={
         "json_schema": {"foo": "bar"},
         "type": "text",
