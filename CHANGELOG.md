@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.0.1 (2025-05-27)
+
+Full Changelog: [v1.0.0...v1.0.1](https://github.com/premAI-io/prem-py-sdk/compare/v1.0.0...v1.0.1)
+
+### Chores
+
+* **internal:** version bump ([1389be2](https://github.com/premAI-io/prem-py-sdk/commit/1389be29f10ac2989646b8fcb4271ac6553f7b6c))
+
 ## 1.0.0 (2025-05-27)
 
 Full Changelog: [v0.0.1-alpha.0...v1.0.0](https://github.com/premAI-io/prem-py-sdk/compare/v0.0.1-alpha.0...v1.0.0)
