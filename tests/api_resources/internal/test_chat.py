@@ -7,7 +7,7 @@ from typing import Any, cast
 
 import pytest
 
-from premai import Premai, AsyncPremai
+from premai import PremAI, AsyncPremAI
 from tests.utils import assert_matches_type
 from premai.types.internal import ChatListModelsResponse, ChatCreateCompletionResponse
 
@@ -19,7 +19,7 @@ class TestChat:
 
     @pytest.mark.skip()
     @parametrize
-    def test_method_create_completion(self, client: Premai) -> None:
+    def test_method_create_completion(self, client: PremAI) -> None:
         chat = client.internal.chat.create_completion(
             messages=[{"role": "system"}],
             model="model",
@@ -28,7 +28,7 @@ class TestChat:
 
     @pytest.mark.skip()
     @parametrize
-    def test_method_create_completion_with_all_params(self, client: Premai) -> None:
+    def test_method_create_completion_with_all_params(self, client: PremAI) -> None:
         chat = client.internal.chat.create_completion(
             messages=[
                 {
@@ -54,7 +54,7 @@ class TestChat:
 
     @pytest.mark.skip()
     @parametrize
-    def test_raw_response_create_completion(self, client: Premai) -> None:
+    def test_raw_response_create_completion(self, client: PremAI) -> None:
         response = client.internal.chat.with_raw_response.create_completion(
             messages=[{"role": "system"}],
             model="model",
@@ -67,7 +67,7 @@ class TestChat:
 
     @pytest.mark.skip()
     @parametrize
-    def test_streaming_response_create_completion(self, client: Premai) -> None:
+    def test_streaming_response_create_completion(self, client: PremAI) -> None:
         with client.internal.chat.with_streaming_response.create_completion(
             messages=[{"role": "system"}],
             model="model",
@@ -82,13 +82,13 @@ class TestChat:
 
     @pytest.mark.skip()
     @parametrize
-    def test_method_list_internal_models(self, client: Premai) -> None:
+    def test_method_list_internal_models(self, client: PremAI) -> None:
         chat = client.internal.chat.list_internal_models()
         assert_matches_type(object, chat, path=["response"])
 
     @pytest.mark.skip()
     @parametrize
-    def test_raw_response_list_internal_models(self, client: Premai) -> None:
+    def test_raw_response_list_internal_models(self, client: PremAI) -> None:
         response = client.internal.chat.with_raw_response.list_internal_models()
 
         assert response.is_closed is True
@@ -98,7 +98,7 @@ class TestChat:
 
     @pytest.mark.skip()
     @parametrize
-    def test_streaming_response_list_internal_models(self, client: Premai) -> None:
+    def test_streaming_response_list_internal_models(self, client: PremAI) -> None:
         with client.internal.chat.with_streaming_response.list_internal_models() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -110,13 +110,13 @@ class TestChat:
 
     @pytest.mark.skip()
     @parametrize
-    def test_method_list_models(self, client: Premai) -> None:
+    def test_method_list_models(self, client: PremAI) -> None:
         chat = client.internal.chat.list_models()
         assert_matches_type(ChatListModelsResponse, chat, path=["response"])
 
     @pytest.mark.skip()
     @parametrize
-    def test_raw_response_list_models(self, client: Premai) -> None:
+    def test_raw_response_list_models(self, client: PremAI) -> None:
         response = client.internal.chat.with_raw_response.list_models()
 
         assert response.is_closed is True
@@ -126,7 +126,7 @@ class TestChat:
 
     @pytest.mark.skip()
     @parametrize
-    def test_streaming_response_list_models(self, client: Premai) -> None:
+    def test_streaming_response_list_models(self, client: PremAI) -> None:
         with client.internal.chat.with_streaming_response.list_models() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -142,7 +142,7 @@ class TestAsyncChat:
 
     @pytest.mark.skip()
     @parametrize
-    async def test_method_create_completion(self, async_client: AsyncPremai) -> None:
+    async def test_method_create_completion(self, async_client: AsyncPremAI) -> None:
         chat = await async_client.internal.chat.create_completion(
             messages=[{"role": "system"}],
             model="model",
@@ -151,7 +151,7 @@ class TestAsyncChat:
 
     @pytest.mark.skip()
     @parametrize
-    async def test_method_create_completion_with_all_params(self, async_client: AsyncPremai) -> None:
+    async def test_method_create_completion_with_all_params(self, async_client: AsyncPremAI) -> None:
         chat = await async_client.internal.chat.create_completion(
             messages=[
                 {
@@ -177,7 +177,7 @@ class TestAsyncChat:
 
     @pytest.mark.skip()
     @parametrize
-    async def test_raw_response_create_completion(self, async_client: AsyncPremai) -> None:
+    async def test_raw_response_create_completion(self, async_client: AsyncPremAI) -> None:
         response = await async_client.internal.chat.with_raw_response.create_completion(
             messages=[{"role": "system"}],
             model="model",
@@ -190,7 +190,7 @@ class TestAsyncChat:
 
     @pytest.mark.skip()
     @parametrize
-    async def test_streaming_response_create_completion(self, async_client: AsyncPremai) -> None:
+    async def test_streaming_response_create_completion(self, async_client: AsyncPremAI) -> None:
         async with async_client.internal.chat.with_streaming_response.create_completion(
             messages=[{"role": "system"}],
             model="model",
@@ -205,13 +205,13 @@ class TestAsyncChat:
 
     @pytest.mark.skip()
     @parametrize
-    async def test_method_list_internal_models(self, async_client: AsyncPremai) -> None:
+    async def test_method_list_internal_models(self, async_client: AsyncPremAI) -> None:
         chat = await async_client.internal.chat.list_internal_models()
         assert_matches_type(object, chat, path=["response"])
 
     @pytest.mark.skip()
     @parametrize
-    async def test_raw_response_list_internal_models(self, async_client: AsyncPremai) -> None:
+    async def test_raw_response_list_internal_models(self, async_client: AsyncPremAI) -> None:
         response = await async_client.internal.chat.with_raw_response.list_internal_models()
 
         assert response.is_closed is True
@@ -221,7 +221,7 @@ class TestAsyncChat:
 
     @pytest.mark.skip()
     @parametrize
-    async def test_streaming_response_list_internal_models(self, async_client: AsyncPremai) -> None:
+    async def test_streaming_response_list_internal_models(self, async_client: AsyncPremAI) -> None:
         async with async_client.internal.chat.with_streaming_response.list_internal_models() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -233,13 +233,13 @@ class TestAsyncChat:
 
     @pytest.mark.skip()
     @parametrize
-    async def test_method_list_models(self, async_client: AsyncPremai) -> None:
+    async def test_method_list_models(self, async_client: AsyncPremAI) -> None:
         chat = await async_client.internal.chat.list_models()
         assert_matches_type(ChatListModelsResponse, chat, path=["response"])
 
     @pytest.mark.skip()
     @parametrize
-    async def test_raw_response_list_models(self, async_client: AsyncPremai) -> None:
+    async def test_raw_response_list_models(self, async_client: AsyncPremAI) -> None:
         response = await async_client.internal.chat.with_raw_response.list_models()
 
         assert response.is_closed is True
@@ -249,7 +249,7 @@ class TestAsyncChat:
 
     @pytest.mark.skip()
     @parametrize
-    async def test_streaming_response_list_models(self, async_client: AsyncPremai) -> None:
+    async def test_streaming_response_list_models(self, async_client: AsyncPremAI) -> None:
         async with async_client.internal.chat.with_streaming_response.list_models() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"

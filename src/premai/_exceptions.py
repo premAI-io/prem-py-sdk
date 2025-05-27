@@ -18,11 +18,11 @@ __all__ = [
 ]
 
 
-class PremaiError(Exception):
+class PremAIError(Exception):
     pass
 
 
-class APIError(PremaiError):
+class APIError(PremAIError):
     message: str
     request: httpx.Request
 

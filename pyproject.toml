@@ -1,11 +1,11 @@
 [project]
 name = "premai"
 version = "1.0.1"
-description = "The official Python library for the premai API"
+description = "The official Python library for the PremAI API"
 dynamic = ["readme"]
 license = "Apache-2.0"
 authors = [
-{ name = "Premai", email = "" },
+{ name = "Prem AI", email = "" },
 ]
 dependencies = [
     "httpx>=0.23.0, <1",
