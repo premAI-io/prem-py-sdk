@@ -3,9 +3,9 @@
 from typing import List, Optional
 from typing_extensions import Literal
 
-from ..._models import BaseModel
+from .._models import BaseModel
 
-__all__ = ["ChatCreateCompletionResponse", "Choice", "ChoiceMessage", "Usage"]
+__all__ = ["ChatCompletionsResponse", "Choice", "ChoiceMessage", "Usage"]
 
 
 class ChoiceMessage(BaseModel):
@@ -30,7 +30,7 @@ class Usage(BaseModel):
     total_tokens: int
 
 
-class ChatCreateCompletionResponse(BaseModel):
+class ChatCompletionsResponse(BaseModel):
     id: str
 
     choices: List[Choice]

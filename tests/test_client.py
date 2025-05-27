@@ -21,11 +21,11 @@ import pytest
 from respx import MockRouter
 from pydantic import ValidationError
 
-from premai import Premai, AsyncPremai, APIResponseValidationError
+from premai import PremAI, AsyncPremAI, APIResponseValidationError
 from premai._types import Omit
 from premai._models import BaseModel, FinalRequestOptions
 from premai._constants import RAW_RESPONSE_HEADER
-from premai._exceptions import PremaiError, APIStatusError, APITimeoutError, APIResponseValidationError
+from premai._exceptions import PremAIError, APIStatusError, APITimeoutError, APIResponseValidationError
 from premai._base_client import DEFAULT_TIMEOUT, HTTPX_DEFAULT_TIMEOUT, BaseClient, make_request_options
 
 from .utils import update_env
@@ -44,7 +44,7 @@ def _low_retry_timeout(*_args: Any, **_kwargs: Any) -> float:
     return 0.1
 
 
-def _get_open_connections(client: Premai | AsyncPremai) -> int:
+def _get_open_connections(client: PremAI | AsyncPremAI) -> int:
     transport = client._client._transport
     assert isinstance(transport, httpx.HTTPTransport) or isinstance(transport, httpx.AsyncHTTPTransport)
 
@@ -52,8 +52,8 @@ def _get_open_connections(client: Premai | AsyncPremai) -> int:
     return len(pool._requests)
 
 
-class TestPremai:
-    client = Premai(base_url=base_url, api_key=api_key, _strict_response_validation=True)
+class TestPremAI:
+    client = PremAI(base_url=base_url, api_key=api_key, _strict_response_validation=True)
 
     @pytest.mark.respx(base_url=base_url)
     def test_raw_response(self, respx_mock: MockRouter) -> None:
@@ -100,7 +100,7 @@ class TestPremai:
         assert isinstance(self.client.timeout, httpx.Timeout)
 
     def test_copy_default_headers(self) -> None:
-        client = Premai(
+        client = PremAI(
             base_url=base_url, api_key=api_key, _strict_response_validation=True, default_headers={"X-Foo": "bar"}
         )
         assert client.default_headers["X-Foo"] == "bar"
@@ -134,7 +134,7 @@ class TestPremai:
             client.copy(set_default_headers={}, default_headers={"X-Foo": "Bar"})
 
     def test_copy_default_query(self) -> None:
-        client = Premai(
+        client = PremAI(
             base_url=base_url, api_key=api_key, _strict_response_validation=True, default_query={"foo": "bar"}
         )
         assert _get_params(client)["foo"] == "bar"
@@ -259,7 +259,7 @@ class TestPremai:
         assert timeout == httpx.Timeout(100.0)
 
     def test_client_timeout_option(self) -> None:
-        client = Premai(base_url=base_url, api_key=api_key, _strict_response_validation=True, timeout=httpx.Timeout(0))
+        client = PremAI(base_url=base_url, api_key=api_key, _strict_response_validation=True, timeout=httpx.Timeout(0))
 
         request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
         timeout = httpx.Timeout(**request.extensions["timeout"])  # type: ignore
@@ -268,7 +268,7 @@ class TestPremai:
     def test_http_client_timeout_option(self) -> None:
         # custom timeout given to the httpx client should be used
         with httpx.Client(timeout=None) as http_client:
-            client = Premai(
+            client = PremAI(
                 base_url=base_url, api_key=api_key, _strict_response_validation=True, http_client=http_client
             )
 
@@ -278,7 +278,7 @@ class TestPremai:
 
         # no timeout given to the httpx client should not use the httpx default
         with httpx.Client() as http_client:
-            client = Premai(
+            client = PremAI(
                 base_url=base_url, api_key=api_key, _strict_response_validation=True, http_client=http_client
             )
 
@@ -288,7 +288,7 @@ class TestPremai:
 
         # explicitly passing the default timeout currently results in it being ignored
         with httpx.Client(timeout=HTTPX_DEFAULT_TIMEOUT) as http_client:
-            client = Premai(
+            client = PremAI(
                 base_url=base_url, api_key=api_key, _strict_response_validation=True, http_client=http_client
             )
 
@@ -299,7 +299,7 @@ class TestPremai:
     async def test_invalid_http_client(self) -> None:
         with pytest.raises(TypeError, match="Invalid `http_client` arg"):
             async with httpx.AsyncClient() as http_client:
-                Premai(
+                PremAI(
                     base_url=base_url,
                     api_key=api_key,
                     _strict_response_validation=True,
@@ -307,14 +307,14 @@ class TestPremai:
                 )
 
     def test_default_headers_option(self) -> None:
-        client = Premai(
+        client = PremAI(
             base_url=base_url, api_key=api_key, _strict_response_validation=True, default_headers={"X-Foo": "bar"}
         )
         request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
         assert request.headers.get("x-foo") == "bar"
         assert request.headers.get("x-stainless-lang") == "python"
 
-        client2 = Premai(
+        client2 = PremAI(
             base_url=base_url,
             api_key=api_key,
             _strict_response_validation=True,
@@ -328,17 +328,17 @@ class TestPremai:
         assert request.headers.get("x-stainless-lang") == "my-overriding-header"
 
     def test_validate_headers(self) -> None:
-        client = Premai(base_url=base_url, api_key=api_key, _strict_response_validation=True)
+        client = PremAI(base_url=base_url, api_key=api_key, _strict_response_validation=True)
         request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
         assert request.headers.get("Authorization") == f"Bearer {api_key}"
 
-        with pytest.raises(PremaiError):
+        with pytest.raises(PremAIError):
             with update_env(**{"PREMAI_API_KEY": Omit()}):
-                client2 = Premai(base_url=base_url, api_key=None, _strict_response_validation=True)
+                client2 = PremAI(base_url=base_url, api_key=None, _strict_response_validation=True)
             _ = client2
 
     def test_default_query_option(self) -> None:
-        client = Premai(
+        client = PremAI(
             base_url=base_url, api_key=api_key, _strict_response_validation=True, default_query={"query_param": "bar"}
         )
         request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
@@ -452,7 +452,7 @@ class TestPremai:
         params = dict(request.url.params)
         assert params == {"foo": "2"}
 
-    def test_multipart_repeating_array(self, client: Premai) -> None:
+    def test_multipart_repeating_array(self, client: PremAI) -> None:
         request = client._build_request(
             FinalRequestOptions.construct(
                 method="get",
@@ -539,7 +539,7 @@ class TestPremai:
         assert response.foo == 2
 
     def test_base_url_setter(self) -> None:
-        client = Premai(base_url="https://example.com/from_init", api_key=api_key, _strict_response_validation=True)
+        client = PremAI(base_url="https://example.com/from_init", api_key=api_key, _strict_response_validation=True)
         assert client.base_url == "https://example.com/from_init/"
 
         client.base_url = "https://example.com/from_setter"  # type: ignore[assignment]
@@ -547,23 +547,15 @@ class TestPremai:
         assert client.base_url == "https://example.com/from_setter/"
 
     def test_base_url_env(self) -> None:
-        with update_env(PREMAI_BASE_URL="http://localhost:5000/from/env"):
-            client = Premai(api_key=api_key, _strict_response_validation=True)
+        with update_env(PREM_AI_BASE_URL="http://localhost:5000/from/env"):
+            client = PremAI(api_key=api_key, _strict_response_validation=True)
             assert client.base_url == "http://localhost:5000/from/env/"
 
-        # explicit environment arg requires explicitness
-        with update_env(PREMAI_BASE_URL="http://localhost:5000/from/env"):
-            with pytest.raises(ValueError, match=r"you must pass base_url=None"):
-                Premai(api_key=api_key, _strict_response_validation=True, environment="production")
-
-            client = Premai(base_url=None, api_key=api_key, _strict_response_validation=True, environment="production")
-            assert str(client.base_url).startswith("https://localhost")
-
     @pytest.mark.parametrize(
         "client",
         [
-            Premai(base_url="http://localhost:5000/custom/path/", api_key=api_key, _strict_response_validation=True),
-            Premai(
+            PremAI(base_url="http://localhost:5000/custom/path/", api_key=api_key, _strict_response_validation=True),
+            PremAI(
                 base_url="http://localhost:5000/custom/path/",
                 api_key=api_key,
                 _strict_response_validation=True,
@@ -572,7 +564,7 @@ class TestPremai:
         ],
         ids=["standard", "custom http client"],
     )
-    def test_base_url_trailing_slash(self, client: Premai) -> None:
+    def test_base_url_trailing_slash(self, client: PremAI) -> None:
         request = client._build_request(
             FinalRequestOptions(
                 method="post",
@@ -585,8 +577,8 @@ class TestPremai:
     @pytest.mark.parametrize(
         "client",
         [
-            Premai(base_url="http://localhost:5000/custom/path/", api_key=api_key, _strict_response_validation=True),
-            Premai(
+            PremAI(base_url="http://localhost:5000/custom/path/", api_key=api_key, _strict_response_validation=True),
+            PremAI(
                 base_url="http://localhost:5000/custom/path/",
                 api_key=api_key,
                 _strict_response_validation=True,
@@ -595,7 +587,7 @@ class TestPremai:
         ],
         ids=["standard", "custom http client"],
     )
-    def test_base_url_no_trailing_slash(self, client: Premai) -> None:
+    def test_base_url_no_trailing_slash(self, client: PremAI) -> None:
         request = client._build_request(
             FinalRequestOptions(
                 method="post",
@@ -608,8 +600,8 @@ class TestPremai:
     @pytest.mark.parametrize(
         "client",
         [
-            Premai(base_url="http://localhost:5000/custom/path/", api_key=api_key, _strict_response_validation=True),
-            Premai(
+            PremAI(base_url="http://localhost:5000/custom/path/", api_key=api_key, _strict_response_validation=True),
+            PremAI(
                 base_url="http://localhost:5000/custom/path/",
                 api_key=api_key,
                 _strict_response_validation=True,
@@ -618,7 +610,7 @@ class TestPremai:
         ],
         ids=["standard", "custom http client"],
     )
-    def test_absolute_request_url(self, client: Premai) -> None:
+    def test_absolute_request_url(self, client: PremAI) -> None:
         request = client._build_request(
             FinalRequestOptions(
                 method="post",
@@ -629,7 +621,7 @@ class TestPremai:
         assert request.url == "https://myapi.com/foo"
 
     def test_copied_client_does_not_close_http(self) -> None:
-        client = Premai(base_url=base_url, api_key=api_key, _strict_response_validation=True)
+        client = PremAI(base_url=base_url, api_key=api_key, _strict_response_validation=True)
         assert not client.is_closed()
 
         copied = client.copy()
@@ -640,7 +632,7 @@ class TestPremai:
         assert not client.is_closed()
 
     def test_client_context_manager(self) -> None:
-        client = Premai(base_url=base_url, api_key=api_key, _strict_response_validation=True)
+        client = PremAI(base_url=base_url, api_key=api_key, _strict_response_validation=True)
         with client as c2:
             assert c2 is client
             assert not c2.is_closed()
@@ -661,7 +653,7 @@ class TestPremai:
 
     def test_client_max_retries_validation(self) -> None:
         with pytest.raises(TypeError, match=r"max_retries cannot be None"):
-            Premai(base_url=base_url, api_key=api_key, _strict_response_validation=True, max_retries=cast(Any, None))
+            PremAI(base_url=base_url, api_key=api_key, _strict_response_validation=True, max_retries=cast(Any, None))
 
     @pytest.mark.respx(base_url=base_url)
     def test_received_text_for_expected_json(self, respx_mock: MockRouter) -> None:
@@ -670,12 +662,12 @@ class TestPremai:
 
         respx_mock.get("/foo").mock(return_value=httpx.Response(200, text="my-custom-format"))
 
-        strict_client = Premai(base_url=base_url, api_key=api_key, _strict_response_validation=True)
+        strict_client = PremAI(base_url=base_url, api_key=api_key, _strict_response_validation=True)
 
         with pytest.raises(APIResponseValidationError):
             strict_client.get("/foo", cast_to=Model)
 
-        client = Premai(base_url=base_url, api_key=api_key, _strict_response_validation=False)
+        client = PremAI(base_url=base_url, api_key=api_key, _strict_response_validation=False)
 
         response = client.get("/foo", cast_to=Model)
         assert isinstance(response, str)  # type: ignore[unreachable]
@@ -703,7 +695,7 @@ class TestPremai:
     )
     @mock.patch("time.time", mock.MagicMock(return_value=1696004797))
     def test_parse_retry_after_header(self, remaining_retries: int, retry_after: str, timeout: float) -> None:
-        client = Premai(base_url=base_url, api_key=api_key, _strict_response_validation=True)
+        client = PremAI(base_url=base_url, api_key=api_key, _strict_response_validation=True)
 
         headers = httpx.Headers({"retry-after": retry_after})
         options = FinalRequestOptions(method="get", url="/foo", max_retries=3)
@@ -744,7 +736,7 @@ class TestPremai:
     @pytest.mark.parametrize("failure_mode", ["status", "exception"])
     def test_retries_taken(
         self,
-        client: Premai,
+        client: PremAI,
         failures_before_success: int,
         failure_mode: Literal["status", "exception"],
         respx_mock: MockRouter,
@@ -764,7 +756,7 @@ class TestPremai:
 
         respx_mock.get("/api/v1/chat/internalModels").mock(side_effect=retry_handler)
 
-        response = client.chat.with_raw_response.retrieve_internal_models()
+        response = client.chat.with_raw_response.list_models_internal()
 
         assert response.retries_taken == failures_before_success
         assert int(response.http_request.headers.get("x-stainless-retry-count")) == failures_before_success
@@ -773,7 +765,7 @@ class TestPremai:
     @mock.patch("premai._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     def test_omit_retry_count_header(
-        self, client: Premai, failures_before_success: int, respx_mock: MockRouter
+        self, client: PremAI, failures_before_success: int, respx_mock: MockRouter
     ) -> None:
         client = client.with_options(max_retries=4)
 
@@ -788,9 +780,7 @@ class TestPremai:
 
         respx_mock.get("/api/v1/chat/internalModels").mock(side_effect=retry_handler)
 
-        response = client.chat.with_raw_response.retrieve_internal_models(
-            extra_headers={"x-stainless-retry-count": Omit()}
-        )
+        response = client.chat.with_raw_response.list_models_internal(extra_headers={"x-stainless-retry-count": Omit()})
 
         assert len(response.http_request.headers.get_list("x-stainless-retry-count")) == 0
 
@@ -798,7 +788,7 @@ class TestPremai:
     @mock.patch("premai._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     def test_overwrite_retry_count_header(
-        self, client: Premai, failures_before_success: int, respx_mock: MockRouter
+        self, client: PremAI, failures_before_success: int, respx_mock: MockRouter
     ) -> None:
         client = client.with_options(max_retries=4)
 
@@ -813,15 +803,13 @@ class TestPremai:
 
         respx_mock.get("/api/v1/chat/internalModels").mock(side_effect=retry_handler)
 
-        response = client.chat.with_raw_response.retrieve_internal_models(
-            extra_headers={"x-stainless-retry-count": "42"}
-        )
+        response = client.chat.with_raw_response.list_models_internal(extra_headers={"x-stainless-retry-count": "42"})
 
         assert response.http_request.headers.get("x-stainless-retry-count") == "42"
 
 
-class TestAsyncPremai:
-    client = AsyncPremai(base_url=base_url, api_key=api_key, _strict_response_validation=True)
+class TestAsyncPremAI:
+    client = AsyncPremAI(base_url=base_url, api_key=api_key, _strict_response_validation=True)
 
     @pytest.mark.respx(base_url=base_url)
     @pytest.mark.asyncio
@@ -870,7 +858,7 @@ class TestAsyncPremai:
         assert isinstance(self.client.timeout, httpx.Timeout)
 
     def test_copy_default_headers(self) -> None:
-        client = AsyncPremai(
+        client = AsyncPremAI(
             base_url=base_url, api_key=api_key, _strict_response_validation=True, default_headers={"X-Foo": "bar"}
         )
         assert client.default_headers["X-Foo"] == "bar"
@@ -904,7 +892,7 @@ class TestAsyncPremai:
             client.copy(set_default_headers={}, default_headers={"X-Foo": "Bar"})
 
     def test_copy_default_query(self) -> None:
-        client = AsyncPremai(
+        client = AsyncPremAI(
             base_url=base_url, api_key=api_key, _strict_response_validation=True, default_query={"foo": "bar"}
         )
         assert _get_params(client)["foo"] == "bar"
@@ -1029,7 +1017,7 @@ class TestAsyncPremai:
         assert timeout == httpx.Timeout(100.0)
 
     async def test_client_timeout_option(self) -> None:
-        client = AsyncPremai(
+        client = AsyncPremAI(
             base_url=base_url, api_key=api_key, _strict_response_validation=True, timeout=httpx.Timeout(0)
         )
 
@@ -1040,7 +1028,7 @@ class TestAsyncPremai:
     async def test_http_client_timeout_option(self) -> None:
         # custom timeout given to the httpx client should be used
         async with httpx.AsyncClient(timeout=None) as http_client:
-            client = AsyncPremai(
+            client = AsyncPremAI(
                 base_url=base_url, api_key=api_key, _strict_response_validation=True, http_client=http_client
             )
 
@@ -1050,7 +1038,7 @@ class TestAsyncPremai:
 
         # no timeout given to the httpx client should not use the httpx default
         async with httpx.AsyncClient() as http_client:
-            client = AsyncPremai(
+            client = AsyncPremAI(
                 base_url=base_url, api_key=api_key, _strict_response_validation=True, http_client=http_client
             )
 
@@ -1060,7 +1048,7 @@ class TestAsyncPremai:
 
         # explicitly passing the default timeout currently results in it being ignored
         async with httpx.AsyncClient(timeout=HTTPX_DEFAULT_TIMEOUT) as http_client:
-            client = AsyncPremai(
+            client = AsyncPremAI(
                 base_url=base_url, api_key=api_key, _strict_response_validation=True, http_client=http_client
             )
 
@@ -1071,7 +1059,7 @@ class TestAsyncPremai:
     def test_invalid_http_client(self) -> None:
         with pytest.raises(TypeError, match="Invalid `http_client` arg"):
             with httpx.Client() as http_client:
-                AsyncPremai(
+                AsyncPremAI(
                     base_url=base_url,
                     api_key=api_key,
                     _strict_response_validation=True,
@@ -1079,14 +1067,14 @@ class TestAsyncPremai:
                 )
 
     def test_default_headers_option(self) -> None:
-        client = AsyncPremai(
+        client = AsyncPremAI(
             base_url=base_url, api_key=api_key, _strict_response_validation=True, default_headers={"X-Foo": "bar"}
         )
         request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
         assert request.headers.get("x-foo") == "bar"
         assert request.headers.get("x-stainless-lang") == "python"
 
-        client2 = AsyncPremai(
+        client2 = AsyncPremAI(
             base_url=base_url,
             api_key=api_key,
             _strict_response_validation=True,
@@ -1100,17 +1088,17 @@ class TestAsyncPremai:
         assert request.headers.get("x-stainless-lang") == "my-overriding-header"
 
     def test_validate_headers(self) -> None:
-        client = AsyncPremai(base_url=base_url, api_key=api_key, _strict_response_validation=True)
+        client = AsyncPremAI(base_url=base_url, api_key=api_key, _strict_response_validation=True)
         request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
         assert request.headers.get("Authorization") == f"Bearer {api_key}"
 
-        with pytest.raises(PremaiError):
+        with pytest.raises(PremAIError):
             with update_env(**{"PREMAI_API_KEY": Omit()}):
-                client2 = AsyncPremai(base_url=base_url, api_key=None, _strict_response_validation=True)
+                client2 = AsyncPremAI(base_url=base_url, api_key=None, _strict_response_validation=True)
             _ = client2
 
     def test_default_query_option(self) -> None:
-        client = AsyncPremai(
+        client = AsyncPremAI(
             base_url=base_url, api_key=api_key, _strict_response_validation=True, default_query={"query_param": "bar"}
         )
         request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
@@ -1224,7 +1212,7 @@ class TestAsyncPremai:
         params = dict(request.url.params)
         assert params == {"foo": "2"}
 
-    def test_multipart_repeating_array(self, async_client: AsyncPremai) -> None:
+    def test_multipart_repeating_array(self, async_client: AsyncPremAI) -> None:
         request = async_client._build_request(
             FinalRequestOptions.construct(
                 method="get",
@@ -1311,7 +1299,7 @@ class TestAsyncPremai:
         assert response.foo == 2
 
     def test_base_url_setter(self) -> None:
-        client = AsyncPremai(
+        client = AsyncPremAI(
             base_url="https://example.com/from_init", api_key=api_key, _strict_response_validation=True
         )
         assert client.base_url == "https://example.com/from_init/"
@@ -1321,27 +1309,17 @@ class TestAsyncPremai:
         assert client.base_url == "https://example.com/from_setter/"
 
     def test_base_url_env(self) -> None:
-        with update_env(PREMAI_BASE_URL="http://localhost:5000/from/env"):
-            client = AsyncPremai(api_key=api_key, _strict_response_validation=True)
+        with update_env(PREM_AI_BASE_URL="http://localhost:5000/from/env"):
+            client = AsyncPremAI(api_key=api_key, _strict_response_validation=True)
             assert client.base_url == "http://localhost:5000/from/env/"
 
-        # explicit environment arg requires explicitness
-        with update_env(PREMAI_BASE_URL="http://localhost:5000/from/env"):
-            with pytest.raises(ValueError, match=r"you must pass base_url=None"):
-                AsyncPremai(api_key=api_key, _strict_response_validation=True, environment="production")
-
-            client = AsyncPremai(
-                base_url=None, api_key=api_key, _strict_response_validation=True, environment="production"
-            )
-            assert str(client.base_url).startswith("https://localhost")
-
     @pytest.mark.parametrize(
         "client",
         [
-            AsyncPremai(
+            AsyncPremAI(
                 base_url="http://localhost:5000/custom/path/", api_key=api_key, _strict_response_validation=True
             ),
-            AsyncPremai(
+            AsyncPremAI(
                 base_url="http://localhost:5000/custom/path/",
                 api_key=api_key,
                 _strict_response_validation=True,
@@ -1350,7 +1328,7 @@ class TestAsyncPremai:
         ],
         ids=["standard", "custom http client"],
     )
-    def test_base_url_trailing_slash(self, client: AsyncPremai) -> None:
+    def test_base_url_trailing_slash(self, client: AsyncPremAI) -> None:
         request = client._build_request(
             FinalRequestOptions(
                 method="post",
@@ -1363,10 +1341,10 @@ class TestAsyncPremai:
     @pytest.mark.parametrize(
         "client",
         [
-            AsyncPremai(
+            AsyncPremAI(
                 base_url="http://localhost:5000/custom/path/", api_key=api_key, _strict_response_validation=True
             ),
-            AsyncPremai(
+            AsyncPremAI(
                 base_url="http://localhost:5000/custom/path/",
                 api_key=api_key,
                 _strict_response_validation=True,
@@ -1375,7 +1353,7 @@ class TestAsyncPremai:
         ],
         ids=["standard", "custom http client"],
     )
-    def test_base_url_no_trailing_slash(self, client: AsyncPremai) -> None:
+    def test_base_url_no_trailing_slash(self, client: AsyncPremAI) -> None:
         request = client._build_request(
             FinalRequestOptions(
                 method="post",
@@ -1388,10 +1366,10 @@ class TestAsyncPremai:
     @pytest.mark.parametrize(
         "client",
         [
-            AsyncPremai(
+            AsyncPremAI(
                 base_url="http://localhost:5000/custom/path/", api_key=api_key, _strict_response_validation=True
             ),
-            AsyncPremai(
+            AsyncPremAI(
                 base_url="http://localhost:5000/custom/path/",
                 api_key=api_key,
                 _strict_response_validation=True,
@@ -1400,7 +1378,7 @@ class TestAsyncPremai:
         ],
         ids=["standard", "custom http client"],
     )
-    def test_absolute_request_url(self, client: AsyncPremai) -> None:
+    def test_absolute_request_url(self, client: AsyncPremAI) -> None:
         request = client._build_request(
             FinalRequestOptions(
                 method="post",
@@ -1411,7 +1389,7 @@ class TestAsyncPremai:
         assert request.url == "https://myapi.com/foo"
 
     async def test_copied_client_does_not_close_http(self) -> None:
-        client = AsyncPremai(base_url=base_url, api_key=api_key, _strict_response_validation=True)
+        client = AsyncPremAI(base_url=base_url, api_key=api_key, _strict_response_validation=True)
         assert not client.is_closed()
 
         copied = client.copy()
@@ -1423,7 +1401,7 @@ class TestAsyncPremai:
         assert not client.is_closed()
 
     async def test_client_context_manager(self) -> None:
-        client = AsyncPremai(base_url=base_url, api_key=api_key, _strict_response_validation=True)
+        client = AsyncPremAI(base_url=base_url, api_key=api_key, _strict_response_validation=True)
         async with client as c2:
             assert c2 is client
             assert not c2.is_closed()
@@ -1445,7 +1423,7 @@ class TestAsyncPremai:
 
     async def test_client_max_retries_validation(self) -> None:
         with pytest.raises(TypeError, match=r"max_retries cannot be None"):
-            AsyncPremai(
+            AsyncPremAI(
                 base_url=base_url, api_key=api_key, _strict_response_validation=True, max_retries=cast(Any, None)
             )
 
@@ -1457,12 +1435,12 @@ class TestAsyncPremai:
 
         respx_mock.get("/foo").mock(return_value=httpx.Response(200, text="my-custom-format"))
 
-        strict_client = AsyncPremai(base_url=base_url, api_key=api_key, _strict_response_validation=True)
+        strict_client = AsyncPremAI(base_url=base_url, api_key=api_key, _strict_response_validation=True)
 
         with pytest.raises(APIResponseValidationError):
             await strict_client.get("/foo", cast_to=Model)
 
-        client = AsyncPremai(base_url=base_url, api_key=api_key, _strict_response_validation=False)
+        client = AsyncPremAI(base_url=base_url, api_key=api_key, _strict_response_validation=False)
 
         response = await client.get("/foo", cast_to=Model)
         assert isinstance(response, str)  # type: ignore[unreachable]
@@ -1491,7 +1469,7 @@ class TestAsyncPremai:
     @mock.patch("time.time", mock.MagicMock(return_value=1696004797))
     @pytest.mark.asyncio
     async def test_parse_retry_after_header(self, remaining_retries: int, retry_after: str, timeout: float) -> None:
-        client = AsyncPremai(base_url=base_url, api_key=api_key, _strict_response_validation=True)
+        client = AsyncPremAI(base_url=base_url, api_key=api_key, _strict_response_validation=True)
 
         headers = httpx.Headers({"retry-after": retry_after})
         options = FinalRequestOptions(method="get", url="/foo", max_retries=3)
@@ -1533,7 +1511,7 @@ class TestAsyncPremai:
     @pytest.mark.parametrize("failure_mode", ["status", "exception"])
     async def test_retries_taken(
         self,
-        async_client: AsyncPremai,
+        async_client: AsyncPremAI,
         failures_before_success: int,
         failure_mode: Literal["status", "exception"],
         respx_mock: MockRouter,
@@ -1553,7 +1531,7 @@ class TestAsyncPremai:
 
         respx_mock.get("/api/v1/chat/internalModels").mock(side_effect=retry_handler)
 
-        response = await client.chat.with_raw_response.retrieve_internal_models()
+        response = await client.chat.with_raw_response.list_models_internal()
 
         assert response.retries_taken == failures_before_success
         assert int(response.http_request.headers.get("x-stainless-retry-count")) == failures_before_success
@@ -1563,7 +1541,7 @@ class TestAsyncPremai:
     @pytest.mark.respx(base_url=base_url)
     @pytest.mark.asyncio
     async def test_omit_retry_count_header(
-        self, async_client: AsyncPremai, failures_before_success: int, respx_mock: MockRouter
+        self, async_client: AsyncPremAI, failures_before_success: int, respx_mock: MockRouter
     ) -> None:
         client = async_client.with_options(max_retries=4)
 
@@ -1578,7 +1556,7 @@ class TestAsyncPremai:
 
         respx_mock.get("/api/v1/chat/internalModels").mock(side_effect=retry_handler)
 
-        response = await client.chat.with_raw_response.retrieve_internal_models(
+        response = await client.chat.with_raw_response.list_models_internal(
             extra_headers={"x-stainless-retry-count": Omit()}
         )
 
@@ -1589,7 +1567,7 @@ class TestAsyncPremai:
     @pytest.mark.respx(base_url=base_url)
     @pytest.mark.asyncio
     async def test_overwrite_retry_count_header(
-        self, async_client: AsyncPremai, failures_before_success: int, respx_mock: MockRouter
+        self, async_client: AsyncPremAI, failures_before_success: int, respx_mock: MockRouter
     ) -> None:
         client = async_client.with_options(max_retries=4)
 
@@ -1604,7 +1582,7 @@ class TestAsyncPremai:
 
         respx_mock.get("/api/v1/chat/internalModels").mock(side_effect=retry_handler)
 
-        response = await client.chat.with_raw_response.retrieve_internal_models(
+        response = await client.chat.with_raw_response.list_models_internal(
             extra_headers={"x-stainless-retry-count": "42"}
         )
 

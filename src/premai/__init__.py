@@ -5,25 +5,14 @@ import typing as _t
 from . import types
 from ._types import NOT_GIVEN, Omit, NoneType, NotGiven, Transport, ProxiesTypes
 from ._utils import file_from_path
-from ._client import (
-    ENVIRONMENTS,
-    Client,
-    Premai,
-    Stream,
-    Timeout,
-    Transport,
-    AsyncClient,
-    AsyncPremai,
-    AsyncStream,
-    RequestOptions,
-)
+from ._client import Client, PremAI, Stream, Timeout, Transport, AsyncClient, AsyncPremAI, AsyncStream, RequestOptions
 from ._models import BaseModel
 from ._version import __title__, __version__
 from ._response import APIResponse as APIResponse, AsyncAPIResponse as AsyncAPIResponse
 from ._constants import DEFAULT_TIMEOUT, DEFAULT_MAX_RETRIES, DEFAULT_CONNECTION_LIMITS
 from ._exceptions import (
     APIError,
-    PremaiError,
+    PremAIError,
     ConflictError,
     NotFoundError,
     APIStatusError,
@@ -50,7 +39,7 @@ __all__ = [
     "NotGiven",
     "NOT_GIVEN",
     "Omit",
-    "PremaiError",
+    "PremAIError",
     "APIError",
     "APIStatusError",
     "APITimeoutError",
@@ -70,9 +59,8 @@ __all__ = [
     "AsyncClient",
     "Stream",
     "AsyncStream",
-    "Premai",
-    "AsyncPremai",
-    "ENVIRONMENTS",
+    "PremAI",
+    "AsyncPremAI",
     "file_from_path",
     "BaseModel",
     "DEFAULT_TIMEOUT",

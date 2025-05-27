@@ -3,8 +3,8 @@
 from __future__ import annotations
 
 import os
-from typing import Any, Dict, Union, Mapping, cast
-from typing_extensions import Self, Literal, override
+from typing import Any, Union, Mapping
+from typing_extensions import Self, override
 
 import httpx
 
@@ -23,49 +23,29 @@ from ._utils import is_given, get_async_library
 from ._version import __version__
 from .resources import chat
 from ._streaming import Stream as Stream, AsyncStream as AsyncStream
-from ._exceptions import PremaiError, APIStatusError
+from ._exceptions import PremAIError, APIStatusError
 from ._base_client import (
     DEFAULT_MAX_RETRIES,
     SyncAPIClient,
     AsyncAPIClient,
 )
-from .resources.internal import internal
 
-__all__ = [
-    "ENVIRONMENTS",
-    "Timeout",
-    "Transport",
-    "ProxiesTypes",
-    "RequestOptions",
-    "Premai",
-    "AsyncPremai",
-    "Client",
-    "AsyncClient",
-]
-
-ENVIRONMENTS: Dict[str, str] = {
-    "production": "https://localhost",
-    "environment_1": "https://studio.premai.io",
-}
+__all__ = ["Timeout", "Transport", "ProxiesTypes", "RequestOptions", "PremAI", "AsyncPremAI", "Client", "AsyncClient"]
 
 
-class Premai(SyncAPIClient):
+class PremAI(SyncAPIClient):
     chat: chat.ChatResource
-    internal: internal.InternalResource
-    with_raw_response: PremaiWithRawResponse
-    with_streaming_response: PremaiWithStreamedResponse
+    with_raw_response: PremAIWithRawResponse
+    with_streaming_response: PremAIWithStreamedResponse
 
     # client options
     api_key: str
-
-    _environment: Literal["production", "environment_1"] | NotGiven
 
     def __init__(
         self,
         *,
         api_key: str | None = None,
-        environment: Literal["production", "environment_1"] | NotGiven = NOT_GIVEN,
-        base_url: str | httpx.URL | None | NotGiven = NOT_GIVEN,
+        base_url: str | httpx.URL | None = None,
         timeout: Union[float, Timeout, None, NotGiven] = NOT_GIVEN,
         max_retries: int = DEFAULT_MAX_RETRIES,
         default_headers: Mapping[str, str] | None = None,
@@ -84,43 +64,22 @@ class Premai(SyncAPIClient):
         # part of our public interface in the future.
         _strict_response_validation: bool = False,
     ) -> None:
-        """Construct a new synchronous Premai client instance.
+        """Construct a new synchronous PremAI client instance.
 
         This automatically infers the `api_key` argument from the `PREMAI_API_KEY` environment variable if it is not provided.
         """
         if api_key is None:
             api_key = os.environ.get("PREMAI_API_KEY")
         if api_key is None:
-            raise PremaiError(
+            raise PremAIError(
                 "The api_key client option must be set either by passing api_key to the client or by setting the PREMAI_API_KEY environment variable"
             )
         self.api_key = api_key
 
-        self._environment = environment
-
-        base_url_env = os.environ.get("PREMAI_BASE_URL")
-        if is_given(base_url) and base_url is not None:
-            # cast required because mypy doesn't understand the type narrowing
-            base_url = cast("str | httpx.URL", base_url)  # pyright: ignore[reportUnnecessaryCast]
-        elif is_given(environment):
-            if base_url_env and base_url is not None:
-                raise ValueError(
-                    "Ambiguous URL; The `PREMAI_BASE_URL` env var and the `environment` argument are given. If you want to use the environment, you must pass base_url=None",
-                )
-
-            try:
-                base_url = ENVIRONMENTS[environment]
-            except KeyError as exc:
-                raise ValueError(f"Unknown environment: {environment}") from exc
-        elif base_url_env is not None:
-            base_url = base_url_env
-        else:
-            self._environment = environment = "production"
-
-            try:
-                base_url = ENVIRONMENTS[environment]
-            except KeyError as exc:
-                raise ValueError(f"Unknown environment: {environment}") from exc
+        if base_url is None:
+            base_url = os.environ.get("PREM_AI_BASE_URL")
+        if base_url is None:
+            base_url = f"https://studio.premai.io"
 
         super().__init__(
             version=__version__,
@@ -134,9 +93,8 @@ class Premai(SyncAPIClient):
         )
 
         self.chat = chat.ChatResource(self)
-        self.internal = internal.InternalResource(self)
-        self.with_raw_response = PremaiWithRawResponse(self)
-        self.with_streaming_response = PremaiWithStreamedResponse(self)
+        self.with_raw_response = PremAIWithRawResponse(self)
+        self.with_streaming_response = PremAIWithStreamedResponse(self)
 
     @property
     @override
@@ -162,7 +120,6 @@ class Premai(SyncAPIClient):
         self,
         *,
         api_key: str | None = None,
-        environment: Literal["production", "environment_1"] | None = None,
         base_url: str | httpx.URL | None = None,
         timeout: float | Timeout | None | NotGiven = NOT_GIVEN,
         http_client: httpx.Client | None = None,
@@ -198,7 +155,6 @@ class Premai(SyncAPIClient):
         return self.__class__(
             api_key=api_key or self.api_key,
             base_url=base_url or self.base_url,
-            environment=environment or self._environment,
             timeout=self.timeout if isinstance(timeout, NotGiven) else timeout,
             http_client=http_client,
             max_retries=max_retries if is_given(max_retries) else self.max_retries,
@@ -245,23 +201,19 @@ class Premai(SyncAPIClient):
         return APIStatusError(err_msg, response=response, body=body)
 
 
-class AsyncPremai(AsyncAPIClient):
+class AsyncPremAI(AsyncAPIClient):
     chat: chat.AsyncChatResource
-    internal: internal.AsyncInternalResource
-    with_raw_response: AsyncPremaiWithRawResponse
-    with_streaming_response: AsyncPremaiWithStreamedResponse
+    with_raw_response: AsyncPremAIWithRawResponse
+    with_streaming_response: AsyncPremAIWithStreamedResponse
 
     # client options
     api_key: str
-
-    _environment: Literal["production", "environment_1"] | NotGiven
 
     def __init__(
         self,
         *,
         api_key: str | None = None,
-        environment: Literal["production", "environment_1"] | NotGiven = NOT_GIVEN,
-        base_url: str | httpx.URL | None | NotGiven = NOT_GIVEN,
+        base_url: str | httpx.URL | None = None,
         timeout: Union[float, Timeout, None, NotGiven] = NOT_GIVEN,
         max_retries: int = DEFAULT_MAX_RETRIES,
         default_headers: Mapping[str, str] | None = None,
@@ -280,43 +232,22 @@ class AsyncPremai(AsyncAPIClient):
         # part of our public interface in the future.
         _strict_response_validation: bool = False,
     ) -> None:
-        """Construct a new async AsyncPremai client instance.
+        """Construct a new async AsyncPremAI client instance.
 
         This automatically infers the `api_key` argument from the `PREMAI_API_KEY` environment variable if it is not provided.
         """
         if api_key is None:
             api_key = os.environ.get("PREMAI_API_KEY")
         if api_key is None:
-            raise PremaiError(
+            raise PremAIError(
                 "The api_key client option must be set either by passing api_key to the client or by setting the PREMAI_API_KEY environment variable"
             )
         self.api_key = api_key
 
-        self._environment = environment
-
-        base_url_env = os.environ.get("PREMAI_BASE_URL")
-        if is_given(base_url) and base_url is not None:
-            # cast required because mypy doesn't understand the type narrowing
-            base_url = cast("str | httpx.URL", base_url)  # pyright: ignore[reportUnnecessaryCast]
-        elif is_given(environment):
-            if base_url_env and base_url is not None:
-                raise ValueError(
-                    "Ambiguous URL; The `PREMAI_BASE_URL` env var and the `environment` argument are given. If you want to use the environment, you must pass base_url=None",
-                )
-
-            try:
-                base_url = ENVIRONMENTS[environment]
-            except KeyError as exc:
-                raise ValueError(f"Unknown environment: {environment}") from exc
-        elif base_url_env is not None:
-            base_url = base_url_env
-        else:
-            self._environment = environment = "production"
-
-            try:
-                base_url = ENVIRONMENTS[environment]
-            except KeyError as exc:
-                raise ValueError(f"Unknown environment: {environment}") from exc
+        if base_url is None:
+            base_url = os.environ.get("PREM_AI_BASE_URL")
+        if base_url is None:
+            base_url = f"https://studio.premai.io"
 
         super().__init__(
             version=__version__,
@@ -330,9 +261,8 @@ class AsyncPremai(AsyncAPIClient):
         )
 
         self.chat = chat.AsyncChatResource(self)
-        self.internal = internal.AsyncInternalResource(self)
-        self.with_raw_response = AsyncPremaiWithRawResponse(self)
-        self.with_streaming_response = AsyncPremaiWithStreamedResponse(self)
+        self.with_raw_response = AsyncPremAIWithRawResponse(self)
+        self.with_streaming_response = AsyncPremAIWithStreamedResponse(self)
 
     @property
     @override
@@ -358,7 +288,6 @@ class AsyncPremai(AsyncAPIClient):
         self,
         *,
         api_key: str | None = None,
-        environment: Literal["production", "environment_1"] | None = None,
         base_url: str | httpx.URL | None = None,
         timeout: float | Timeout | None | NotGiven = NOT_GIVEN,
         http_client: httpx.AsyncClient | None = None,
@@ -394,7 +323,6 @@ class AsyncPremai(AsyncAPIClient):
         return self.__class__(
             api_key=api_key or self.api_key,
             base_url=base_url or self.base_url,
-            environment=environment or self._environment,
             timeout=self.timeout if isinstance(timeout, NotGiven) else timeout,
             http_client=http_client,
             max_retries=max_retries if is_given(max_retries) else self.max_retries,
@@ -441,30 +369,26 @@ class AsyncPremai(AsyncAPIClient):
         return APIStatusError(err_msg, response=response, body=body)
 
 
-class PremaiWithRawResponse:
-    def __init__(self, client: Premai) -> None:
+class PremAIWithRawResponse:
+    def __init__(self, client: PremAI) -> None:
         self.chat = chat.ChatResourceWithRawResponse(client.chat)
-        self.internal = internal.InternalResourceWithRawResponse(client.internal)
 
 
-class AsyncPremaiWithRawResponse:
-    def __init__(self, client: AsyncPremai) -> None:
+class AsyncPremAIWithRawResponse:
+    def __init__(self, client: AsyncPremAI) -> None:
         self.chat = chat.AsyncChatResourceWithRawResponse(client.chat)
-        self.internal = internal.AsyncInternalResourceWithRawResponse(client.internal)
 
 
-class PremaiWithStreamedResponse:
-    def __init__(self, client: Premai) -> None:
+class PremAIWithStreamedResponse:
+    def __init__(self, client: PremAI) -> None:
         self.chat = chat.ChatResourceWithStreamingResponse(client.chat)
-        self.internal = internal.InternalResourceWithStreamingResponse(client.internal)
 
 
-class AsyncPremaiWithStreamedResponse:
-    def __init__(self, client: AsyncPremai) -> None:
+class AsyncPremAIWithStreamedResponse:
+    def __init__(self, client: AsyncPremAI) -> None:
         self.chat = chat.AsyncChatResourceWithStreamingResponse(client.chat)
-        self.internal = internal.AsyncInternalResourceWithStreamingResponse(client.internal)
 
 
-Client = Premai
+Client = PremAI
 
-AsyncClient = AsyncPremai
+AsyncClient = AsyncPremAI

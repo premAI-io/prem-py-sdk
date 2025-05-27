@@ -8,14 +8,6 @@ from .chat import (
     ChatResourceWithStreamingResponse,
     AsyncChatResourceWithStreamingResponse,
 )
-from .internal import (
-    InternalResource,
-    AsyncInternalResource,
-    InternalResourceWithRawResponse,
-    AsyncInternalResourceWithRawResponse,
-    InternalResourceWithStreamingResponse,
-    AsyncInternalResourceWithStreamingResponse,
-)
 
 __all__ = [
     "ChatResource",
@@ -24,10 +16,4 @@ __all__ = [
     "AsyncChatResourceWithRawResponse",
     "ChatResourceWithStreamingResponse",
     "AsyncChatResourceWithStreamingResponse",
-    "InternalResource",
-    "AsyncInternalResource",
-    "InternalResourceWithRawResponse",
-    "AsyncInternalResourceWithRawResponse",
-    "InternalResourceWithStreamingResponse",
-    "AsyncInternalResourceWithStreamingResponse",
 ]

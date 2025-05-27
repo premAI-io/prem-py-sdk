@@ -7,9 +7,9 @@ from typing import Any, cast
 
 import pytest
 
-from premai import Premai, AsyncPremai
+from premai import PremAI, AsyncPremAI
 from tests.utils import assert_matches_type
-from premai.types import ChatRetrieveModelsResponse, ChatCreateCompletionResponse
+from premai.types import ChatListModelsResponse, ChatCompletionsResponse
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
@@ -19,25 +19,17 @@ class TestChat:
 
     @pytest.mark.skip()
     @parametrize
-    def test_method_create_completion(self, client: Premai) -> None:
-        chat = client.chat.create_completion(
-            frequency_penalty=-2,
-            max_completion_tokens=1,
+    def test_method_completions(self, client: PremAI) -> None:
+        chat = client.chat.completions(
             messages=[{"role": "system"}],
             model="model",
-            presence_penalty=-2,
-            stream=True,
-            temperature=0,
-            top_p=0,
         )
-        assert_matches_type(ChatCreateCompletionResponse, chat, path=["response"])
+        assert_matches_type(ChatCompletionsResponse, chat, path=["response"])
 
     @pytest.mark.skip()
     @parametrize
-    def test_method_create_completion_with_all_params(self, client: Premai) -> None:
-        chat = client.chat.create_completion(
-            frequency_penalty=-2,
-            max_completion_tokens=1,
+    def test_method_completions_with_all_params(self, client: PremAI) -> None:
+        chat = client.chat.completions(
             messages=[
                 {
                     "role": "system",
@@ -45,69 +37,87 @@ class TestChat:
                 }
             ],
             model="model",
+            frequency_penalty=-2,
+            max_completion_tokens=1,
             presence_penalty=-2,
-            stream=True,
-            temperature=0,
-            top_p=0,
             response_format={
                 "json_schema": {"foo": "bar"},
                 "type": "text",
             },
             seed=0,
             stop="string",
-        )
-        assert_matches_type(ChatCreateCompletionResponse, chat, path=["response"])
-
-    @pytest.mark.skip()
-    @parametrize
-    def test_raw_response_create_completion(self, client: Premai) -> None:
-        response = client.chat.with_raw_response.create_completion(
-            frequency_penalty=-2,
-            max_completion_tokens=1,
-            messages=[{"role": "system"}],
-            model="model",
-            presence_penalty=-2,
             stream=True,
             temperature=0,
             top_p=0,
+        )
+        assert_matches_type(ChatCompletionsResponse, chat, path=["response"])
+
+    @pytest.mark.skip()
+    @parametrize
+    def test_raw_response_completions(self, client: PremAI) -> None:
+        response = client.chat.with_raw_response.completions(
+            messages=[{"role": "system"}],
+            model="model",
         )
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         chat = response.parse()
-        assert_matches_type(ChatCreateCompletionResponse, chat, path=["response"])
+        assert_matches_type(ChatCompletionsResponse, chat, path=["response"])
 
     @pytest.mark.skip()
     @parametrize
-    def test_streaming_response_create_completion(self, client: Premai) -> None:
-        with client.chat.with_streaming_response.create_completion(
-            frequency_penalty=-2,
-            max_completion_tokens=1,
+    def test_streaming_response_completions(self, client: PremAI) -> None:
+        with client.chat.with_streaming_response.completions(
             messages=[{"role": "system"}],
             model="model",
-            presence_penalty=-2,
-            stream=True,
-            temperature=0,
-            top_p=0,
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             chat = response.parse()
-            assert_matches_type(ChatCreateCompletionResponse, chat, path=["response"])
+            assert_matches_type(ChatCompletionsResponse, chat, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
     @pytest.mark.skip()
     @parametrize
-    def test_method_retrieve_internal_models(self, client: Premai) -> None:
-        chat = client.chat.retrieve_internal_models()
+    def test_method_list_models(self, client: PremAI) -> None:
+        chat = client.chat.list_models()
+        assert_matches_type(ChatListModelsResponse, chat, path=["response"])
+
+    @pytest.mark.skip()
+    @parametrize
+    def test_raw_response_list_models(self, client: PremAI) -> None:
+        response = client.chat.with_raw_response.list_models()
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        chat = response.parse()
+        assert_matches_type(ChatListModelsResponse, chat, path=["response"])
+
+    @pytest.mark.skip()
+    @parametrize
+    def test_streaming_response_list_models(self, client: PremAI) -> None:
+        with client.chat.with_streaming_response.list_models() as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            chat = response.parse()
+            assert_matches_type(ChatListModelsResponse, chat, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip()
+    @parametrize
+    def test_method_list_models_internal(self, client: PremAI) -> None:
+        chat = client.chat.list_models_internal()
         assert_matches_type(object, chat, path=["response"])
 
     @pytest.mark.skip()
     @parametrize
-    def test_raw_response_retrieve_internal_models(self, client: Premai) -> None:
-        response = client.chat.with_raw_response.retrieve_internal_models()
+    def test_raw_response_list_models_internal(self, client: PremAI) -> None:
+        response = client.chat.with_raw_response.list_models_internal()
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -116,41 +126,13 @@ class TestChat:
 
     @pytest.mark.skip()
     @parametrize
-    def test_streaming_response_retrieve_internal_models(self, client: Premai) -> None:
-        with client.chat.with_streaming_response.retrieve_internal_models() as response:
+    def test_streaming_response_list_models_internal(self, client: PremAI) -> None:
+        with client.chat.with_streaming_response.list_models_internal() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             chat = response.parse()
             assert_matches_type(object, chat, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @pytest.mark.skip()
-    @parametrize
-    def test_method_retrieve_models(self, client: Premai) -> None:
-        chat = client.chat.retrieve_models()
-        assert_matches_type(ChatRetrieveModelsResponse, chat, path=["response"])
-
-    @pytest.mark.skip()
-    @parametrize
-    def test_raw_response_retrieve_models(self, client: Premai) -> None:
-        response = client.chat.with_raw_response.retrieve_models()
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        chat = response.parse()
-        assert_matches_type(ChatRetrieveModelsResponse, chat, path=["response"])
-
-    @pytest.mark.skip()
-    @parametrize
-    def test_streaming_response_retrieve_models(self, client: Premai) -> None:
-        with client.chat.with_streaming_response.retrieve_models() as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            chat = response.parse()
-            assert_matches_type(ChatRetrieveModelsResponse, chat, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -160,25 +142,17 @@ class TestAsyncChat:
 
     @pytest.mark.skip()
     @parametrize
-    async def test_method_create_completion(self, async_client: AsyncPremai) -> None:
-        chat = await async_client.chat.create_completion(
-            frequency_penalty=-2,
-            max_completion_tokens=1,
+    async def test_method_completions(self, async_client: AsyncPremAI) -> None:
+        chat = await async_client.chat.completions(
             messages=[{"role": "system"}],
             model="model",
-            presence_penalty=-2,
-            stream=True,
-            temperature=0,
-            top_p=0,
         )
-        assert_matches_type(ChatCreateCompletionResponse, chat, path=["response"])
+        assert_matches_type(ChatCompletionsResponse, chat, path=["response"])
 
     @pytest.mark.skip()
     @parametrize
-    async def test_method_create_completion_with_all_params(self, async_client: AsyncPremai) -> None:
-        chat = await async_client.chat.create_completion(
-            frequency_penalty=-2,
-            max_completion_tokens=1,
+    async def test_method_completions_with_all_params(self, async_client: AsyncPremAI) -> None:
+        chat = await async_client.chat.completions(
             messages=[
                 {
                     "role": "system",
@@ -186,69 +160,87 @@ class TestAsyncChat:
                 }
             ],
             model="model",
+            frequency_penalty=-2,
+            max_completion_tokens=1,
             presence_penalty=-2,
-            stream=True,
-            temperature=0,
-            top_p=0,
             response_format={
                 "json_schema": {"foo": "bar"},
                 "type": "text",
             },
             seed=0,
             stop="string",
-        )
-        assert_matches_type(ChatCreateCompletionResponse, chat, path=["response"])
-
-    @pytest.mark.skip()
-    @parametrize
-    async def test_raw_response_create_completion(self, async_client: AsyncPremai) -> None:
-        response = await async_client.chat.with_raw_response.create_completion(
-            frequency_penalty=-2,
-            max_completion_tokens=1,
-            messages=[{"role": "system"}],
-            model="model",
-            presence_penalty=-2,
             stream=True,
             temperature=0,
             top_p=0,
+        )
+        assert_matches_type(ChatCompletionsResponse, chat, path=["response"])
+
+    @pytest.mark.skip()
+    @parametrize
+    async def test_raw_response_completions(self, async_client: AsyncPremAI) -> None:
+        response = await async_client.chat.with_raw_response.completions(
+            messages=[{"role": "system"}],
+            model="model",
         )
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         chat = await response.parse()
-        assert_matches_type(ChatCreateCompletionResponse, chat, path=["response"])
+        assert_matches_type(ChatCompletionsResponse, chat, path=["response"])
 
     @pytest.mark.skip()
     @parametrize
-    async def test_streaming_response_create_completion(self, async_client: AsyncPremai) -> None:
-        async with async_client.chat.with_streaming_response.create_completion(
-            frequency_penalty=-2,
-            max_completion_tokens=1,
+    async def test_streaming_response_completions(self, async_client: AsyncPremAI) -> None:
+        async with async_client.chat.with_streaming_response.completions(
             messages=[{"role": "system"}],
             model="model",
-            presence_penalty=-2,
-            stream=True,
-            temperature=0,
-            top_p=0,
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             chat = await response.parse()
-            assert_matches_type(ChatCreateCompletionResponse, chat, path=["response"])
+            assert_matches_type(ChatCompletionsResponse, chat, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
     @pytest.mark.skip()
     @parametrize
-    async def test_method_retrieve_internal_models(self, async_client: AsyncPremai) -> None:
-        chat = await async_client.chat.retrieve_internal_models()
+    async def test_method_list_models(self, async_client: AsyncPremAI) -> None:
+        chat = await async_client.chat.list_models()
+        assert_matches_type(ChatListModelsResponse, chat, path=["response"])
+
+    @pytest.mark.skip()
+    @parametrize
+    async def test_raw_response_list_models(self, async_client: AsyncPremAI) -> None:
+        response = await async_client.chat.with_raw_response.list_models()
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        chat = await response.parse()
+        assert_matches_type(ChatListModelsResponse, chat, path=["response"])
+
+    @pytest.mark.skip()
+    @parametrize
+    async def test_streaming_response_list_models(self, async_client: AsyncPremAI) -> None:
+        async with async_client.chat.with_streaming_response.list_models() as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            chat = await response.parse()
+            assert_matches_type(ChatListModelsResponse, chat, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip()
+    @parametrize
+    async def test_method_list_models_internal(self, async_client: AsyncPremAI) -> None:
+        chat = await async_client.chat.list_models_internal()
         assert_matches_type(object, chat, path=["response"])
 
     @pytest.mark.skip()
     @parametrize
-    async def test_raw_response_retrieve_internal_models(self, async_client: AsyncPremai) -> None:
-        response = await async_client.chat.with_raw_response.retrieve_internal_models()
+    async def test_raw_response_list_models_internal(self, async_client: AsyncPremAI) -> None:
+        response = await async_client.chat.with_raw_response.list_models_internal()
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -257,40 +249,12 @@ class TestAsyncChat:
 
     @pytest.mark.skip()
     @parametrize
-    async def test_streaming_response_retrieve_internal_models(self, async_client: AsyncPremai) -> None:
-        async with async_client.chat.with_streaming_response.retrieve_internal_models() as response:
+    async def test_streaming_response_list_models_internal(self, async_client: AsyncPremAI) -> None:
+        async with async_client.chat.with_streaming_response.list_models_internal() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             chat = await response.parse()
             assert_matches_type(object, chat, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @pytest.mark.skip()
-    @parametrize
-    async def test_method_retrieve_models(self, async_client: AsyncPremai) -> None:
-        chat = await async_client.chat.retrieve_models()
-        assert_matches_type(ChatRetrieveModelsResponse, chat, path=["response"])
-
-    @pytest.mark.skip()
-    @parametrize
-    async def test_raw_response_retrieve_models(self, async_client: AsyncPremai) -> None:
-        response = await async_client.chat.with_raw_response.retrieve_models()
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        chat = await response.parse()
-        assert_matches_type(ChatRetrieveModelsResponse, chat, path=["response"])
-
-    @pytest.mark.skip()
-    @parametrize
-    async def test_streaming_response_retrieve_models(self, async_client: AsyncPremai) -> None:
-        async with async_client.chat.with_streaming_response.retrieve_models() as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            chat = await response.parse()
-            assert_matches_type(ChatRetrieveModelsResponse, chat, path=["response"])
 
         assert cast(Any, response.is_closed) is True

@@ -6,7 +6,7 @@ from typing import List, Union, Iterable, Optional
 
 import httpx
 
-from ..types import chat_create_completion_params
+from ..types import chat_completions_params
 from .._types import NOT_GIVEN, Body, Query, Headers, NotGiven
 from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
@@ -18,8 +18,8 @@ from .._response import (
     async_to_streamed_response_wrapper,
 )
 from .._base_client import make_request_options
-from ..types.chat_retrieve_models_response import ChatRetrieveModelsResponse
-from ..types.chat_create_completion_response import ChatCreateCompletionResponse
+from ..types.chat_completions_response import ChatCompletionsResponse
+from ..types.chat_list_models_response import ChatListModelsResponse
 
 __all__ = ["ChatResource", "AsyncChatResource"]
 
@@ -44,27 +44,27 @@ class ChatResource(SyncAPIResource):
         """
         return ChatResourceWithStreamingResponse(self)
 
-    def create_completion(
+    def completions(
         self,
         *,
-        frequency_penalty: float,
-        max_completion_tokens: Optional[int],
-        messages: Iterable[chat_create_completion_params.Message],
+        messages: Iterable[chat_completions_params.Message],
         model: str,
-        presence_penalty: float,
-        stream: bool,
-        temperature: Optional[float],
-        top_p: Optional[float],
-        response_format: chat_create_completion_params.ResponseFormat | NotGiven = NOT_GIVEN,
+        frequency_penalty: float | NotGiven = NOT_GIVEN,
+        max_completion_tokens: Optional[int] | NotGiven = NOT_GIVEN,
+        presence_penalty: float | NotGiven = NOT_GIVEN,
+        response_format: chat_completions_params.ResponseFormat | NotGiven = NOT_GIVEN,
         seed: int | NotGiven = NOT_GIVEN,
         stop: Union[str, List[str]] | NotGiven = NOT_GIVEN,
+        stream: bool | NotGiven = NOT_GIVEN,
+        temperature: Optional[float] | NotGiven = NOT_GIVEN,
+        top_p: Optional[float] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> ChatCreateCompletionResponse:
+    ) -> ChatCompletionsResponse:
         """
         Create a chat completion (OpenAI compatible).
 
@@ -81,27 +81,46 @@ class ChatResource(SyncAPIResource):
             "/api/v1/chat/completions",
             body=maybe_transform(
                 {
-                    "frequency_penalty": frequency_penalty,
-                    "max_completion_tokens": max_completion_tokens,
                     "messages": messages,
                     "model": model,
+                    "frequency_penalty": frequency_penalty,
+                    "max_completion_tokens": max_completion_tokens,
                     "presence_penalty": presence_penalty,
-                    "stream": stream,
-                    "temperature": temperature,
-                    "top_p": top_p,
                     "response_format": response_format,
                     "seed": seed,
                     "stop": stop,
+                    "stream": stream,
+                    "temperature": temperature,
+                    "top_p": top_p,
                 },
-                chat_create_completion_params.ChatCreateCompletionParams,
+                chat_completions_params.ChatCompletionsParams,
             ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=ChatCreateCompletionResponse,
+            cast_to=ChatCompletionsResponse,
         )
 
-    def retrieve_internal_models(
+    def list_models(
+        self,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> ChatListModelsResponse:
+        """Get available AI models in OpenAI compatible format."""
+        return self._get(
+            "/api/v1/chat/models",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=ChatListModelsResponse,
+        )
+
+    def list_models_internal(
         self,
         *,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -118,25 +137,6 @@ class ChatResource(SyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=object,
-        )
-
-    def retrieve_models(
-        self,
-        *,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> ChatRetrieveModelsResponse:
-        """Get available AI models in OpenAI compatible format."""
-        return self._get(
-            "/api/v1/chat/models",
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=ChatRetrieveModelsResponse,
         )
 
 
@@ -160,27 +160,27 @@ class AsyncChatResource(AsyncAPIResource):
         """
         return AsyncChatResourceWithStreamingResponse(self)
 
-    async def create_completion(
+    async def completions(
         self,
         *,
-        frequency_penalty: float,
-        max_completion_tokens: Optional[int],
-        messages: Iterable[chat_create_completion_params.Message],
+        messages: Iterable[chat_completions_params.Message],
         model: str,
-        presence_penalty: float,
-        stream: bool,
-        temperature: Optional[float],
-        top_p: Optional[float],
-        response_format: chat_create_completion_params.ResponseFormat | NotGiven = NOT_GIVEN,
+        frequency_penalty: float | NotGiven = NOT_GIVEN,
+        max_completion_tokens: Optional[int] | NotGiven = NOT_GIVEN,
+        presence_penalty: float | NotGiven = NOT_GIVEN,
+        response_format: chat_completions_params.ResponseFormat | NotGiven = NOT_GIVEN,
         seed: int | NotGiven = NOT_GIVEN,
         stop: Union[str, List[str]] | NotGiven = NOT_GIVEN,
+        stream: bool | NotGiven = NOT_GIVEN,
+        temperature: Optional[float] | NotGiven = NOT_GIVEN,
+        top_p: Optional[float] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> ChatCreateCompletionResponse:
+    ) -> ChatCompletionsResponse:
         """
         Create a chat completion (OpenAI compatible).
 
@@ -197,27 +197,46 @@ class AsyncChatResource(AsyncAPIResource):
             "/api/v1/chat/completions",
             body=await async_maybe_transform(
                 {
-                    "frequency_penalty": frequency_penalty,
-                    "max_completion_tokens": max_completion_tokens,
                     "messages": messages,
                     "model": model,
+                    "frequency_penalty": frequency_penalty,
+                    "max_completion_tokens": max_completion_tokens,
                     "presence_penalty": presence_penalty,
-                    "stream": stream,
-                    "temperature": temperature,
-                    "top_p": top_p,
                     "response_format": response_format,
                     "seed": seed,
                     "stop": stop,
+                    "stream": stream,
+                    "temperature": temperature,
+                    "top_p": top_p,
                 },
-                chat_create_completion_params.ChatCreateCompletionParams,
+                chat_completions_params.ChatCompletionsParams,
             ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=ChatCreateCompletionResponse,
+            cast_to=ChatCompletionsResponse,
         )
 
-    async def retrieve_internal_models(
+    async def list_models(
+        self,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> ChatListModelsResponse:
+        """Get available AI models in OpenAI compatible format."""
+        return await self._get(
+            "/api/v1/chat/models",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=ChatListModelsResponse,
+        )
+
+    async def list_models_internal(
         self,
         *,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -236,38 +255,19 @@ class AsyncChatResource(AsyncAPIResource):
             cast_to=object,
         )
 
-    async def retrieve_models(
-        self,
-        *,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> ChatRetrieveModelsResponse:
-        """Get available AI models in OpenAI compatible format."""
-        return await self._get(
-            "/api/v1/chat/models",
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=ChatRetrieveModelsResponse,
-        )
-
 
 class ChatResourceWithRawResponse:
     def __init__(self, chat: ChatResource) -> None:
         self._chat = chat
 
-        self.create_completion = to_raw_response_wrapper(
-            chat.create_completion,
+        self.completions = to_raw_response_wrapper(
+            chat.completions,
         )
-        self.retrieve_internal_models = to_raw_response_wrapper(
-            chat.retrieve_internal_models,
+        self.list_models = to_raw_response_wrapper(
+            chat.list_models,
         )
-        self.retrieve_models = to_raw_response_wrapper(
-            chat.retrieve_models,
+        self.list_models_internal = to_raw_response_wrapper(
+            chat.list_models_internal,
         )
 
 
@@ -275,14 +275,14 @@ class AsyncChatResourceWithRawResponse:
     def __init__(self, chat: AsyncChatResource) -> None:
         self._chat = chat
 
-        self.create_completion = async_to_raw_response_wrapper(
-            chat.create_completion,
+        self.completions = async_to_raw_response_wrapper(
+            chat.completions,
         )
-        self.retrieve_internal_models = async_to_raw_response_wrapper(
-            chat.retrieve_internal_models,
+        self.list_models = async_to_raw_response_wrapper(
+            chat.list_models,
         )
-        self.retrieve_models = async_to_raw_response_wrapper(
-            chat.retrieve_models,
+        self.list_models_internal = async_to_raw_response_wrapper(
+            chat.list_models_internal,
         )
 
 
@@ -290,14 +290,14 @@ class ChatResourceWithStreamingResponse:
     def __init__(self, chat: ChatResource) -> None:
         self._chat = chat
 
-        self.create_completion = to_streamed_response_wrapper(
-            chat.create_completion,
+        self.completions = to_streamed_response_wrapper(
+            chat.completions,
         )
-        self.retrieve_internal_models = to_streamed_response_wrapper(
-            chat.retrieve_internal_models,
+        self.list_models = to_streamed_response_wrapper(
+            chat.list_models,
         )
-        self.retrieve_models = to_streamed_response_wrapper(
-            chat.retrieve_models,
+        self.list_models_internal = to_streamed_response_wrapper(
+            chat.list_models_internal,
         )
 
 
@@ -305,12 +305,12 @@ class AsyncChatResourceWithStreamingResponse:
     def __init__(self, chat: AsyncChatResource) -> None:
         self._chat = chat
 
-        self.create_completion = async_to_streamed_response_wrapper(
-            chat.create_completion,
+        self.completions = async_to_streamed_response_wrapper(
+            chat.completions,
         )
-        self.retrieve_internal_models = async_to_streamed_response_wrapper(
-            chat.retrieve_internal_models,
+        self.list_models = async_to_streamed_response_wrapper(
+            chat.list_models,
         )
-        self.retrieve_models = async_to_streamed_response_wrapper(
-            chat.retrieve_models,
+        self.list_models_internal = async_to_streamed_response_wrapper(
+            chat.list_models_internal,
         )
