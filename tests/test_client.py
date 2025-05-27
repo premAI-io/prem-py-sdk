@@ -764,7 +764,7 @@ class TestPremai:
 
         respx_mock.get("/api/v1/chat/internalModels").mock(side_effect=retry_handler)
 
-        response = client.v1.chat.with_raw_response.retrieve_internal_models()
+        response = client.chat.with_raw_response.retrieve_internal_models()
 
         assert response.retries_taken == failures_before_success
         assert int(response.http_request.headers.get("x-stainless-retry-count")) == failures_before_success
@@ -788,7 +788,7 @@ class TestPremai:
 
         respx_mock.get("/api/v1/chat/internalModels").mock(side_effect=retry_handler)
 
-        response = client.v1.chat.with_raw_response.retrieve_internal_models(
+        response = client.chat.with_raw_response.retrieve_internal_models(
             extra_headers={"x-stainless-retry-count": Omit()}
         )
 
@@ -813,7 +813,7 @@ class TestPremai:
 
         respx_mock.get("/api/v1/chat/internalModels").mock(side_effect=retry_handler)
 
-        response = client.v1.chat.with_raw_response.retrieve_internal_models(
+        response = client.chat.with_raw_response.retrieve_internal_models(
             extra_headers={"x-stainless-retry-count": "42"}
         )
 
@@ -1553,7 +1553,7 @@ class TestAsyncPremai:
 
         respx_mock.get("/api/v1/chat/internalModels").mock(side_effect=retry_handler)
 
-        response = await client.v1.chat.with_raw_response.retrieve_internal_models()
+        response = await client.chat.with_raw_response.retrieve_internal_models()
 
         assert response.retries_taken == failures_before_success
         assert int(response.http_request.headers.get("x-stainless-retry-count")) == failures_before_success
@@ -1578,7 +1578,7 @@ class TestAsyncPremai:
 
         respx_mock.get("/api/v1/chat/internalModels").mock(side_effect=retry_handler)
 
-        response = await client.v1.chat.with_raw_response.retrieve_internal_models(
+        response = await client.chat.with_raw_response.retrieve_internal_models(
             extra_headers={"x-stainless-retry-count": Omit()}
         )
 
@@ -1604,7 +1604,7 @@ class TestAsyncPremai:
 
         respx_mock.get("/api/v1/chat/internalModels").mock(side_effect=retry_handler)
 
-        response = await client.v1.chat.with_raw_response.retrieve_internal_models(
+        response = await client.chat.with_raw_response.retrieve_internal_models(
             extra_headers={"x-stainless-retry-count": "42"}
         )
 
