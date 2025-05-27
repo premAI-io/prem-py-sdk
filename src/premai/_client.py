@@ -21,7 +21,7 @@ from ._types import (
 )
 from ._utils import is_given, get_async_library
 from ._version import __version__
-from .resources import chat, models
+from .resources import chat
 from ._streaming import Stream as Stream, AsyncStream as AsyncStream
 from ._exceptions import PremAIError, APIStatusError
 from ._base_client import (
@@ -35,7 +35,6 @@ __all__ = ["Timeout", "Transport", "ProxiesTypes", "RequestOptions", "PremAI", "
 
 class PremAI(SyncAPIClient):
     chat: chat.ChatResource
-    models: models.ModelsResource
     with_raw_response: PremAIWithRawResponse
     with_streaming_response: PremAIWithStreamedResponse
 
@@ -94,7 +93,6 @@ class PremAI(SyncAPIClient):
         )
 
         self.chat = chat.ChatResource(self)
-        self.models = models.ModelsResource(self)
         self.with_raw_response = PremAIWithRawResponse(self)
         self.with_streaming_response = PremAIWithStreamedResponse(self)
 
@@ -205,7 +203,6 @@ class PremAI(SyncAPIClient):
 
 class AsyncPremAI(AsyncAPIClient):
     chat: chat.AsyncChatResource
-    models: models.AsyncModelsResource
     with_raw_response: AsyncPremAIWithRawResponse
     with_streaming_response: AsyncPremAIWithStreamedResponse
 
@@ -264,7 +261,6 @@ class AsyncPremAI(AsyncAPIClient):
         )
 
         self.chat = chat.AsyncChatResource(self)
-        self.models = models.AsyncModelsResource(self)
         self.with_raw_response = AsyncPremAIWithRawResponse(self)
         self.with_streaming_response = AsyncPremAIWithStreamedResponse(self)
 
@@ -376,25 +372,21 @@ class AsyncPremAI(AsyncAPIClient):
 class PremAIWithRawResponse:
     def __init__(self, client: PremAI) -> None:
         self.chat = chat.ChatResourceWithRawResponse(client.chat)
-        self.models = models.ModelsResourceWithRawResponse(client.models)
 
 
 class AsyncPremAIWithRawResponse:
     def __init__(self, client: AsyncPremAI) -> None:
         self.chat = chat.AsyncChatResourceWithRawResponse(client.chat)
-        self.models = models.AsyncModelsResourceWithRawResponse(client.models)
 
 
 class PremAIWithStreamedResponse:
     def __init__(self, client: PremAI) -> None:
         self.chat = chat.ChatResourceWithStreamingResponse(client.chat)
-        self.models = models.ModelsResourceWithStreamingResponse(client.models)
 
 
 class AsyncPremAIWithStreamedResponse:
     def __init__(self, client: AsyncPremAI) -> None:
         self.chat = chat.AsyncChatResourceWithStreamingResponse(client.chat)
-        self.models = models.AsyncModelsResourceWithStreamingResponse(client.models)
 
 
 Client = PremAI
