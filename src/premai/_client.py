@@ -23,7 +23,7 @@ from ._utils import is_given, get_async_library
 from ._version import __version__
 from .resources import chat
 from ._streaming import Stream as Stream, AsyncStream as AsyncStream
-from ._exceptions import PremaiError, APIStatusError
+from ._exceptions import PremAIError, APIStatusError
 from ._base_client import (
     DEFAULT_MAX_RETRIES,
     SyncAPIClient,
@@ -31,14 +31,14 @@ from ._base_client import (
 )
 from .resources.internal import internal
 
-__all__ = ["Timeout", "Transport", "ProxiesTypes", "RequestOptions", "Premai", "AsyncPremai", "Client", "AsyncClient"]
+__all__ = ["Timeout", "Transport", "ProxiesTypes", "RequestOptions", "PremAI", "AsyncPremAI", "Client", "AsyncClient"]
 
 
-class Premai(SyncAPIClient):
+class PremAI(SyncAPIClient):
     chat: chat.ChatResource
     internal: internal.InternalResource
-    with_raw_response: PremaiWithRawResponse
-    with_streaming_response: PremaiWithStreamedResponse
+    with_raw_response: PremAIWithRawResponse
+    with_streaming_response: PremAIWithStreamedResponse
 
     # client options
     api_key: str
@@ -66,20 +66,20 @@ class Premai(SyncAPIClient):
         # part of our public interface in the future.
         _strict_response_validation: bool = False,
     ) -> None:
-        """Construct a new synchronous Premai client instance.
+        """Construct a new synchronous PremAI client instance.
 
         This automatically infers the `api_key` argument from the `PREMAI_API_KEY` environment variable if it is not provided.
         """
         if api_key is None:
             api_key = os.environ.get("PREMAI_API_KEY")
         if api_key is None:
-            raise PremaiError(
+            raise PremAIError(
                 "The api_key client option must be set either by passing api_key to the client or by setting the PREMAI_API_KEY environment variable"
             )
         self.api_key = api_key
 
         if base_url is None:
-            base_url = os.environ.get("PREMAI_BASE_URL")
+            base_url = os.environ.get("PREM_AI_BASE_URL")
         if base_url is None:
             base_url = f"https://studio.premai.io"
 
@@ -96,8 +96,8 @@ class Premai(SyncAPIClient):
 
         self.chat = chat.ChatResource(self)
         self.internal = internal.InternalResource(self)
-        self.with_raw_response = PremaiWithRawResponse(self)
-        self.with_streaming_response = PremaiWithStreamedResponse(self)
+        self.with_raw_response = PremAIWithRawResponse(self)
+        self.with_streaming_response = PremAIWithStreamedResponse(self)
 
     @property
     @override
@@ -204,11 +204,11 @@ class Premai(SyncAPIClient):
         return APIStatusError(err_msg, response=response, body=body)
 
 
-class AsyncPremai(AsyncAPIClient):
+class AsyncPremAI(AsyncAPIClient):
     chat: chat.AsyncChatResource
     internal: internal.AsyncInternalResource
-    with_raw_response: AsyncPremaiWithRawResponse
-    with_streaming_response: AsyncPremaiWithStreamedResponse
+    with_raw_response: AsyncPremAIWithRawResponse
+    with_streaming_response: AsyncPremAIWithStreamedResponse
 
     # client options
     api_key: str
@@ -236,20 +236,20 @@ class AsyncPremai(AsyncAPIClient):
         # part of our public interface in the future.
         _strict_response_validation: bool = False,
     ) -> None:
-        """Construct a new async AsyncPremai client instance.
+        """Construct a new async AsyncPremAI client instance.
 
         This automatically infers the `api_key` argument from the `PREMAI_API_KEY` environment variable if it is not provided.
         """
         if api_key is None:
             api_key = os.environ.get("PREMAI_API_KEY")
         if api_key is None:
-            raise PremaiError(
+            raise PremAIError(
                 "The api_key client option must be set either by passing api_key to the client or by setting the PREMAI_API_KEY environment variable"
             )
         self.api_key = api_key
 
         if base_url is None:
-            base_url = os.environ.get("PREMAI_BASE_URL")
+            base_url = os.environ.get("PREM_AI_BASE_URL")
         if base_url is None:
             base_url = f"https://studio.premai.io"
 
@@ -266,8 +266,8 @@ class AsyncPremai(AsyncAPIClient):
 
         self.chat = chat.AsyncChatResource(self)
         self.internal = internal.AsyncInternalResource(self)
-        self.with_raw_response = AsyncPremaiWithRawResponse(self)
-        self.with_streaming_response = AsyncPremaiWithStreamedResponse(self)
+        self.with_raw_response = AsyncPremAIWithRawResponse(self)
+        self.with_streaming_response = AsyncPremAIWithStreamedResponse(self)
 
     @property
     @override
@@ -374,30 +374,30 @@ class AsyncPremai(AsyncAPIClient):
         return APIStatusError(err_msg, response=response, body=body)
 
 
-class PremaiWithRawResponse:
-    def __init__(self, client: Premai) -> None:
+class PremAIWithRawResponse:
+    def __init__(self, client: PremAI) -> None:
         self.chat = chat.ChatResourceWithRawResponse(client.chat)
         self.internal = internal.InternalResourceWithRawResponse(client.internal)
 
 
-class AsyncPremaiWithRawResponse:
-    def __init__(self, client: AsyncPremai) -> None:
+class AsyncPremAIWithRawResponse:
+    def __init__(self, client: AsyncPremAI) -> None:
         self.chat = chat.AsyncChatResourceWithRawResponse(client.chat)
         self.internal = internal.AsyncInternalResourceWithRawResponse(client.internal)
 
 
-class PremaiWithStreamedResponse:
-    def __init__(self, client: Premai) -> None:
+class PremAIWithStreamedResponse:
+    def __init__(self, client: PremAI) -> None:
         self.chat = chat.ChatResourceWithStreamingResponse(client.chat)
         self.internal = internal.InternalResourceWithStreamingResponse(client.internal)
 
 
-class AsyncPremaiWithStreamedResponse:
-    def __init__(self, client: AsyncPremai) -> None:
+class AsyncPremAIWithStreamedResponse:
+    def __init__(self, client: AsyncPremAI) -> None:
         self.chat = chat.AsyncChatResourceWithStreamingResponse(client.chat)
         self.internal = internal.AsyncInternalResourceWithStreamingResponse(client.internal)
 
 
-Client = Premai
+Client = PremAI
 
-AsyncClient = AsyncPremai
+AsyncClient = AsyncPremAI

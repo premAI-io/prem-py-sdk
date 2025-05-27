@@ -1,8 +1,8 @@
-# Premai Python API library
+# Prem AI Python API library
 
 [![PyPI version](https://img.shields.io/pypi/v/premai.svg)](https://pypi.org/project/premai/)
 
-The Premai Python library provides convenient access to the Premai REST API from any Python 3.8+
+The Prem AI Python library provides convenient access to the Prem AI REST API from any Python 3.8+
 application. The library includes type definitions for all request params and response fields,
 and offers both synchronous and asynchronous clients powered by [httpx](https://github.com/encode/httpx).
 
@@ -25,9 +25,9 @@ The full API of this library can be found in [api.md](api.md).
 
 ```python
 import os
-from premai import Premai
+from premai import PremAI
 
-client = Premai(
+client = PremAI(
     api_key=os.environ.get("PREMAI_API_KEY"),  # This is the default and can be omitted
 )
 
@@ -41,14 +41,14 @@ so that your API Key is not stored in source control.
 
 ## Async usage
 
-Simply import `AsyncPremai` instead of `Premai` and use `await` with each API call:
+Simply import `AsyncPremAI` instead of `PremAI` and use `await` with each API call:
 
 ```python
 import os
 import asyncio
-from premai import AsyncPremai
+from premai import AsyncPremAI
 
-client = AsyncPremai(
+client = AsyncPremAI(
     api_key=os.environ.get("PREMAI_API_KEY"),  # This is the default and can be omitted
 )
 
@@ -76,9 +76,9 @@ Typed requests and responses provide autocomplete and documentation within your 
 Nested parameters are dictionaries, typed using `TypedDict`, for example:
 
 ```python
-from premai import Premai
+from premai import PremAI
 
-client = Premai()
+client = PremAI()
 
 response = client.chat.create_completion(
     messages=[{"role": "system"}],
@@ -102,9 +102,9 @@ All errors inherit from `premai.APIError`.
 
 ```python
 import premai
-from premai import Premai
+from premai import PremAI
 
-client = Premai()
+client = PremAI()
 
 try:
     client.chat.retrieve_internal_models()
@@ -141,10 +141,10 @@ Connection errors (for example, due to a network connectivity problem), 408 Requ
 You can use the `max_retries` option to configure or disable retry settings:
 
 ```python
-from premai import Premai
+from premai import PremAI
 
 # Configure the default for all requests:
-client = Premai(
+client = PremAI(
     # default is 2
     max_retries=0,
 )
@@ -159,16 +159,16 @@ By default requests time out after 1 minute. You can configure this with a `time
 which accepts a float or an [`httpx.Timeout`](https://www.python-httpx.org/advanced/#fine-tuning-the-configuration) object:
 
 ```python
-from premai import Premai
+from premai import PremAI
 
 # Configure the default for all requests:
-client = Premai(
+client = PremAI(
     # 20 seconds (default is 1 minute)
     timeout=20.0,
 )
 
 # More granular control:
-client = Premai(
+client = PremAI(
     timeout=httpx.Timeout(60.0, read=5.0, write=10.0, connect=2.0),
 )
 
@@ -186,10 +186,10 @@ Note that requests that time out are [retried twice by default](#retries).
 
 We use the standard library [`logging`](https://docs.python.org/3/library/logging.html) module.
 
-You can enable logging by setting the environment variable `PREMAI_LOG` to `info`.
+You can enable logging by setting the environment variable `PREM_AI_LOG` to `info`.
 
 ```shell
-$ export PREMAI_LOG=info
+$ export PREM_AI_LOG=info
 ```
 
 Or to `debug` for more verbose logging.
@@ -211,9 +211,9 @@ if response.my_field is None:
 The "raw" Response object can be accessed by prefixing `.with_raw_response.` to any HTTP method call, e.g.,
 
 ```py
-from premai import Premai
+from premai import PremAI
 
-client = Premai()
+client = PremAI()
 response = client.chat.with_raw_response.retrieve_internal_models()
 print(response.headers.get('X-My-Header'))
 
@@ -285,10 +285,10 @@ You can directly override the [httpx client](https://www.python-httpx.org/api/#c
 
 ```python
 import httpx
-from premai import Premai, DefaultHttpxClient
+from premai import PremAI, DefaultHttpxClient
 
-client = Premai(
-    # Or use the `PREMAI_BASE_URL` env var
+client = PremAI(
+    # Or use the `PREM_AI_BASE_URL` env var
     base_url="http://my.test.server.example.com:8083",
     http_client=DefaultHttpxClient(
         proxy="http://my.test.proxy.example.com",
@@ -308,9 +308,9 @@ client.with_options(http_client=DefaultHttpxClient(...))
 By default the library closes underlying HTTP connections whenever the client is [garbage collected](https://docs.python.org/3/reference/datamodel.html#object.__del__). You can manually close the client using the `.close()` method if desired, or with a context manager that closes when exiting.
 
 ```py
-from premai import Premai
+from premai import PremAI
 
-with Premai() as client:
+with PremAI() as client:
   # make requests here
   ...
 
