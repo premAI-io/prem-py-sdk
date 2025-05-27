@@ -27,7 +27,7 @@ class InternalResource(SyncAPIResource):
         This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
-        For more information, see https://www.github.com/stainless-sdks/premai-python#accessing-raw-response-data-eg-headers
+        For more information, see https://www.github.com/premAI-io/prem-py-sdk#accessing-raw-response-data-eg-headers
         """
         return InternalResourceWithRawResponse(self)
 
@@ -36,7 +36,7 @@ class InternalResource(SyncAPIResource):
         """
         An alternative to `.with_raw_response` that doesn't eagerly read the response body.
 
-        For more information, see https://www.github.com/stainless-sdks/premai-python#with_streaming_response
+        For more information, see https://www.github.com/premAI-io/prem-py-sdk#with_streaming_response
         """
         return InternalResourceWithStreamingResponse(self)
 
@@ -52,7 +52,7 @@ class AsyncInternalResource(AsyncAPIResource):
         This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
-        For more information, see https://www.github.com/stainless-sdks/premai-python#accessing-raw-response-data-eg-headers
+        For more information, see https://www.github.com/premAI-io/prem-py-sdk#accessing-raw-response-data-eg-headers
         """
         return AsyncInternalResourceWithRawResponse(self)
 
@@ -61,7 +61,7 @@ class AsyncInternalResource(AsyncAPIResource):
         """
         An alternative to `.with_raw_response` that doesn't eagerly read the response body.
 
-        For more information, see https://www.github.com/stainless-sdks/premai-python#with_streaming_response
+        For more information, see https://www.github.com/premAI-io/prem-py-sdk#with_streaming_response
         """
         return AsyncInternalResourceWithStreamingResponse(self)
 
