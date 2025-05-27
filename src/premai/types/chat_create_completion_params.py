@@ -9,21 +9,15 @@ __all__ = ["ChatCreateCompletionParams", "Message", "ResponseFormat"]
 
 
 class ChatCreateCompletionParams(TypedDict, total=False):
-    frequency_penalty: Required[float]
-
-    max_completion_tokens: Required[Optional[int]]
-
     messages: Required[Iterable[Message]]
 
     model: Required[str]
 
-    presence_penalty: Required[float]
+    frequency_penalty: float
 
-    stream: Required[bool]
+    max_completion_tokens: Optional[int]
 
-    temperature: Required[Optional[float]]
-
-    top_p: Required[Optional[float]]
+    presence_penalty: float
 
     response_format: ResponseFormat
 
@@ -31,9 +25,15 @@ class ChatCreateCompletionParams(TypedDict, total=False):
 
     stop: Union[str, List[str]]
 
+    stream: bool
+
+    temperature: Optional[float]
+
+    top_p: Optional[float]
+
 
 class Message(TypedDict, total=False):
-    role: Required[Literal["system", "user", "assistant", "tool"]]
+    role: Required[Literal["system", "user", "assistant"]]
 
     content: None
 
