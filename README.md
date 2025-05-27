@@ -36,7 +36,7 @@ client = Premai(
     environment="environment_1",
 )
 
-response = client.v1.chat.retrieve_internal_models()
+response = client.chat.retrieve_internal_models()
 ```
 
 While you can provide an `api_key` keyword argument,
@@ -61,7 +61,7 @@ client = AsyncPremai(
 
 
 async def main() -> None:
-    response = await client.v1.chat.retrieve_internal_models()
+    response = await client.chat.retrieve_internal_models()
 
 
 asyncio.run(main())
@@ -87,7 +87,7 @@ from premai import Premai
 
 client = Premai()
 
-response = client.v1.chat.create_completion(
+response = client.chat.create_completion(
     frequency_penalty=-2,
     max_completion_tokens=1,
     messages=[{"role": "system"}],
@@ -120,7 +120,7 @@ from premai import Premai
 client = Premai()
 
 try:
-    client.v1.chat.retrieve_internal_models()
+    client.chat.retrieve_internal_models()
 except premai.APIConnectionError as e:
     print("The server could not be reached")
     print(e.__cause__)  # an underlying Exception, likely raised within httpx.
@@ -163,7 +163,7 @@ client = Premai(
 )
 
 # Or, configure per-request:
-client.with_options(max_retries=5).v1.chat.retrieve_internal_models()
+client.with_options(max_retries=5).chat.retrieve_internal_models()
 ```
 
 ### Timeouts
@@ -186,7 +186,7 @@ client = Premai(
 )
 
 # Override per-request:
-client.with_options(timeout=5.0).v1.chat.retrieve_internal_models()
+client.with_options(timeout=5.0).chat.retrieve_internal_models()
 ```
 
 On timeout, an `APITimeoutError` is thrown.
@@ -227,10 +227,10 @@ The "raw" Response object can be accessed by prefixing `.with_raw_response.` to 
 from premai import Premai
 
 client = Premai()
-response = client.v1.chat.with_raw_response.retrieve_internal_models()
+response = client.chat.with_raw_response.retrieve_internal_models()
 print(response.headers.get('X-My-Header'))
 
-chat = response.parse()  # get the object that `v1.chat.retrieve_internal_models()` would have returned
+chat = response.parse()  # get the object that `chat.retrieve_internal_models()` would have returned
 print(chat)
 ```
 
@@ -245,7 +245,7 @@ The above interface eagerly reads the full response body when you make the reque
 To stream the response body, use `.with_streaming_response` instead, which requires a context manager and only reads the response body once you call `.read()`, `.text()`, `.json()`, `.iter_bytes()`, `.iter_text()`, `.iter_lines()` or `.parse()`. In the async client, these are async methods.
 
 ```python
-with client.v1.chat.with_streaming_response.retrieve_internal_models() as response:
+with client.chat.with_streaming_response.retrieve_internal_models() as response:
     print(response.headers.get("X-My-Header"))
 
     for line in response.iter_lines():
