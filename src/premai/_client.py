@@ -21,6 +21,7 @@ from ._types import (
 )
 from ._utils import is_given, get_async_library
 from ._version import __version__
+from .resources import chat
 from ._streaming import Stream as Stream, AsyncStream as AsyncStream
 from ._exceptions import PremaiError, APIStatusError
 from ._base_client import (
@@ -28,7 +29,6 @@ from ._base_client import (
     SyncAPIClient,
     AsyncAPIClient,
 )
-from .resources.v1 import v1
 from .resources.internal import internal
 
 __all__ = [
@@ -50,7 +50,7 @@ ENVIRONMENTS: Dict[str, str] = {
 
 
 class Premai(SyncAPIClient):
-    v1: v1.V1Resource
+    chat: chat.ChatResource
     internal: internal.InternalResource
     with_raw_response: PremaiWithRawResponse
     with_streaming_response: PremaiWithStreamedResponse
@@ -133,7 +133,7 @@ class Premai(SyncAPIClient):
             _strict_response_validation=_strict_response_validation,
         )
 
-        self.v1 = v1.V1Resource(self)
+        self.chat = chat.ChatResource(self)
         self.internal = internal.InternalResource(self)
         self.with_raw_response = PremaiWithRawResponse(self)
         self.with_streaming_response = PremaiWithStreamedResponse(self)
@@ -246,7 +246,7 @@ class Premai(SyncAPIClient):
 
 
 class AsyncPremai(AsyncAPIClient):
-    v1: v1.AsyncV1Resource
+    chat: chat.AsyncChatResource
     internal: internal.AsyncInternalResource
     with_raw_response: AsyncPremaiWithRawResponse
     with_streaming_response: AsyncPremaiWithStreamedResponse
@@ -329,7 +329,7 @@ class AsyncPremai(AsyncAPIClient):
             _strict_response_validation=_strict_response_validation,
         )
 
-        self.v1 = v1.AsyncV1Resource(self)
+        self.chat = chat.AsyncChatResource(self)
         self.internal = internal.AsyncInternalResource(self)
         self.with_raw_response = AsyncPremaiWithRawResponse(self)
         self.with_streaming_response = AsyncPremaiWithStreamedResponse(self)
@@ -443,25 +443,25 @@ class AsyncPremai(AsyncAPIClient):
 
 class PremaiWithRawResponse:
     def __init__(self, client: Premai) -> None:
-        self.v1 = v1.V1ResourceWithRawResponse(client.v1)
+        self.chat = chat.ChatResourceWithRawResponse(client.chat)
         self.internal = internal.InternalResourceWithRawResponse(client.internal)
 
 
 class AsyncPremaiWithRawResponse:
     def __init__(self, client: AsyncPremai) -> None:
-        self.v1 = v1.AsyncV1ResourceWithRawResponse(client.v1)
+        self.chat = chat.AsyncChatResourceWithRawResponse(client.chat)
         self.internal = internal.AsyncInternalResourceWithRawResponse(client.internal)
 
 
 class PremaiWithStreamedResponse:
     def __init__(self, client: Premai) -> None:
-        self.v1 = v1.V1ResourceWithStreamingResponse(client.v1)
+        self.chat = chat.ChatResourceWithStreamingResponse(client.chat)
         self.internal = internal.InternalResourceWithStreamingResponse(client.internal)
 
 
 class AsyncPremaiWithStreamedResponse:
     def __init__(self, client: AsyncPremai) -> None:
-        self.v1 = v1.AsyncV1ResourceWithStreamingResponse(client.v1)
+        self.chat = chat.AsyncChatResourceWithStreamingResponse(client.chat)
         self.internal = internal.AsyncInternalResourceWithStreamingResponse(client.internal)
 
 
