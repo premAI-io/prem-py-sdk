@@ -2,6 +2,6 @@
 
 from __future__ import annotations
 
-from .chat_create_completion_params import ChatCreateCompletionParams as ChatCreateCompletionParams
-from .chat_retrieve_models_response import ChatRetrieveModelsResponse as ChatRetrieveModelsResponse
-from .chat_create_completion_response import ChatCreateCompletionResponse as ChatCreateCompletionResponse
+from .model_list_response import ModelListResponse as ModelListResponse
+from .chat_completions_params import ChatCompletionsParams as ChatCompletionsParams
+from .chat_completions_response import ChatCompletionsResponse as ChatCompletionsResponse

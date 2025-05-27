@@ -31,7 +31,11 @@ client = PremAI(
     api_key=os.environ.get("PREMAI_API_KEY"),  # This is the default and can be omitted
 )
 
-response = client.chat.retrieve_internal_models()
+response = client.chat.completions(
+    messages=[{"role": "system"}],
+    model="model",
+)
+print(response.id)
 ```
 
 While you can provide an `api_key` keyword argument,
@@ -54,7 +58,11 @@ client = AsyncPremAI(
 
 
 async def main() -> None:
-    response = await client.chat.retrieve_internal_models()
+    response = await client.chat.completions(
+        messages=[{"role": "system"}],
+        model="model",
+    )
+    print(response.id)
 
 
 asyncio.run(main())
@@ -80,7 +88,7 @@ from premai import PremAI
 
 client = PremAI()
 
-response = client.chat.create_completion(
+response = client.chat.completions(
     messages=[{"role": "system"}],
     model="model",
     response_format={
@@ -107,7 +115,10 @@ from premai import PremAI
 client = PremAI()
 
 try:
-    client.chat.retrieve_internal_models()
+    client.chat.completions(
+        messages=[{"role": "system"}],
+        model="model",
+    )
 except premai.APIConnectionError as e:
     print("The server could not be reached")
     print(e.__cause__)  # an underlying Exception, likely raised within httpx.
@@ -150,7 +161,10 @@ client = PremAI(
 )
 
 # Or, configure per-request:
-client.with_options(max_retries=5).chat.retrieve_internal_models()
+client.with_options(max_retries=5).chat.completions(
+    messages=[{"role": "system"}],
+    model="model",
+)
 ```
 
 ### Timeouts
@@ -173,7 +187,10 @@ client = PremAI(
 )
 
 # Override per-request:
-client.with_options(timeout=5.0).chat.retrieve_internal_models()
+client.with_options(timeout=5.0).chat.completions(
+    messages=[{"role": "system"}],
+    model="model",
+)
 ```
 
 On timeout, an `APITimeoutError` is thrown.
@@ -214,11 +231,16 @@ The "raw" Response object can be accessed by prefixing `.with_raw_response.` to 
 from premai import PremAI
 
 client = PremAI()
-response = client.chat.with_raw_response.retrieve_internal_models()
+response = client.chat.with_raw_response.completions(
+    messages=[{
+        "role": "system"
+    }],
+    model="model",
+)
 print(response.headers.get('X-My-Header'))
 
-chat = response.parse()  # get the object that `chat.retrieve_internal_models()` would have returned
-print(chat)
+chat = response.parse()  # get the object that `chat.completions()` would have returned
+print(chat.id)
 ```
 
 These methods return an [`APIResponse`](https://github.com/premAI-io/prem-py-sdk/tree/main/src/premai/_response.py) object.
@@ -232,7 +254,10 @@ The above interface eagerly reads the full response body when you make the reque
 To stream the response body, use `.with_streaming_response` instead, which requires a context manager and only reads the response body once you call `.read()`, `.text()`, `.json()`, `.iter_bytes()`, `.iter_text()`, `.iter_lines()` or `.parse()`. In the async client, these are async methods.
 
 ```python
-with client.chat.with_streaming_response.retrieve_internal_models() as response:
+with client.chat.with_streaming_response.completions(
+    messages=[{"role": "system"}],
+    model="model",
+) as response:
     print(response.headers.get("X-My-Header"))
 
     for line in response.iter_lines():

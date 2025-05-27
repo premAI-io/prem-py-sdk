@@ -8,13 +8,13 @@ from .chat import (
     ChatResourceWithStreamingResponse,
     AsyncChatResourceWithStreamingResponse,
 )
-from .internal import (
-    InternalResource,
-    AsyncInternalResource,
-    InternalResourceWithRawResponse,
-    AsyncInternalResourceWithRawResponse,
-    InternalResourceWithStreamingResponse,
-    AsyncInternalResourceWithStreamingResponse,
+from .models import (
+    ModelsResource,
+    AsyncModelsResource,
+    ModelsResourceWithRawResponse,
+    AsyncModelsResourceWithRawResponse,
+    ModelsResourceWithStreamingResponse,
+    AsyncModelsResourceWithStreamingResponse,
 )
 
 __all__ = [
@@ -24,10 +24,10 @@ __all__ = [
     "AsyncChatResourceWithRawResponse",
     "ChatResourceWithStreamingResponse",
     "AsyncChatResourceWithStreamingResponse",
-    "InternalResource",
-    "AsyncInternalResource",
-    "InternalResourceWithRawResponse",
-    "AsyncInternalResourceWithRawResponse",
-    "InternalResourceWithStreamingResponse",
-    "AsyncInternalResourceWithStreamingResponse",
+    "ModelsResource",
+    "AsyncModelsResource",
+    "ModelsResourceWithRawResponse",
+    "AsyncModelsResourceWithRawResponse",
+    "ModelsResourceWithStreamingResponse",
+    "AsyncModelsResourceWithStreamingResponse",
 ]
