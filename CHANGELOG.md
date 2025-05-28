@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.1.1 (2025-05-28)
+
+Full Changelog: [v1.1.0...v1.1.1](https://github.com/premAI-io/prem-py-sdk/compare/v1.1.0...v1.1.1)
+
+### Bug Fixes
+
+* **docs/api:** remove references to nonexistent types ([8c461df](https://github.com/premAI-io/prem-py-sdk/commit/8c461df478043bbbca782cf8b1074d303af1f236))
+
 ## 1.1.0 (2025-05-27)
 
 Full Changelog: [v1.0.1...v1.1.0](https://github.com/premAI-io/prem-py-sdk/compare/v1.0.1...v1.1.0)
