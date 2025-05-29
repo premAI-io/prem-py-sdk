@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.1.2 (2025-05-29)
+
+Full Changelog: [v1.1.1...v1.1.2](https://github.com/premAI-io/prem-py-sdk/compare/v1.1.1...v1.1.2)
+
+### Chores
+
+* update SDK settings ([a2d18df](https://github.com/premAI-io/prem-py-sdk/commit/a2d18df81ce9f5cea75350689fb82a5360dc8e6a))
+* update SDK settings ([b8ccc56](https://github.com/premAI-io/prem-py-sdk/commit/b8ccc56374bb228d16ac2832d841bdb39ff3e85e))
+
 ## 1.1.1 (2025-05-28)
 
 Full Changelog: [v1.1.0...v1.1.1](https://github.com/premAI-io/prem-py-sdk/compare/v1.1.0...v1.1.1)
