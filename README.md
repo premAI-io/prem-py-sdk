@@ -6,8 +6,6 @@ The Prem AI Python library provides convenient access to the Prem AI REST API fr
 application. The library includes type definitions for all request params and response fields,
 and offers both synchronous and asynchronous clients powered by [httpx](https://github.com/encode/httpx).
 
-It is generated with [Stainless](https://www.stainless.com/).
-
 ## Documentation
 
 The full API of this library can be found in [api.md](api.md).
