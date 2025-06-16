@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.4.2 (2025-06-13)
+
+Full Changelog: [v0.4.1...v0.4.2](https://github.com/premAI-io/prem-py-sdk/compare/v0.4.1...v0.4.2)
+
+### Bug Fixes
+
+* **client:** correctly parse binary response | stream ([2ae4daf](https://github.com/premAI-io/prem-py-sdk/commit/2ae4dafcbf83a20b07a6299112c4ad20960ee90b))
+
+
+### Chores
+
+* **tests:** run tests in parallel ([92be66f](https://github.com/premAI-io/prem-py-sdk/commit/92be66f7ca6979dc7d21b99ba39c758b2ad07f3c))
+
 ## 0.4.1 (2025-06-10)
 
 Full Changelog: [v0.0.2...v0.4.1](https://github.com/premAI-io/prem-py-sdk/compare/v0.0.2...v0.4.1)
