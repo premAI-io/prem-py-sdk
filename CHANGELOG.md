@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.4.3 (2025-06-17)
+
+Full Changelog: [v0.4.2...v0.4.3](https://github.com/premAI-io/prem-py-sdk/compare/v0.4.2...v0.4.3)
+
+### Chores
+
+* **internal:** update conftest.py ([0e29404](https://github.com/premAI-io/prem-py-sdk/commit/0e2940456bee5c1c8a5aaa2de3effb99681447cc))
+* **tests:** add tests for httpx client instantiation & proxies ([dfa6bc3](https://github.com/premAI-io/prem-py-sdk/commit/dfa6bc368ebf2202af576b74133ee627b20c94f3))
+
 ## 0.4.2 (2025-06-13)
 
 Full Changelog: [v0.4.1...v0.4.2](https://github.com/premAI-io/prem-py-sdk/compare/v0.4.1...v0.4.2)
