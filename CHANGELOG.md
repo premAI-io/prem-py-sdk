@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.4.4 (2025-06-18)
+
+Full Changelog: [v0.4.3...v0.4.4](https://github.com/premAI-io/prem-py-sdk/compare/v0.4.3...v0.4.4)
+
+### Bug Fixes
+
+* **tests:** fix: tests which call HTTP endpoints directly with the example parameters ([5e1737b](https://github.com/premAI-io/prem-py-sdk/commit/5e1737b22939aa55341d81f0fcc4d5001403cab5))
+
+
+### Chores
+
+* **ci:** enable for pull requests ([2cf7744](https://github.com/premAI-io/prem-py-sdk/commit/2cf77447fd943ce5a483bd09a4a2838d13f15ed0))
+* **readme:** update badges ([08872b9](https://github.com/premAI-io/prem-py-sdk/commit/08872b9fd473155015e9a6513d9412e57b60141f))
+
 ## 0.4.3 (2025-06-17)
 
 Full Changelog: [v0.4.2...v0.4.3](https://github.com/premAI-io/prem-py-sdk/compare/v0.4.2...v0.4.3)
