@@ -48,6 +48,8 @@ class TestChat:
             stop="string",
             stream=True,
             temperature=0,
+            tool_choice="none",
+            tools=[{}],
             top_p=0,
         )
         assert_matches_type(ChatCompletionsResponse, chat, path=["response"])
@@ -171,6 +173,8 @@ class TestAsyncChat:
             stop="string",
             stream=True,
             temperature=0,
+            tool_choice="none",
+            tools=[{}],
             top_p=0,
         )
         assert_matches_type(ChatCompletionsResponse, chat, path=["response"])

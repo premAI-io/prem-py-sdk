@@ -29,6 +29,10 @@ class ChatCompletionsParams(TypedDict, total=False):
 
     temperature: Optional[float]
 
+    tool_choice: Union[Literal["none", "auto"], object]
+
+    tools: Iterable[object]
+
     top_p: Optional[float]
 
 
