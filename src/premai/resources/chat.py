@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from typing import List, Union, Iterable, Optional
+from typing_extensions import Literal
 
 import httpx
 
@@ -57,6 +58,8 @@ class ChatResource(SyncAPIResource):
         stop: Union[str, List[str]] | NotGiven = NOT_GIVEN,
         stream: bool | NotGiven = NOT_GIVEN,
         temperature: Optional[float] | NotGiven = NOT_GIVEN,
+        tool_choice: Union[Literal["none", "auto"], object] | NotGiven = NOT_GIVEN,
+        tools: Iterable[object] | NotGiven = NOT_GIVEN,
         top_p: Optional[float] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -91,6 +94,8 @@ class ChatResource(SyncAPIResource):
                     "stop": stop,
                     "stream": stream,
                     "temperature": temperature,
+                    "tool_choice": tool_choice,
+                    "tools": tools,
                     "top_p": top_p,
                 },
                 chat_completions_params.ChatCompletionsParams,
@@ -173,6 +178,8 @@ class AsyncChatResource(AsyncAPIResource):
         stop: Union[str, List[str]] | NotGiven = NOT_GIVEN,
         stream: bool | NotGiven = NOT_GIVEN,
         temperature: Optional[float] | NotGiven = NOT_GIVEN,
+        tool_choice: Union[Literal["none", "auto"], object] | NotGiven = NOT_GIVEN,
+        tools: Iterable[object] | NotGiven = NOT_GIVEN,
         top_p: Optional[float] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -207,6 +214,8 @@ class AsyncChatResource(AsyncAPIResource):
                     "stop": stop,
                     "stream": stream,
                     "temperature": temperature,
+                    "tool_choice": tool_choice,
+                    "tools": tools,
                     "top_p": top_p,
                 },
                 chat_completions_params.ChatCompletionsParams,

@@ -48,6 +48,8 @@ class TestChat:
             stop="string",
             stream=True,
             temperature=0,
+            tool_choice="none",
+            tools=[{}],
             top_p=0,
         )
         assert_matches_type(ChatCompletionsResponse, chat, path=["response"])
@@ -138,7 +140,9 @@ class TestChat:
 
 
 class TestAsyncChat:
-    parametrize = pytest.mark.parametrize("async_client", [False, True], indirect=True, ids=["loose", "strict"])
+    parametrize = pytest.mark.parametrize(
+        "async_client", [False, True, {"http_client": "aiohttp"}], indirect=True, ids=["loose", "strict", "aiohttp"]
+    )
 
     @pytest.mark.skip()
     @parametrize
@@ -171,6 +175,8 @@ class TestAsyncChat:
             stop="string",
             stream=True,
             temperature=0,
+            tool_choice="none",
+            tools=[{}],
             top_p=0,
         )
         assert_matches_type(ChatCompletionsResponse, chat, path=["response"])
