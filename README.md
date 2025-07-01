@@ -29,11 +29,8 @@ client = PremAI(
     api_key=os.environ.get("PREMAI_API_KEY"),  # This is the default and can be omitted
 )
 
-response = client.chat.completions(
-    messages=[{"role": "system"}],
-    model="model",
-)
-print(response.id)
+response = client.chat.models()
+print(response.data)
 ```
 
 While you can provide an `api_key` keyword argument,
@@ -56,11 +53,8 @@ client = AsyncPremAI(
 
 
 async def main() -> None:
-    response = await client.chat.completions(
-        messages=[{"role": "system"}],
-        model="model",
-    )
-    print(response.id)
+    response = await client.chat.models()
+    print(response.data)
 
 
 asyncio.run(main())
@@ -93,11 +87,8 @@ async def main() -> None:
         api_key=os.environ.get("PREMAI_API_KEY"),  # This is the default and can be omitted
         http_client=DefaultAioHttpClient(),
     ) as client:
-        response = await client.chat.completions(
-            messages=[{"role": "system"}],
-            model="model",
-        )
-        print(response.id)
+        response = await client.chat.models()
+        print(response.data)
 
 
 asyncio.run(main())
@@ -148,10 +139,7 @@ from premai import PremAI
 client = PremAI()
 
 try:
-    client.chat.completions(
-        messages=[{"role": "system"}],
-        model="model",
-    )
+    client.chat.models()
 except premai.APIConnectionError as e:
     print("The server could not be reached")
     print(e.__cause__)  # an underlying Exception, likely raised within httpx.
@@ -194,10 +182,7 @@ client = PremAI(
 )
 
 # Or, configure per-request:
-client.with_options(max_retries=5).chat.completions(
-    messages=[{"role": "system"}],
-    model="model",
-)
+client.with_options(max_retries=5).chat.models()
 ```
 
 ### Timeouts
@@ -220,10 +205,7 @@ client = PremAI(
 )
 
 # Override per-request:
-client.with_options(timeout=5.0).chat.completions(
-    messages=[{"role": "system"}],
-    model="model",
-)
+client.with_options(timeout=5.0).chat.models()
 ```
 
 On timeout, an `APITimeoutError` is thrown.
@@ -264,16 +246,11 @@ The "raw" Response object can be accessed by prefixing `.with_raw_response.` to 
 from premai import PremAI
 
 client = PremAI()
-response = client.chat.with_raw_response.completions(
-    messages=[{
-        "role": "system"
-    }],
-    model="model",
-)
+response = client.chat.with_raw_response.models()
 print(response.headers.get('X-My-Header'))
 
-chat = response.parse()  # get the object that `chat.completions()` would have returned
-print(chat.id)
+chat = response.parse()  # get the object that `chat.models()` would have returned
+print(chat.data)
 ```
 
 These methods return an [`APIResponse`](https://github.com/premAI-io/prem-py-sdk/tree/main/src/premai/_response.py) object.
@@ -287,10 +264,7 @@ The above interface eagerly reads the full response body when you make the reque
 To stream the response body, use `.with_streaming_response` instead, which requires a context manager and only reads the response body once you call `.read()`, `.text()`, `.json()`, `.iter_bytes()`, `.iter_text()`, `.iter_lines()` or `.parse()`. In the async client, these are async methods.
 
 ```python
-with client.chat.with_streaming_response.completions(
-    messages=[{"role": "system"}],
-    model="model",
-) as response:
+with client.chat.with_streaming_response.models() as response:
     print(response.headers.get("X-My-Header"))
 
     for line in response.iter_lines():
