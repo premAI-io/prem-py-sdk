@@ -712,20 +712,20 @@ class TestPremAI:
     @mock.patch("premai._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     def test_retrying_timeout_errors_doesnt_leak(self, respx_mock: MockRouter, client: PremAI) -> None:
-        respx_mock.get("/api/v1/chat/internalModels").mock(side_effect=httpx.TimeoutException("Test timeout error"))
+        respx_mock.post("/api/v1/chat/completions").mock(side_effect=httpx.TimeoutException("Test timeout error"))
 
         with pytest.raises(APITimeoutError):
-            client.chat.with_streaming_response.list_models_internal().__enter__()
+            client.chat.with_streaming_response.completions(messages=[{"role": "system"}], model="model").__enter__()
 
         assert _get_open_connections(self.client) == 0
 
     @mock.patch("premai._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     def test_retrying_status_errors_doesnt_leak(self, respx_mock: MockRouter, client: PremAI) -> None:
-        respx_mock.get("/api/v1/chat/internalModels").mock(return_value=httpx.Response(500))
+        respx_mock.post("/api/v1/chat/completions").mock(return_value=httpx.Response(500))
 
         with pytest.raises(APIStatusError):
-            client.chat.with_streaming_response.list_models_internal().__enter__()
+            client.chat.with_streaming_response.completions(messages=[{"role": "system"}], model="model").__enter__()
         assert _get_open_connections(self.client) == 0
 
     @pytest.mark.parametrize("failures_before_success", [0, 2, 4])
@@ -752,9 +752,9 @@ class TestPremAI:
                 return httpx.Response(500)
             return httpx.Response(200)
 
-        respx_mock.get("/api/v1/chat/internalModels").mock(side_effect=retry_handler)
+        respx_mock.post("/api/v1/chat/completions").mock(side_effect=retry_handler)
 
-        response = client.chat.with_raw_response.list_models_internal()
+        response = client.chat.with_raw_response.completions(messages=[{"role": "system"}], model="model")
 
         assert response.retries_taken == failures_before_success
         assert int(response.http_request.headers.get("x-stainless-retry-count")) == failures_before_success
@@ -776,9 +776,11 @@ class TestPremAI:
                 return httpx.Response(500)
             return httpx.Response(200)
 
-        respx_mock.get("/api/v1/chat/internalModels").mock(side_effect=retry_handler)
+        respx_mock.post("/api/v1/chat/completions").mock(side_effect=retry_handler)
 
-        response = client.chat.with_raw_response.list_models_internal(extra_headers={"x-stainless-retry-count": Omit()})
+        response = client.chat.with_raw_response.completions(
+            messages=[{"role": "system"}], model="model", extra_headers={"x-stainless-retry-count": Omit()}
+        )
 
         assert len(response.http_request.headers.get_list("x-stainless-retry-count")) == 0
 
@@ -799,9 +801,11 @@ class TestPremAI:
                 return httpx.Response(500)
             return httpx.Response(200)
 
-        respx_mock.get("/api/v1/chat/internalModels").mock(side_effect=retry_handler)
+        respx_mock.post("/api/v1/chat/completions").mock(side_effect=retry_handler)
 
-        response = client.chat.with_raw_response.list_models_internal(extra_headers={"x-stainless-retry-count": "42"})
+        response = client.chat.with_raw_response.completions(
+            messages=[{"role": "system"}], model="model", extra_headers={"x-stainless-retry-count": "42"}
+        )
 
         assert response.http_request.headers.get("x-stainless-retry-count") == "42"
 
@@ -1527,20 +1531,24 @@ class TestAsyncPremAI:
     @mock.patch("premai._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     async def test_retrying_timeout_errors_doesnt_leak(self, respx_mock: MockRouter, async_client: AsyncPremAI) -> None:
-        respx_mock.get("/api/v1/chat/internalModels").mock(side_effect=httpx.TimeoutException("Test timeout error"))
+        respx_mock.post("/api/v1/chat/completions").mock(side_effect=httpx.TimeoutException("Test timeout error"))
 
         with pytest.raises(APITimeoutError):
-            await async_client.chat.with_streaming_response.list_models_internal().__aenter__()
+            await async_client.chat.with_streaming_response.completions(
+                messages=[{"role": "system"}], model="model"
+            ).__aenter__()
 
         assert _get_open_connections(self.client) == 0
 
     @mock.patch("premai._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     async def test_retrying_status_errors_doesnt_leak(self, respx_mock: MockRouter, async_client: AsyncPremAI) -> None:
-        respx_mock.get("/api/v1/chat/internalModels").mock(return_value=httpx.Response(500))
+        respx_mock.post("/api/v1/chat/completions").mock(return_value=httpx.Response(500))
 
         with pytest.raises(APIStatusError):
-            await async_client.chat.with_streaming_response.list_models_internal().__aenter__()
+            await async_client.chat.with_streaming_response.completions(
+                messages=[{"role": "system"}], model="model"
+            ).__aenter__()
         assert _get_open_connections(self.client) == 0
 
     @pytest.mark.parametrize("failures_before_success", [0, 2, 4])
@@ -1568,9 +1576,9 @@ class TestAsyncPremAI:
                 return httpx.Response(500)
             return httpx.Response(200)
 
-        respx_mock.get("/api/v1/chat/internalModels").mock(side_effect=retry_handler)
+        respx_mock.post("/api/v1/chat/completions").mock(side_effect=retry_handler)
 
-        response = await client.chat.with_raw_response.list_models_internal()
+        response = await client.chat.with_raw_response.completions(messages=[{"role": "system"}], model="model")
 
         assert response.retries_taken == failures_before_success
         assert int(response.http_request.headers.get("x-stainless-retry-count")) == failures_before_success
@@ -1593,10 +1601,10 @@ class TestAsyncPremAI:
                 return httpx.Response(500)
             return httpx.Response(200)
 
-        respx_mock.get("/api/v1/chat/internalModels").mock(side_effect=retry_handler)
+        respx_mock.post("/api/v1/chat/completions").mock(side_effect=retry_handler)
 
-        response = await client.chat.with_raw_response.list_models_internal(
-            extra_headers={"x-stainless-retry-count": Omit()}
+        response = await client.chat.with_raw_response.completions(
+            messages=[{"role": "system"}], model="model", extra_headers={"x-stainless-retry-count": Omit()}
         )
 
         assert len(response.http_request.headers.get_list("x-stainless-retry-count")) == 0
@@ -1619,10 +1627,10 @@ class TestAsyncPremAI:
                 return httpx.Response(500)
             return httpx.Response(200)
 
-        respx_mock.get("/api/v1/chat/internalModels").mock(side_effect=retry_handler)
+        respx_mock.post("/api/v1/chat/completions").mock(side_effect=retry_handler)
 
-        response = await client.chat.with_raw_response.list_models_internal(
-            extra_headers={"x-stainless-retry-count": "42"}
+        response = await client.chat.with_raw_response.completions(
+            messages=[{"role": "system"}], model="model", extra_headers={"x-stainless-retry-count": "42"}
         )
 
         assert response.http_request.headers.get("x-stainless-retry-count") == "42"
