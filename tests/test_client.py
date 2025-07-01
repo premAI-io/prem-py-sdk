@@ -715,7 +715,7 @@ class TestPremAI:
         respx_mock.get("/api/v1/models").mock(side_effect=httpx.TimeoutException("Test timeout error"))
 
         with pytest.raises(APITimeoutError):
-            client.chat.with_streaming_response.models().__enter__()
+            client.models.with_streaming_response.list().__enter__()
 
         assert _get_open_connections(self.client) == 0
 
@@ -725,7 +725,7 @@ class TestPremAI:
         respx_mock.get("/api/v1/models").mock(return_value=httpx.Response(500))
 
         with pytest.raises(APIStatusError):
-            client.chat.with_streaming_response.models().__enter__()
+            client.models.with_streaming_response.list().__enter__()
         assert _get_open_connections(self.client) == 0
 
     @pytest.mark.parametrize("failures_before_success", [0, 2, 4])
@@ -754,7 +754,7 @@ class TestPremAI:
 
         respx_mock.get("/api/v1/models").mock(side_effect=retry_handler)
 
-        response = client.chat.with_raw_response.models()
+        response = client.models.with_raw_response.list()
 
         assert response.retries_taken == failures_before_success
         assert int(response.http_request.headers.get("x-stainless-retry-count")) == failures_before_success
@@ -778,7 +778,7 @@ class TestPremAI:
 
         respx_mock.get("/api/v1/models").mock(side_effect=retry_handler)
 
-        response = client.chat.with_raw_response.models(extra_headers={"x-stainless-retry-count": Omit()})
+        response = client.models.with_raw_response.list(extra_headers={"x-stainless-retry-count": Omit()})
 
         assert len(response.http_request.headers.get_list("x-stainless-retry-count")) == 0
 
@@ -801,7 +801,7 @@ class TestPremAI:
 
         respx_mock.get("/api/v1/models").mock(side_effect=retry_handler)
 
-        response = client.chat.with_raw_response.models(extra_headers={"x-stainless-retry-count": "42"})
+        response = client.models.with_raw_response.list(extra_headers={"x-stainless-retry-count": "42"})
 
         assert response.http_request.headers.get("x-stainless-retry-count") == "42"
 
@@ -1530,7 +1530,7 @@ class TestAsyncPremAI:
         respx_mock.get("/api/v1/models").mock(side_effect=httpx.TimeoutException("Test timeout error"))
 
         with pytest.raises(APITimeoutError):
-            await async_client.chat.with_streaming_response.models().__aenter__()
+            await async_client.models.with_streaming_response.list().__aenter__()
 
         assert _get_open_connections(self.client) == 0
 
@@ -1540,7 +1540,7 @@ class TestAsyncPremAI:
         respx_mock.get("/api/v1/models").mock(return_value=httpx.Response(500))
 
         with pytest.raises(APIStatusError):
-            await async_client.chat.with_streaming_response.models().__aenter__()
+            await async_client.models.with_streaming_response.list().__aenter__()
         assert _get_open_connections(self.client) == 0
 
     @pytest.mark.parametrize("failures_before_success", [0, 2, 4])
@@ -1570,7 +1570,7 @@ class TestAsyncPremAI:
 
         respx_mock.get("/api/v1/models").mock(side_effect=retry_handler)
 
-        response = await client.chat.with_raw_response.models()
+        response = await client.models.with_raw_response.list()
 
         assert response.retries_taken == failures_before_success
         assert int(response.http_request.headers.get("x-stainless-retry-count")) == failures_before_success
@@ -1595,7 +1595,7 @@ class TestAsyncPremAI:
 
         respx_mock.get("/api/v1/models").mock(side_effect=retry_handler)
 
-        response = await client.chat.with_raw_response.models(extra_headers={"x-stainless-retry-count": Omit()})
+        response = await client.models.with_raw_response.list(extra_headers={"x-stainless-retry-count": Omit()})
 
         assert len(response.http_request.headers.get_list("x-stainless-retry-count")) == 0
 
@@ -1619,7 +1619,7 @@ class TestAsyncPremAI:
 
         respx_mock.get("/api/v1/models").mock(side_effect=retry_handler)
 
-        response = await client.chat.with_raw_response.models(extra_headers={"x-stainless-retry-count": "42"})
+        response = await client.models.with_raw_response.list(extra_headers={"x-stainless-retry-count": "42"})
 
         assert response.http_request.headers.get("x-stainless-retry-count") == "42"
 
