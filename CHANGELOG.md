@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.8.1 (2025-07-01)
+
+Full Changelog: [v0.8.0...v0.8.1](https://github.com/premAI-io/prem-py-sdk/compare/v0.8.0...v0.8.1)
+
+### Features
+
+* **api:** manual updates ([1cd0282](https://github.com/premAI-io/prem-py-sdk/commit/1cd028216ffd5c6dcffeacd38c9a9f7c7a541414))
+
 ## 0.8.0 (2025-07-01)
 
 Full Changelog: [v0.7.0...v0.8.0](https://github.com/premAI-io/prem-py-sdk/compare/v0.7.0...v0.8.0)
