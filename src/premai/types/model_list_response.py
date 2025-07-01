@@ -5,7 +5,7 @@ from typing_extensions import Literal
 
 from .._models import BaseModel
 
-__all__ = ["ChatModelsResponse", "Data"]
+__all__ = ["ModelListResponse", "Data"]
 
 
 class Data(BaseModel):
@@ -18,7 +18,7 @@ class Data(BaseModel):
     owned_by: str
 
 
-class ChatModelsResponse(BaseModel):
+class ModelListResponse(BaseModel):
     data: List[Data]
 
     object: Literal["list"]
