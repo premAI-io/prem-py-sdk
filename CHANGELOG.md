@@ -1,5 +1,31 @@
 # Changelog
 
+## 0.5.0 (2025-07-01)
+
+Full Changelog: [v0.4.4...v0.5.0](https://github.com/premAI-io/prem-py-sdk/compare/v0.4.4...v0.5.0)
+
+### Features
+
+* **api:** api update ([3a3815f](https://github.com/premAI-io/prem-py-sdk/commit/3a3815f059537cca536698dc12fa274d6108d684))
+* **client:** add support for aiohttp ([4485537](https://github.com/premAI-io/prem-py-sdk/commit/4485537c514bd172a389a5db7057114c6fa56d60))
+
+
+### Bug Fixes
+
+* **ci:** correct conditional ([d48634d](https://github.com/premAI-io/prem-py-sdk/commit/d48634de614b3bb559c74895a0983c5ba1c5e7de))
+* **ci:** release-doctor — report correct token name ([ba48bbe](https://github.com/premAI-io/prem-py-sdk/commit/ba48bbe0f25ffa5c125c7058bf02413d8e73c0a3))
+
+
+### Chores
+
+* **ci:** only run for pushes and fork pull requests ([fee01c6](https://github.com/premAI-io/prem-py-sdk/commit/fee01c6e5e919c831f19235fd4a4a4cffd84cc2e))
+* **tests:** skip some failing tests on the latest python versions ([414cb9c](https://github.com/premAI-io/prem-py-sdk/commit/414cb9c72427bb6636888c14687a6f1d83be689c))
+
+
+### Documentation
+
+* **client:** fix httpx.Timeout documentation reference ([847aa47](https://github.com/premAI-io/prem-py-sdk/commit/847aa47046f53ebeb53081268d215f2f22c460c4))
+
 ## 0.4.4 (2025-06-18)
 
 Full Changelog: [v0.4.3...v0.4.4](https://github.com/premAI-io/prem-py-sdk/compare/v0.4.3...v0.4.4)
