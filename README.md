@@ -6,6 +6,8 @@ The Prem AI Python library provides convenient access to the Prem AI REST API fr
 application. The library includes type definitions for all request params and response fields,
 and offers both synchronous and asynchronous clients powered by [httpx](https://github.com/encode/httpx).
 
+It is generated with [Stainless](https://www.stainless.com/).
+
 ## Documentation
 
 The full API of this library can be found in [api.md](api.md).
@@ -29,8 +31,11 @@ client = PremAI(
     api_key=os.environ.get("PREMAI_API_KEY"),  # This is the default and can be omitted
 )
 
-models = client.models.list()
-print(models.data)
+response = client.chat.completions(
+    messages=[{"role": "system"}],
+    model="REPLACE_ME",
+)
+print(response.id)
 ```
 
 While you can provide an `api_key` keyword argument,
@@ -53,8 +58,11 @@ client = AsyncPremAI(
 
 
 async def main() -> None:
-    models = await client.models.list()
-    print(models.data)
+    response = await client.chat.completions(
+        messages=[{"role": "system"}],
+        model="REPLACE_ME",
+    )
+    print(response.id)
 
 
 asyncio.run(main())
@@ -87,8 +95,11 @@ async def main() -> None:
         api_key=os.environ.get("PREMAI_API_KEY"),  # This is the default and can be omitted
         http_client=DefaultAioHttpClient(),
     ) as client:
-        models = await client.models.list()
-        print(models.data)
+        response = await client.chat.completions(
+            messages=[{"role": "system"}],
+            model="REPLACE_ME",
+        )
+        print(response.id)
 
 
 asyncio.run(main())
@@ -139,7 +150,10 @@ from premai import PremAI
 client = PremAI()
 
 try:
-    client.models.list()
+    client.chat.completions(
+        messages=[{"role": "system"}],
+        model="REPLACE_ME",
+    )
 except premai.APIConnectionError as e:
     print("The server could not be reached")
     print(e.__cause__)  # an underlying Exception, likely raised within httpx.
@@ -182,7 +196,10 @@ client = PremAI(
 )
 
 # Or, configure per-request:
-client.with_options(max_retries=5).models.list()
+client.with_options(max_retries=5).chat.completions(
+    messages=[{"role": "system"}],
+    model="REPLACE_ME",
+)
 ```
 
 ### Timeouts
@@ -205,7 +222,10 @@ client = PremAI(
 )
 
 # Override per-request:
-client.with_options(timeout=5.0).models.list()
+client.with_options(timeout=5.0).chat.completions(
+    messages=[{"role": "system"}],
+    model="REPLACE_ME",
+)
 ```
 
 On timeout, an `APITimeoutError` is thrown.
@@ -246,11 +266,16 @@ The "raw" Response object can be accessed by prefixing `.with_raw_response.` to 
 from premai import PremAI
 
 client = PremAI()
-response = client.models.with_raw_response.list()
+response = client.chat.with_raw_response.completions(
+    messages=[{
+        "role": "system"
+    }],
+    model="REPLACE_ME",
+)
 print(response.headers.get('X-My-Header'))
 
-model = response.parse()  # get the object that `models.list()` would have returned
-print(model.data)
+chat = response.parse()  # get the object that `chat.completions()` would have returned
+print(chat.id)
 ```
 
 These methods return an [`APIResponse`](https://github.com/premAI-io/prem-py-sdk/tree/main/src/premai/_response.py) object.
@@ -264,7 +289,10 @@ The above interface eagerly reads the full response body when you make the reque
 To stream the response body, use `.with_streaming_response` instead, which requires a context manager and only reads the response body once you call `.read()`, `.text()`, `.json()`, `.iter_bytes()`, `.iter_text()`, `.iter_lines()` or `.parse()`. In the async client, these are async methods.
 
 ```python
-with client.models.with_streaming_response.list() as response:
+with client.chat.with_streaming_response.completions(
+    messages=[{"role": "system"}],
+    model="REPLACE_ME",
+) as response:
     print(response.headers.get("X-My-Header"))
 
     for line in response.iter_lines():
