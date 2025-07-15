@@ -85,7 +85,6 @@ pip install premai[aiohttp]
 Then you can enable it by instantiating the client with `http_client=DefaultAioHttpClient()`:
 
 ```python
-import os
 import asyncio
 from premai import DefaultAioHttpClient
 from premai import AsyncPremAI
@@ -93,7 +92,7 @@ from premai import AsyncPremAI
 
 async def main() -> None:
     async with AsyncPremAI(
-        api_key=os.environ.get("PREMAI_API_KEY"),  # This is the default and can be omitted
+        api_key="My API Key",
         http_client=DefaultAioHttpClient(),
     ) as client:
         response = await client.chat.completions(
