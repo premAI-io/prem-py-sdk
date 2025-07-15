@@ -1,5 +1,22 @@
 # Changelog
 
+## 0.9.1 (2025-07-15)
+
+Full Changelog: [v0.9.0...v0.9.1](https://github.com/premAI-io/prem-py-sdk/compare/v0.9.0...v0.9.1)
+
+### Bug Fixes
+
+* **client:** don't send Content-Type header on GET requests ([7095952](https://github.com/premAI-io/prem-py-sdk/commit/709595236094fffedebfee484f57250a3314a0cb))
+* **parsing:** correctly handle nested discriminated unions ([2418a63](https://github.com/premAI-io/prem-py-sdk/commit/2418a6385280b5da2a729fa9c3f5925fdf2458f5))
+
+
+### Chores
+
+* **internal:** bump pinned h11 dep ([ec109a0](https://github.com/premAI-io/prem-py-sdk/commit/ec109a03a8519ae7747833e9b63a7a7f960769b9))
+* **internal:** codegen related update ([63855ad](https://github.com/premAI-io/prem-py-sdk/commit/63855adc39578d040ade886d44586af20515f093))
+* **package:** mark python 3.13 as supported ([4547461](https://github.com/premAI-io/prem-py-sdk/commit/4547461519547d0b1d917ddc59da4e27f6a97796))
+* **readme:** fix version rendering on pypi ([c92e96c](https://github.com/premAI-io/prem-py-sdk/commit/c92e96cbb7ae109af8f4520c7c781ba72b890eda))
+
 ## 0.9.0 (2025-07-14)
 
 Full Changelog: [v0.8.2...v0.9.0](https://github.com/premAI-io/prem-py-sdk/compare/v0.8.2...v0.9.0)
