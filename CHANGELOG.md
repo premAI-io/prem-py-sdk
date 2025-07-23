@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.9.2 (2025-07-23)
+
+Full Changelog: [v0.9.1...v0.9.2](https://github.com/premAI-io/prem-py-sdk/compare/v0.9.1...v0.9.2)
+
+### Features
+
+* clean up environment call outs ([2078d59](https://github.com/premAI-io/prem-py-sdk/commit/2078d5999f05bfbb634356157da7ad2f3c7ef187))
+
+
+### Bug Fixes
+
+* **parsing:** ignore empty metadata ([fa62b20](https://github.com/premAI-io/prem-py-sdk/commit/fa62b209f6b94610df1b0aa5a883c9b223defe5c))
+* **parsing:** parse extra field types ([90792e4](https://github.com/premAI-io/prem-py-sdk/commit/90792e43d3dabbcfaac2da7c1e43baea736eb18a))
+
 ## 0.9.1 (2025-07-15)
 
 Full Changelog: [v0.9.0...v0.9.1](https://github.com/premAI-io/prem-py-sdk/compare/v0.9.0...v0.9.1)
