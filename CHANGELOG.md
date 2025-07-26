@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.9.3 (2025-07-26)
+
+Full Changelog: [v0.9.2...v0.9.3](https://github.com/premAI-io/prem-py-sdk/compare/v0.9.2...v0.9.3)
+
+### Chores
+
+* **project:** add settings file for vscode ([d49b987](https://github.com/premAI-io/prem-py-sdk/commit/d49b987a2c7e5255425d11fa21212dbc3344b341))
+
 ## 0.9.2 (2025-07-23)
 
 Full Changelog: [v0.9.1...v0.9.2](https://github.com/premAI-io/prem-py-sdk/compare/v0.9.1...v0.9.2)
