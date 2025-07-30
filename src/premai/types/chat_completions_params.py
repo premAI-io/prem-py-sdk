@@ -37,9 +37,9 @@ class ChatCompletionsParams(TypedDict, total=False):
 
 
 class Message(TypedDict, total=False):
-    role: Required[Literal["system", "user", "assistant"]]
+    content: Required[str]
 
-    content: None
+    role: Required[Literal["system", "user", "assistant"]]
 
 
 class ResponseFormat(TypedDict, total=False):
