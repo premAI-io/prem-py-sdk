@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.10.3 (2025-08-07)
+
+Full Changelog: [v0.10.1...v0.10.3](https://github.com/premAI-io/prem-py-sdk/compare/v0.10.1...v0.10.3)
+
+### Chores
+
+* **internal:** fix ruff target version ([95b53df](https://github.com/premAI-io/prem-py-sdk/commit/95b53df00989f49366a13b276bb1e63bbe9665f1))
+
 ## 0.10.1 (2025-07-30)
 
 Full Changelog: [v0.9.3...v0.10.1](https://github.com/premAI-io/prem-py-sdk/compare/v0.9.3...v0.10.1)
