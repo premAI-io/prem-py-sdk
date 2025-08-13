@@ -17,6 +17,7 @@ from .._response import (
 )
 from .._base_client import make_request_options
 from ..types.model_list_response import ModelListResponse
+from ..types.model_check_status_response import ModelCheckStatusResponse
 
 __all__ = ["ModelsResource", "AsyncModelsResource"]
 
@@ -63,14 +64,14 @@ class ModelsResource(SyncAPIResource):
     def check_status(
         self,
         *,
-        model_id: str,
+        model: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> None:
+    ) -> ModelCheckStatusResponse:
         """Check if a model is running for inference.
 
         Use query param to support IDs with /
@@ -84,7 +85,6 @@ class ModelsResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return self._get(
             "/api/v1/models/running",
             options=make_request_options(
@@ -92,9 +92,9 @@ class ModelsResource(SyncAPIResource):
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=maybe_transform({"model_id": model_id}, model_check_status_params.ModelCheckStatusParams),
+                query=maybe_transform({"model": model}, model_check_status_params.ModelCheckStatusParams),
             ),
-            cast_to=NoneType,
+            cast_to=ModelCheckStatusResponse,
         )
 
     def load(
@@ -208,14 +208,14 @@ class AsyncModelsResource(AsyncAPIResource):
     async def check_status(
         self,
         *,
-        model_id: str,
+        model: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> None:
+    ) -> ModelCheckStatusResponse:
         """Check if a model is running for inference.
 
         Use query param to support IDs with /
@@ -229,7 +229,6 @@ class AsyncModelsResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return await self._get(
             "/api/v1/models/running",
             options=make_request_options(
@@ -237,11 +236,9 @@ class AsyncModelsResource(AsyncAPIResource):
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=await async_maybe_transform(
-                    {"model_id": model_id}, model_check_status_params.ModelCheckStatusParams
-                ),
+                query=await async_maybe_transform({"model": model}, model_check_status_params.ModelCheckStatusParams),
             ),
-            cast_to=NoneType,
+            cast_to=ModelCheckStatusResponse,
         )
 
     async def load(
