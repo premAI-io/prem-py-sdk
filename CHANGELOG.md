@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.10.4 (2025-08-13)
+
+Full Changelog: [v0.10.3...v0.10.4](https://github.com/premAI-io/prem-py-sdk/compare/v0.10.3...v0.10.4)
+
+### Chores
+
+* **internal:** codegen related update ([952be6c](https://github.com/premAI-io/prem-py-sdk/commit/952be6c61093300c6a3585ce6049e34bc60a7460))
+* **internal:** update comment in script ([f335375](https://github.com/premAI-io/prem-py-sdk/commit/f33537559d1bfddd86c2569c966d35b587c5fda3))
+* update @stainless-api/prism-cli to v5.15.0 ([c58ea25](https://github.com/premAI-io/prem-py-sdk/commit/c58ea25a9167416ed1ac619b80e6cc793b838ad1))
+
 ## 0.10.3 (2025-08-07)
 
 Full Changelog: [v0.10.1...v0.10.3](https://github.com/premAI-io/prem-py-sdk/compare/v0.10.1...v0.10.3)
