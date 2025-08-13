@@ -9,7 +9,10 @@ import pytest
 
 from premai import PremAI, AsyncPremAI
 from tests.utils import assert_matches_type
-from premai.types import ModelListResponse
+from premai.types import (
+    ModelListResponse,
+    ModelCheckStatusResponse,
+)
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
@@ -49,33 +52,33 @@ class TestModels:
     @parametrize
     def test_method_check_status(self, client: PremAI) -> None:
         model = client.models.check_status(
-            model_id="modelId",
+            model="model",
         )
-        assert model is None
+        assert_matches_type(ModelCheckStatusResponse, model, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_raw_response_check_status(self, client: PremAI) -> None:
         response = client.models.with_raw_response.check_status(
-            model_id="modelId",
+            model="model",
         )
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         model = response.parse()
-        assert model is None
+        assert_matches_type(ModelCheckStatusResponse, model, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_streaming_response_check_status(self, client: PremAI) -> None:
         with client.models.with_streaming_response.check_status(
-            model_id="modelId",
+            model="model",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             model = response.parse()
-            assert model is None
+            assert_matches_type(ModelCheckStatusResponse, model, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -185,33 +188,33 @@ class TestAsyncModels:
     @parametrize
     async def test_method_check_status(self, async_client: AsyncPremAI) -> None:
         model = await async_client.models.check_status(
-            model_id="modelId",
+            model="model",
         )
-        assert model is None
+        assert_matches_type(ModelCheckStatusResponse, model, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_raw_response_check_status(self, async_client: AsyncPremAI) -> None:
         response = await async_client.models.with_raw_response.check_status(
-            model_id="modelId",
+            model="model",
         )
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         model = await response.parse()
-        assert model is None
+        assert_matches_type(ModelCheckStatusResponse, model, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_streaming_response_check_status(self, async_client: AsyncPremAI) -> None:
         async with async_client.models.with_streaming_response.check_status(
-            model_id="modelId",
+            model="model",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             model = await response.parse()
-            assert model is None
+            assert_matches_type(ModelCheckStatusResponse, model, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
