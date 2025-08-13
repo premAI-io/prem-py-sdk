@@ -2,12 +2,10 @@
 
 from __future__ import annotations
 
-from typing_extensions import Required, Annotated, TypedDict
-
-from .._utils import PropertyInfo
+from typing_extensions import Required, TypedDict
 
 __all__ = ["ModelCheckStatusParams"]
 
 
 class ModelCheckStatusParams(TypedDict, total=False):
-    model_id: Required[Annotated[str, PropertyInfo(alias="modelId")]]
+    model: Required[str]
