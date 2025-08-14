@@ -71,6 +71,50 @@ class ChatResource(SyncAPIResource):
         Create a chat completion (OpenAI compatible).
 
         Args:
+          messages: An array of messages comprising the conversation so far. Must contain at least
+              one message. System messages are only allowed as the first message.
+
+          model: The identifier of the model to use for generating completions. This can be a
+              model ID or an alias.
+
+          frequency_penalty: A value between -2.0 and 2.0 that penalizes new tokens based on their frequency
+              in the text so far. Higher values decrease the likelihood of the model repeating
+              the same tokens.
+
+          max_completion_tokens: The maximum number of tokens to generate in the completion. If null, will use
+              the model's maximum context length. This is the maximum number of tokens that
+              will be generated.
+
+          presence_penalty: A value between -2.0 and 2.0 that penalizes new tokens based on whether they
+              appear in the text so far. Higher values increase the likelihood of the model
+              talking about new topics.
+
+          response_format: Specifies the format of the model's output. Use "json_schema" to constrain
+              responses to valid JSON matching the provided schema.
+
+          seed: A seed value for deterministic sampling. Using the same seed with the same
+              parameters will generate the same completion.
+
+          stop: One or more sequences where the API will stop generating further tokens. Can be
+              a single string or an array of strings.
+
+          stream: If true, partial message deltas will be sent as server-sent events. Useful for
+              showing progressive generation in real-time.
+
+          temperature: Controls randomness in the model's output. Values between 0 and 2. Lower values
+              make the output more focused and deterministic, higher values make it more
+              random and creative.
+
+          tool_choice: Controls how the model uses tools. "none" disables tools, "auto" lets the model
+              decide, or specify a particular tool configuration.
+
+          tools: A list of tools the model may call. Each tool has a specific function the model
+              can use to achieve specific tasks.
+
+          top_p: An alternative to temperature for controlling randomness. Controls the
+              cumulative probability of tokens to consider. Lower values make output more
+              focused.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -153,6 +197,50 @@ class AsyncChatResource(AsyncAPIResource):
         Create a chat completion (OpenAI compatible).
 
         Args:
+          messages: An array of messages comprising the conversation so far. Must contain at least
+              one message. System messages are only allowed as the first message.
+
+          model: The identifier of the model to use for generating completions. This can be a
+              model ID or an alias.
+
+          frequency_penalty: A value between -2.0 and 2.0 that penalizes new tokens based on their frequency
+              in the text so far. Higher values decrease the likelihood of the model repeating
+              the same tokens.
+
+          max_completion_tokens: The maximum number of tokens to generate in the completion. If null, will use
+              the model's maximum context length. This is the maximum number of tokens that
+              will be generated.
+
+          presence_penalty: A value between -2.0 and 2.0 that penalizes new tokens based on whether they
+              appear in the text so far. Higher values increase the likelihood of the model
+              talking about new topics.
+
+          response_format: Specifies the format of the model's output. Use "json_schema" to constrain
+              responses to valid JSON matching the provided schema.
+
+          seed: A seed value for deterministic sampling. Using the same seed with the same
+              parameters will generate the same completion.
+
+          stop: One or more sequences where the API will stop generating further tokens. Can be
+              a single string or an array of strings.
+
+          stream: If true, partial message deltas will be sent as server-sent events. Useful for
+              showing progressive generation in real-time.
+
+          temperature: Controls randomness in the model's output. Values between 0 and 2. Lower values
+              make the output more focused and deterministic, higher values make it more
+              random and creative.
+
+          tool_choice: Controls how the model uses tools. "none" disables tools, "auto" lets the model
+              decide, or specify a particular tool configuration.
+
+          tools: A list of tools the model may call. Each tool has a specific function the model
+              can use to achieve specific tasks.
+
+          top_p: An alternative to temperature for controlling randomness. Controls the
+              cumulative probability of tokens to consider. Lower values make output more
+              focused.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
