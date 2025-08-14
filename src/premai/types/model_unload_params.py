@@ -9,3 +9,4 @@ __all__ = ["ModelUnloadParams"]
 
 class ModelUnloadParams(TypedDict, total=False):
     model: Required[str]
+    """The ID or alias of the model to load down."""
