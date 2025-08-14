@@ -7,3 +7,4 @@ __all__ = ["ModelCheckStatusResponse"]
 
 class ModelCheckStatusResponse(BaseModel):
     status: bool
+    """Whether the model is running."""

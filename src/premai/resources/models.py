@@ -114,6 +114,8 @@ class ModelsResource(SyncAPIResource):
         memory for faster inference.
 
         Args:
+          model: The ID or alias of the model to load up.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -147,6 +149,8 @@ class ModelsResource(SyncAPIResource):
         Load down a model for inference.
 
         Args:
+          model: The ID or alias of the model to load down.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -258,6 +262,8 @@ class AsyncModelsResource(AsyncAPIResource):
         memory for faster inference.
 
         Args:
+          model: The ID or alias of the model to load up.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -291,6 +297,8 @@ class AsyncModelsResource(AsyncAPIResource):
         Load down a model for inference.
 
         Args:
+          model: The ID or alias of the model to load down.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
