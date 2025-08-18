@@ -33,12 +33,7 @@ client = PremAI(
 )
 
 response = client.chat.completions(
-    messages=[
-        {
-            "content": "content",
-            "role": "system",
-        }
-    ],
+    messages=[{"role": "system"}],
     model="REPLACE_ME",
 )
 print(response.id)
@@ -65,12 +60,7 @@ client = AsyncPremAI(
 
 async def main() -> None:
     response = await client.chat.completions(
-        messages=[
-            {
-                "content": "content",
-                "role": "system",
-            }
-        ],
+        messages=[{"role": "system"}],
         model="REPLACE_ME",
     )
     print(response.id)
@@ -106,12 +96,7 @@ async def main() -> None:
         http_client=DefaultAioHttpClient(),
     ) as client:
         response = await client.chat.completions(
-            messages=[
-                {
-                    "content": "content",
-                    "role": "system",
-                }
-            ],
+            messages=[{"role": "system"}],
             model="REPLACE_ME",
         )
         print(response.id)
@@ -139,12 +124,7 @@ from premai import PremAI
 client = PremAI()
 
 response = client.chat.completions(
-    messages=[
-        {
-            "content": "content",
-            "role": "system",
-        }
-    ],
+    messages=[{"role": "system"}],
     model="model",
     response_format={
         "json_schema": {"foo": "bar"},
@@ -171,12 +151,7 @@ client = PremAI()
 
 try:
     client.chat.completions(
-        messages=[
-            {
-                "content": "content",
-                "role": "system",
-            }
-        ],
+        messages=[{"role": "system"}],
         model="REPLACE_ME",
     )
 except premai.APIConnectionError as e:
@@ -222,12 +197,7 @@ client = PremAI(
 
 # Or, configure per-request:
 client.with_options(max_retries=5).chat.completions(
-    messages=[
-        {
-            "content": "content",
-            "role": "system",
-        }
-    ],
+    messages=[{"role": "system"}],
     model="REPLACE_ME",
 )
 ```
@@ -253,12 +223,7 @@ client = PremAI(
 
 # Override per-request:
 client.with_options(timeout=5.0).chat.completions(
-    messages=[
-        {
-            "content": "content",
-            "role": "system",
-        }
-    ],
+    messages=[{"role": "system"}],
     model="REPLACE_ME",
 )
 ```
@@ -303,8 +268,7 @@ from premai import PremAI
 client = PremAI()
 response = client.chat.with_raw_response.completions(
     messages=[{
-        "content": "content",
-        "role": "system",
+        "role": "system"
     }],
     model="REPLACE_ME",
 )
@@ -326,12 +290,7 @@ To stream the response body, use `.with_streaming_response` instead, which requi
 
 ```python
 with client.chat.with_streaming_response.completions(
-    messages=[
-        {
-            "content": "content",
-            "role": "system",
-        }
-    ],
+    messages=[{"role": "system"}],
     model="REPLACE_ME",
 ) as response:
     print(response.headers.get("X-My-Header"))
