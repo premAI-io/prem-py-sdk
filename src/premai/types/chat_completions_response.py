@@ -5,13 +5,40 @@ from typing_extensions import Literal
 
 from .._models import BaseModel
 
-__all__ = ["ChatCompletionsResponse", "Choice", "ChoiceMessage", "Usage"]
+__all__ = [
+    "ChatCompletionsResponse",
+    "Choice",
+    "ChoiceMessage",
+    "ChoiceMessageToolCall",
+    "ChoiceMessageToolCallFunction",
+    "Usage",
+]
+
+
+class ChoiceMessageToolCallFunction(BaseModel):
+    arguments: str
+
+    name: str
+
+
+class ChoiceMessageToolCall(BaseModel):
+    id: str
+
+    function: ChoiceMessageToolCallFunction
+
+    type: Literal["function"]
 
 
 class ChoiceMessage(BaseModel):
     content: Optional[str] = None
 
-    role: Literal["assistant"]
+    role: Literal["assistant", "tool"]
+
+    name: Optional[str] = None
+
+    tool_call_id: Optional[str] = None
+
+    tool_calls: Optional[List[ChoiceMessageToolCall]] = None
 
 
 class Choice(BaseModel):
