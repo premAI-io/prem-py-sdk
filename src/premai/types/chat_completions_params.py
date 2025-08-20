@@ -5,7 +5,7 @@ from __future__ import annotations
 from typing import Dict, List, Union, Iterable, Optional
 from typing_extensions import Literal, Required, TypedDict
 
-__all__ = ["ChatCompletionsParams", "Message", "ResponseFormat"]
+__all__ = ["ChatCompletionsParams", "Message", "MessageToolCall", "MessageToolCallFunction", "ResponseFormat"]
 
 
 class ChatCompletionsParams(TypedDict, total=False):
@@ -96,20 +96,50 @@ class ChatCompletionsParams(TypedDict, total=False):
     """
 
 
+class MessageToolCallFunction(TypedDict, total=False):
+    arguments: Required[str]
+    """The arguments to pass to the function as a JSON string"""
+
+    name: Required[str]
+    """The name of the function to call"""
+
+
+class MessageToolCall(TypedDict, total=False):
+    id: Required[str]
+    """A unique identifier for this tool call"""
+
+    function: Required[MessageToolCallFunction]
+
+    type: Required[Literal["function"]]
+    """The type of tool call"""
+
+
 class Message(TypedDict, total=False):
-    content: Required[str]
+    role: Required[Literal["system", "user", "assistant", "tool"]]
+    """The role of the message sender.
+
+    "system" is for system-level instructions, "user" represents the end user, and
+    "assistant" represents the AI model's responses.
+    """
+
+    content: Optional[str]
     """The actual text content of the message.
 
     Note that this can be null in certain cases, such as when the message contains
     tool calls or when specific roles don't require content.
     """
 
-    role: Required[Literal["system", "user", "assistant"]]
-    """The role of the message sender.
+    name: str
+    """The name of the function to call, if any."""
 
-    "system" is for system-level instructions, "user" represents the end user, and
-    "assistant" represents the AI model's responses.
+    tool_call_id: str
     """
+    The ID of the tool call that this message is a response to (only for tool role
+    messages)
+    """
+
+    tool_calls: Iterable[MessageToolCall]
+    """Tool calls to be made by the assistant"""
 
 
 class ResponseFormat(TypedDict, total=False):
