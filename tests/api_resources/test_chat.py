@@ -21,12 +21,7 @@ class TestChat:
     @parametrize
     def test_method_completions(self, client: PremAI) -> None:
         chat = client.chat.completions(
-            messages=[
-                {
-                    "content": "content",
-                    "role": "system",
-                }
-            ],
+            messages=[{"role": "system"}],
             model="model",
         )
         assert_matches_type(ChatCompletionsResponse, chat, path=["response"])
@@ -37,8 +32,20 @@ class TestChat:
         chat = client.chat.completions(
             messages=[
                 {
-                    "content": "content",
                     "role": "system",
+                    "content": "content",
+                    "name": "name",
+                    "tool_call_id": "tool_call_id",
+                    "tool_calls": [
+                        {
+                            "id": "id",
+                            "function": {
+                                "arguments": "arguments",
+                                "name": "name",
+                            },
+                            "type": "function",
+                        }
+                    ],
                 }
             ],
             model="model",
@@ -63,12 +70,7 @@ class TestChat:
     @parametrize
     def test_raw_response_completions(self, client: PremAI) -> None:
         response = client.chat.with_raw_response.completions(
-            messages=[
-                {
-                    "content": "content",
-                    "role": "system",
-                }
-            ],
+            messages=[{"role": "system"}],
             model="model",
         )
 
@@ -81,12 +83,7 @@ class TestChat:
     @parametrize
     def test_streaming_response_completions(self, client: PremAI) -> None:
         with client.chat.with_streaming_response.completions(
-            messages=[
-                {
-                    "content": "content",
-                    "role": "system",
-                }
-            ],
+            messages=[{"role": "system"}],
             model="model",
         ) as response:
             assert not response.is_closed
@@ -107,12 +104,7 @@ class TestAsyncChat:
     @parametrize
     async def test_method_completions(self, async_client: AsyncPremAI) -> None:
         chat = await async_client.chat.completions(
-            messages=[
-                {
-                    "content": "content",
-                    "role": "system",
-                }
-            ],
+            messages=[{"role": "system"}],
             model="model",
         )
         assert_matches_type(ChatCompletionsResponse, chat, path=["response"])
@@ -123,8 +115,20 @@ class TestAsyncChat:
         chat = await async_client.chat.completions(
             messages=[
                 {
-                    "content": "content",
                     "role": "system",
+                    "content": "content",
+                    "name": "name",
+                    "tool_call_id": "tool_call_id",
+                    "tool_calls": [
+                        {
+                            "id": "id",
+                            "function": {
+                                "arguments": "arguments",
+                                "name": "name",
+                            },
+                            "type": "function",
+                        }
+                    ],
                 }
             ],
             model="model",
@@ -149,12 +153,7 @@ class TestAsyncChat:
     @parametrize
     async def test_raw_response_completions(self, async_client: AsyncPremAI) -> None:
         response = await async_client.chat.with_raw_response.completions(
-            messages=[
-                {
-                    "content": "content",
-                    "role": "system",
-                }
-            ],
+            messages=[{"role": "system"}],
             model="model",
         )
 
@@ -167,12 +166,7 @@ class TestAsyncChat:
     @parametrize
     async def test_streaming_response_completions(self, async_client: AsyncPremAI) -> None:
         async with async_client.chat.with_streaming_response.completions(
-            messages=[
-                {
-                    "content": "content",
-                    "role": "system",
-                }
-            ],
+            messages=[{"role": "system"}],
             model="model",
         ) as response:
             assert not response.is_closed
