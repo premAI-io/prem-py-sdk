@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.14.1 (2025-08-22)
+
+Full Changelog: [v0.14.0...v0.14.1](https://github.com/premAI-io/prem-py-sdk/compare/v0.14.0...v0.14.1)
+
+### Chores
+
+* update github action ([e9a157a](https://github.com/premAI-io/prem-py-sdk/commit/e9a157a5c0ab3dd6027acda44f231409317f9d44))
+
 ## 0.14.0 (2025-08-21)
 
 Full Changelog: [v0.13.0...v0.14.0](https://github.com/premAI-io/prem-py-sdk/compare/v0.13.0...v0.14.0)
