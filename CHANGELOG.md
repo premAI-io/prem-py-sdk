@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.14.2 (2025-08-26)
+
+Full Changelog: [v0.14.1...v0.14.2](https://github.com/premAI-io/prem-py-sdk/compare/v0.14.1...v0.14.2)
+
+### Chores
+
+* **internal:** change ci workflow machines ([a44432a](https://github.com/premAI-io/prem-py-sdk/commit/a44432adcf6b00315433ae296f2c2479d0832cac))
+
 ## 0.14.1 (2025-08-22)
 
 Full Changelog: [v0.14.0...v0.14.1](https://github.com/premAI-io/prem-py-sdk/compare/v0.14.0...v0.14.1)
