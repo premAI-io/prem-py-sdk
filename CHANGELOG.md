@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.14.3 (2025-08-27)
+
+Full Changelog: [v0.14.2...v0.14.3](https://github.com/premAI-io/prem-py-sdk/compare/v0.14.2...v0.14.3)
+
+### Bug Fixes
+
+* avoid newer type syntax ([a8d8e7d](https://github.com/premAI-io/prem-py-sdk/commit/a8d8e7d6eb26aecfd124d03b4aee8fa456f9d9fa))
+
+
+### Chores
+
+* **internal:** update pyright exclude list ([77a29fb](https://github.com/premAI-io/prem-py-sdk/commit/77a29fbee1fdfe00bd0cea4307f27f42aab9caa9))
+
 ## 0.14.2 (2025-08-26)
 
 Full Changelog: [v0.14.1...v0.14.2](https://github.com/premAI-io/prem-py-sdk/compare/v0.14.1...v0.14.2)
