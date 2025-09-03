@@ -2,8 +2,10 @@
 
 from __future__ import annotations
 
-from typing import Dict, List, Union, Iterable, Optional
+from typing import Dict, Union, Iterable, Optional
 from typing_extensions import Literal, Required, TypedDict
+
+from .._types import SequenceNotStr
 
 __all__ = ["ChatCompletionsParams", "Message", "MessageToolCall", "MessageToolCallFunction", "ResponseFormat"]
 
@@ -56,7 +58,7 @@ class ChatCompletionsParams(TypedDict, total=False):
     Using the same seed with the same parameters will generate the same completion.
     """
 
-    stop: Union[str, List[str]]
+    stop: Union[str, SequenceNotStr[str]]
     """One or more sequences where the API will stop generating further tokens.
 
     Can be a single string or an array of strings.
