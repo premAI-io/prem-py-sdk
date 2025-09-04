@@ -58,7 +58,7 @@ class ChatResource(SyncAPIResource):
         stream: bool | NotGiven = NOT_GIVEN,
         temperature: Optional[float] | NotGiven = NOT_GIVEN,
         tool_choice: Union[Literal["none", "auto"], object] | NotGiven = NOT_GIVEN,
-        tools: Iterable[object] | NotGiven = NOT_GIVEN,
+        tools: Iterable[Optional[object]] | NotGiven = NOT_GIVEN,
         top_p: Optional[float] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -184,7 +184,7 @@ class AsyncChatResource(AsyncAPIResource):
         stream: bool | NotGiven = NOT_GIVEN,
         temperature: Optional[float] | NotGiven = NOT_GIVEN,
         tool_choice: Union[Literal["none", "auto"], object] | NotGiven = NOT_GIVEN,
-        tools: Iterable[object] | NotGiven = NOT_GIVEN,
+        tools: Iterable[Optional[object]] | NotGiven = NOT_GIVEN,
         top_p: Optional[float] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.

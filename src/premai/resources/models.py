@@ -5,7 +5,7 @@ from __future__ import annotations
 import httpx
 
 from ..types import model_load_params, model_unload_params, model_check_status_params
-from .._types import NOT_GIVEN, Body, Query, Headers, NoneType, NotGiven
+from .._types import NOT_GIVEN, Body, Query, Headers, NotGiven
 from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
@@ -17,6 +17,8 @@ from .._response import (
 )
 from .._base_client import make_request_options
 from ..types.model_list_response import ModelListResponse
+from ..types.model_load_response import ModelLoadResponse
+from ..types.model_unload_response import ModelUnloadResponse
 from ..types.model_check_status_response import ModelCheckStatusResponse
 
 __all__ = ["ModelsResource", "AsyncModelsResource"]
@@ -107,15 +109,13 @@ class ModelsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> None:
+    ) -> ModelLoadResponse:
         """Load up a model for inference.
 
         This endpoint requests a model to be loaded into
         memory for faster inference.
 
         Args:
-          model: The ID or alias of the model to load up.
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -124,14 +124,13 @@ class ModelsResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return self._post(
             "/api/v1/models/up",
             body=maybe_transform({"model": model}, model_load_params.ModelLoadParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=NoneType,
+            cast_to=ModelLoadResponse,
         )
 
     def unload(
@@ -144,13 +143,11 @@ class ModelsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> None:
+    ) -> ModelUnloadResponse:
         """
         Load down a model for inference.
 
         Args:
-          model: The ID or alias of the model to load down.
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -159,14 +156,13 @@ class ModelsResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return self._post(
             "/api/v1/models/down",
             body=maybe_transform({"model": model}, model_unload_params.ModelUnloadParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=NoneType,
+            cast_to=ModelUnloadResponse,
         )
 
 
@@ -255,15 +251,13 @@ class AsyncModelsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> None:
+    ) -> ModelLoadResponse:
         """Load up a model for inference.
 
         This endpoint requests a model to be loaded into
         memory for faster inference.
 
         Args:
-          model: The ID or alias of the model to load up.
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -272,14 +266,13 @@ class AsyncModelsResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return await self._post(
             "/api/v1/models/up",
             body=await async_maybe_transform({"model": model}, model_load_params.ModelLoadParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=NoneType,
+            cast_to=ModelLoadResponse,
         )
 
     async def unload(
@@ -292,13 +285,11 @@ class AsyncModelsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> None:
+    ) -> ModelUnloadResponse:
         """
         Load down a model for inference.
 
         Args:
-          model: The ID or alias of the model to load down.
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -307,14 +298,13 @@ class AsyncModelsResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return await self._post(
             "/api/v1/models/down",
             body=await async_maybe_transform({"model": model}, model_unload_params.ModelUnloadParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=NoneType,
+            cast_to=ModelUnloadResponse,
         )
 
 
