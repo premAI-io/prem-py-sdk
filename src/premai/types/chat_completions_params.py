@@ -84,7 +84,7 @@ class ChatCompletionsParams(TypedDict, total=False):
     tool configuration.
     """
 
-    tools: Iterable[object]
+    tools: Iterable[Optional[object]]
     """A list of tools the model may call.
 
     Each tool has a specific function the model can use to achieve specific tasks.
@@ -145,6 +145,6 @@ class Message(TypedDict, total=False):
 
 
 class ResponseFormat(TypedDict, total=False):
-    json_schema: Required[Dict[str, object]]
+    json_schema: Required[Dict[str, Optional[object]]]
 
     type: Required[Literal["text", "json_schema"]]
