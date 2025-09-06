@@ -15,12 +15,17 @@ Methods:
 Types:
 
 ```python
-from premai.types import ModelListResponse, ModelCheckStatusResponse
+from premai.types import (
+    ModelListResponse,
+    ModelCheckStatusResponse,
+    ModelLoadResponse,
+    ModelUnloadResponse,
+)
 ```
 
 Methods:
 
 - <code title="get /api/v1/models">client.models.<a href="./src/premai/resources/models.py">list</a>() -> <a href="./src/premai/types/model_list_response.py">ModelListResponse</a></code>
 - <code title="get /api/v1/models/running">client.models.<a href="./src/premai/resources/models.py">check_status</a>(\*\*<a href="src/premai/types/model_check_status_params.py">params</a>) -> <a href="./src/premai/types/model_check_status_response.py">ModelCheckStatusResponse</a></code>
-- <code title="post /api/v1/models/up">client.models.<a href="./src/premai/resources/models.py">load</a>(\*\*<a href="src/premai/types/model_load_params.py">params</a>) -> None</code>
-- <code title="post /api/v1/models/down">client.models.<a href="./src/premai/resources/models.py">unload</a>(\*\*<a href="src/premai/types/model_unload_params.py">params</a>) -> None</code>
+- <code title="post /api/v1/models/up">client.models.<a href="./src/premai/resources/models.py">load</a>(\*\*<a href="src/premai/types/model_load_params.py">params</a>) -> <a href="./src/premai/types/model_load_response.py">ModelLoadResponse</a></code>
+- <code title="post /api/v1/models/down">client.models.<a href="./src/premai/resources/models.py">unload</a>(\*\*<a href="src/premai/types/model_unload_params.py">params</a>) -> <a href="./src/premai/types/model_unload_response.py">ModelUnloadResponse</a></code>
