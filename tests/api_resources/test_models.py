@@ -11,6 +11,8 @@ from premai import PremAI, AsyncPremAI
 from tests.utils import assert_matches_type
 from premai.types import (
     ModelListResponse,
+    ModelLoadResponse,
+    ModelUnloadResponse,
     ModelCheckStatusResponse,
 )
 
@@ -88,7 +90,7 @@ class TestModels:
         model = client.models.load(
             model="model",
         )
-        assert model is None
+        assert_matches_type(ModelLoadResponse, model, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -100,7 +102,7 @@ class TestModels:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         model = response.parse()
-        assert model is None
+        assert_matches_type(ModelLoadResponse, model, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -112,7 +114,7 @@ class TestModels:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             model = response.parse()
-            assert model is None
+            assert_matches_type(ModelLoadResponse, model, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -122,7 +124,7 @@ class TestModels:
         model = client.models.unload(
             model="model",
         )
-        assert model is None
+        assert_matches_type(ModelUnloadResponse, model, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -134,7 +136,7 @@ class TestModels:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         model = response.parse()
-        assert model is None
+        assert_matches_type(ModelUnloadResponse, model, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -146,7 +148,7 @@ class TestModels:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             model = response.parse()
-            assert model is None
+            assert_matches_type(ModelUnloadResponse, model, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -224,7 +226,7 @@ class TestAsyncModels:
         model = await async_client.models.load(
             model="model",
         )
-        assert model is None
+        assert_matches_type(ModelLoadResponse, model, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -236,7 +238,7 @@ class TestAsyncModels:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         model = await response.parse()
-        assert model is None
+        assert_matches_type(ModelLoadResponse, model, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -248,7 +250,7 @@ class TestAsyncModels:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             model = await response.parse()
-            assert model is None
+            assert_matches_type(ModelLoadResponse, model, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -258,7 +260,7 @@ class TestAsyncModels:
         model = await async_client.models.unload(
             model="model",
         )
-        assert model is None
+        assert_matches_type(ModelUnloadResponse, model, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -270,7 +272,7 @@ class TestAsyncModels:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         model = await response.parse()
-        assert model is None
+        assert_matches_type(ModelUnloadResponse, model, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -282,6 +284,6 @@ class TestAsyncModels:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             model = await response.parse()
-            assert model is None
+            assert_matches_type(ModelUnloadResponse, model, path=["response"])
 
         assert cast(Any, response.is_closed) is True

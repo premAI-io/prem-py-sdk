@@ -2,13 +2,13 @@
 
 from __future__ import annotations
 
-from typing import List, Union, Iterable, Optional
+from typing import Union, Iterable, Optional
 from typing_extensions import Literal
 
 import httpx
 
 from ..types import chat_completions_params
-from .._types import NOT_GIVEN, Body, Query, Headers, NotGiven
+from .._types import NOT_GIVEN, Body, Query, Headers, NotGiven, SequenceNotStr
 from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
@@ -54,11 +54,11 @@ class ChatResource(SyncAPIResource):
         presence_penalty: float | NotGiven = NOT_GIVEN,
         response_format: chat_completions_params.ResponseFormat | NotGiven = NOT_GIVEN,
         seed: int | NotGiven = NOT_GIVEN,
-        stop: Union[str, List[str]] | NotGiven = NOT_GIVEN,
+        stop: Union[str, SequenceNotStr[str]] | NotGiven = NOT_GIVEN,
         stream: bool | NotGiven = NOT_GIVEN,
         temperature: Optional[float] | NotGiven = NOT_GIVEN,
         tool_choice: Union[Literal["none", "auto"], object] | NotGiven = NOT_GIVEN,
-        tools: Iterable[object] | NotGiven = NOT_GIVEN,
+        tools: Iterable[Optional[object]] | NotGiven = NOT_GIVEN,
         top_p: Optional[float] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -180,11 +180,11 @@ class AsyncChatResource(AsyncAPIResource):
         presence_penalty: float | NotGiven = NOT_GIVEN,
         response_format: chat_completions_params.ResponseFormat | NotGiven = NOT_GIVEN,
         seed: int | NotGiven = NOT_GIVEN,
-        stop: Union[str, List[str]] | NotGiven = NOT_GIVEN,
+        stop: Union[str, SequenceNotStr[str]] | NotGiven = NOT_GIVEN,
         stream: bool | NotGiven = NOT_GIVEN,
         temperature: Optional[float] | NotGiven = NOT_GIVEN,
         tool_choice: Union[Literal["none", "auto"], object] | NotGiven = NOT_GIVEN,
-        tools: Iterable[object] | NotGiven = NOT_GIVEN,
+        tools: Iterable[Optional[object]] | NotGiven = NOT_GIVEN,
         top_p: Optional[float] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.

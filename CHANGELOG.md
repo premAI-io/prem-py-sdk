@@ -1,5 +1,21 @@
 # Changelog
 
+## 0.15.0 (2025-09-09)
+
+Full Changelog: [v0.14.4...v0.15.0](https://github.com/premAI-io/prem-py-sdk/compare/v0.14.4...v0.15.0)
+
+### Features
+
+* **api:** api update ([c9f482c](https://github.com/premAI-io/prem-py-sdk/commit/c9f482ccca0c5c5086a0991b93b45c0ae8e7e421))
+* improve future compat with pydantic v3 ([db8be29](https://github.com/premAI-io/prem-py-sdk/commit/db8be29cc21f0c9c5b2b4c6f95030d12e7a89043))
+* **types:** replace List[str] with SequenceNotStr in params ([3a36862](https://github.com/premAI-io/prem-py-sdk/commit/3a368626be70bd089510c0ea57e56fc2d0f6542f))
+
+
+### Chores
+
+* **internal:** move mypy configurations to `pyproject.toml` file ([c660402](https://github.com/premAI-io/prem-py-sdk/commit/c660402898cad51dbd647ececb7424c69ff0bec3))
+* **tests:** simplify `get_platform` test ([499afb7](https://github.com/premAI-io/prem-py-sdk/commit/499afb7161ef3c0fafe6917c4c005e39fa8b9c7e))
+
 ## 0.14.4 (2025-08-30)
 
 Full Changelog: [v0.14.3...v0.14.4](https://github.com/premAI-io/prem-py-sdk/compare/v0.14.3...v0.14.4)
