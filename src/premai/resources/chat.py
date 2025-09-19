@@ -8,7 +8,7 @@ from typing_extensions import Literal
 import httpx
 
 from ..types import chat_completions_params
-from .._types import NOT_GIVEN, Body, Query, Headers, NotGiven, SequenceNotStr
+from .._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
 from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
@@ -49,23 +49,23 @@ class ChatResource(SyncAPIResource):
         *,
         messages: Iterable[chat_completions_params.Message],
         model: str,
-        frequency_penalty: float | NotGiven = NOT_GIVEN,
-        max_completion_tokens: Optional[int] | NotGiven = NOT_GIVEN,
-        presence_penalty: float | NotGiven = NOT_GIVEN,
-        response_format: chat_completions_params.ResponseFormat | NotGiven = NOT_GIVEN,
-        seed: int | NotGiven = NOT_GIVEN,
-        stop: Union[str, SequenceNotStr[str]] | NotGiven = NOT_GIVEN,
-        stream: bool | NotGiven = NOT_GIVEN,
-        temperature: Optional[float] | NotGiven = NOT_GIVEN,
-        tool_choice: Union[Literal["none", "auto"], object] | NotGiven = NOT_GIVEN,
-        tools: Iterable[Optional[object]] | NotGiven = NOT_GIVEN,
-        top_p: Optional[float] | NotGiven = NOT_GIVEN,
+        frequency_penalty: float | Omit = omit,
+        max_completion_tokens: Optional[int] | Omit = omit,
+        presence_penalty: float | Omit = omit,
+        response_format: chat_completions_params.ResponseFormat | Omit = omit,
+        seed: int | Omit = omit,
+        stop: Union[str, SequenceNotStr[str]] | Omit = omit,
+        stream: bool | Omit = omit,
+        temperature: Optional[float] | Omit = omit,
+        tool_choice: Union[Literal["none", "auto"], object] | Omit = omit,
+        tools: Iterable[Optional[object]] | Omit = omit,
+        top_p: Optional[float] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ChatCompletionsResponse:
         """
         Create a chat completion (OpenAI compatible).
@@ -175,23 +175,23 @@ class AsyncChatResource(AsyncAPIResource):
         *,
         messages: Iterable[chat_completions_params.Message],
         model: str,
-        frequency_penalty: float | NotGiven = NOT_GIVEN,
-        max_completion_tokens: Optional[int] | NotGiven = NOT_GIVEN,
-        presence_penalty: float | NotGiven = NOT_GIVEN,
-        response_format: chat_completions_params.ResponseFormat | NotGiven = NOT_GIVEN,
-        seed: int | NotGiven = NOT_GIVEN,
-        stop: Union[str, SequenceNotStr[str]] | NotGiven = NOT_GIVEN,
-        stream: bool | NotGiven = NOT_GIVEN,
-        temperature: Optional[float] | NotGiven = NOT_GIVEN,
-        tool_choice: Union[Literal["none", "auto"], object] | NotGiven = NOT_GIVEN,
-        tools: Iterable[Optional[object]] | NotGiven = NOT_GIVEN,
-        top_p: Optional[float] | NotGiven = NOT_GIVEN,
+        frequency_penalty: float | Omit = omit,
+        max_completion_tokens: Optional[int] | Omit = omit,
+        presence_penalty: float | Omit = omit,
+        response_format: chat_completions_params.ResponseFormat | Omit = omit,
+        seed: int | Omit = omit,
+        stop: Union[str, SequenceNotStr[str]] | Omit = omit,
+        stream: bool | Omit = omit,
+        temperature: Optional[float] | Omit = omit,
+        tool_choice: Union[Literal["none", "auto"], object] | Omit = omit,
+        tools: Iterable[Optional[object]] | Omit = omit,
+        top_p: Optional[float] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ChatCompletionsResponse:
         """
         Create a chat completion (OpenAI compatible).
