@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.15.1 (2025-09-20)
+
+Full Changelog: [v0.15.0...v0.15.1](https://github.com/premAI-io/prem-py-sdk/compare/v0.15.0...v0.15.1)
+
+### Chores
+
+* do not install brew dependencies in ./scripts/bootstrap by default ([7696c06](https://github.com/premAI-io/prem-py-sdk/commit/7696c06da377622ef47ee89049c06171bd2e2baf))
+* **internal:** update pydantic dependency ([54b0be2](https://github.com/premAI-io/prem-py-sdk/commit/54b0be259cc19f17fb2f8055a6a31c3008e9b7d4))
+* **types:** change optional parameter type from NotGiven to Omit ([cbef005](https://github.com/premAI-io/prem-py-sdk/commit/cbef005747acd51dcbef8edf7009cdc1e12c2b9e))
+
 ## 0.15.0 (2025-09-09)
 
 Full Changelog: [v0.14.4...v0.15.0](https://github.com/premAI-io/prem-py-sdk/compare/v0.14.4...v0.15.0)
