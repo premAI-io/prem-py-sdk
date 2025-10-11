@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.15.2 (2025-10-11)
+
+Full Changelog: [v0.15.1...v0.15.2](https://github.com/premAI-io/prem-py-sdk/compare/v0.15.1...v0.15.2)
+
+### Chores
+
+* **internal:** detect missing future annotations with ruff ([2a012e8](https://github.com/premAI-io/prem-py-sdk/commit/2a012e8410627f9249ae4ac1cd1ae5dea419df76))
+
 ## 0.15.1 (2025-09-20)
 
 Full Changelog: [v0.15.0...v0.15.1](https://github.com/premAI-io/prem-py-sdk/compare/v0.15.0...v0.15.1)
