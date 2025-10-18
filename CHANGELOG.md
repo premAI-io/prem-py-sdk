@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.15.3 (2025-10-18)
+
+Full Changelog: [v0.15.2...v0.15.3](https://github.com/premAI-io/prem-py-sdk/compare/v0.15.2...v0.15.3)
+
+### Chores
+
+* bump `httpx-aiohttp` version to 0.1.9 ([23c1654](https://github.com/premAI-io/prem-py-sdk/commit/23c16544deed1e0ae0a09ceaabb16f52314b6927))
+
 ## 0.15.2 (2025-10-11)
 
 Full Changelog: [v0.15.1...v0.15.2](https://github.com/premAI-io/prem-py-sdk/compare/v0.15.1...v0.15.2)
