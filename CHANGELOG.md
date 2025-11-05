@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.15.4 (2025-11-05)
+
+Full Changelog: [v0.15.3...v0.15.4](https://github.com/premAI-io/prem-py-sdk/compare/v0.15.3...v0.15.4)
+
+### Bug Fixes
+
+* **client:** close streams without requiring full consumption ([b011a79](https://github.com/premAI-io/prem-py-sdk/commit/b011a79f54f95e54d4946c03b0309493351c49d1))
+
+
+### Chores
+
+* **internal/tests:** avoid race condition with implicit client cleanup ([c623c95](https://github.com/premAI-io/prem-py-sdk/commit/c623c9576287e80a044354d76c88cfe54486463a))
+* **internal:** grammar fix (it's -&gt; its) ([4b7d8e2](https://github.com/premAI-io/prem-py-sdk/commit/4b7d8e2fca3975b1a2e420b9a8c084fa6c594a15))
+
 ## 0.15.3 (2025-10-18)
 
 Full Changelog: [v0.15.2...v0.15.3](https://github.com/premAI-io/prem-py-sdk/compare/v0.15.2...v0.15.3)
