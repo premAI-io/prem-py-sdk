@@ -1,4 +1,4 @@
-# Prem AI Python API library
+# Prem AI Python API library.
 
 <!-- prettier-ignore -->
 [![PyPI version](https://img.shields.io/pypi/v/premai.svg?label=pypi%20(stable))](https://pypi.org/project/premai/)
