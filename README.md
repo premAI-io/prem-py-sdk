@@ -134,6 +134,25 @@ response = client.chat.completions(
 print(response.response_format)
 ```
 
+## File uploads
+
+Request parameters that correspond to file uploads can be passed as `bytes`, or a [`PathLike`](https://docs.python.org/3/library/os.html#os.PathLike) instance or a tuple of `(filename, contents, media type)`.
+
+```python
+from pathlib import Path
+from premai import PremAI
+
+client = PremAI()
+
+client.datasets.create_from_jsonl(
+    name="x",
+    project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+    file=Path("/path/to/file"),
+)
+```
+
+The async client uses the exact same interface. If you pass a [`PathLike`](https://docs.python.org/3/library/os.html#os.PathLike) instance, the file contents will be read asynchronously automatically.
+
 ## Handling errors
 
 When the library is unable to connect to the API (for example, due to network connection problems or a timeout), a subclass of `premai.APIConnectionError` is raised.
