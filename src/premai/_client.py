@@ -21,7 +21,7 @@ from ._types import (
 )
 from ._utils import is_given, get_async_library
 from ._version import __version__
-from .resources import chat, models
+from .resources import chat, models, datasets, projects, snapshots, finetuning, recommendations
 from ._streaming import Stream as Stream, AsyncStream as AsyncStream
 from ._exceptions import PremAIError, APIStatusError
 from ._base_client import (
@@ -36,6 +36,11 @@ __all__ = ["Timeout", "Transport", "ProxiesTypes", "RequestOptions", "PremAI", "
 class PremAI(SyncAPIClient):
     chat: chat.ChatResource
     models: models.ModelsResource
+    projects: projects.ProjectsResource
+    datasets: datasets.DatasetsResource
+    snapshots: snapshots.SnapshotsResource
+    recommendations: recommendations.RecommendationsResource
+    finetuning: finetuning.FinetuningResource
     with_raw_response: PremAIWithRawResponse
     with_streaming_response: PremAIWithStreamedResponse
 
@@ -80,7 +85,7 @@ class PremAI(SyncAPIClient):
         if base_url is None:
             base_url = os.environ.get("PREM_AI_BASE_URL")
         if base_url is None:
-            base_url = f"https://studio.premai.io"
+            base_url = f"http://localhost:3000"
 
         super().__init__(
             version=__version__,
@@ -95,6 +100,11 @@ class PremAI(SyncAPIClient):
 
         self.chat = chat.ChatResource(self)
         self.models = models.ModelsResource(self)
+        self.projects = projects.ProjectsResource(self)
+        self.datasets = datasets.DatasetsResource(self)
+        self.snapshots = snapshots.SnapshotsResource(self)
+        self.recommendations = recommendations.RecommendationsResource(self)
+        self.finetuning = finetuning.FinetuningResource(self)
         self.with_raw_response = PremAIWithRawResponse(self)
         self.with_streaming_response = PremAIWithStreamedResponse(self)
 
@@ -206,6 +216,11 @@ class PremAI(SyncAPIClient):
 class AsyncPremAI(AsyncAPIClient):
     chat: chat.AsyncChatResource
     models: models.AsyncModelsResource
+    projects: projects.AsyncProjectsResource
+    datasets: datasets.AsyncDatasetsResource
+    snapshots: snapshots.AsyncSnapshotsResource
+    recommendations: recommendations.AsyncRecommendationsResource
+    finetuning: finetuning.AsyncFinetuningResource
     with_raw_response: AsyncPremAIWithRawResponse
     with_streaming_response: AsyncPremAIWithStreamedResponse
 
@@ -250,7 +265,7 @@ class AsyncPremAI(AsyncAPIClient):
         if base_url is None:
             base_url = os.environ.get("PREM_AI_BASE_URL")
         if base_url is None:
-            base_url = f"https://studio.premai.io"
+            base_url = f"http://localhost:3000"
 
         super().__init__(
             version=__version__,
@@ -265,6 +280,11 @@ class AsyncPremAI(AsyncAPIClient):
 
         self.chat = chat.AsyncChatResource(self)
         self.models = models.AsyncModelsResource(self)
+        self.projects = projects.AsyncProjectsResource(self)
+        self.datasets = datasets.AsyncDatasetsResource(self)
+        self.snapshots = snapshots.AsyncSnapshotsResource(self)
+        self.recommendations = recommendations.AsyncRecommendationsResource(self)
+        self.finetuning = finetuning.AsyncFinetuningResource(self)
         self.with_raw_response = AsyncPremAIWithRawResponse(self)
         self.with_streaming_response = AsyncPremAIWithStreamedResponse(self)
 
@@ -377,24 +397,44 @@ class PremAIWithRawResponse:
     def __init__(self, client: PremAI) -> None:
         self.chat = chat.ChatResourceWithRawResponse(client.chat)
         self.models = models.ModelsResourceWithRawResponse(client.models)
+        self.projects = projects.ProjectsResourceWithRawResponse(client.projects)
+        self.datasets = datasets.DatasetsResourceWithRawResponse(client.datasets)
+        self.snapshots = snapshots.SnapshotsResourceWithRawResponse(client.snapshots)
+        self.recommendations = recommendations.RecommendationsResourceWithRawResponse(client.recommendations)
+        self.finetuning = finetuning.FinetuningResourceWithRawResponse(client.finetuning)
 
 
 class AsyncPremAIWithRawResponse:
     def __init__(self, client: AsyncPremAI) -> None:
         self.chat = chat.AsyncChatResourceWithRawResponse(client.chat)
         self.models = models.AsyncModelsResourceWithRawResponse(client.models)
+        self.projects = projects.AsyncProjectsResourceWithRawResponse(client.projects)
+        self.datasets = datasets.AsyncDatasetsResourceWithRawResponse(client.datasets)
+        self.snapshots = snapshots.AsyncSnapshotsResourceWithRawResponse(client.snapshots)
+        self.recommendations = recommendations.AsyncRecommendationsResourceWithRawResponse(client.recommendations)
+        self.finetuning = finetuning.AsyncFinetuningResourceWithRawResponse(client.finetuning)
 
 
 class PremAIWithStreamedResponse:
     def __init__(self, client: PremAI) -> None:
         self.chat = chat.ChatResourceWithStreamingResponse(client.chat)
         self.models = models.ModelsResourceWithStreamingResponse(client.models)
+        self.projects = projects.ProjectsResourceWithStreamingResponse(client.projects)
+        self.datasets = datasets.DatasetsResourceWithStreamingResponse(client.datasets)
+        self.snapshots = snapshots.SnapshotsResourceWithStreamingResponse(client.snapshots)
+        self.recommendations = recommendations.RecommendationsResourceWithStreamingResponse(client.recommendations)
+        self.finetuning = finetuning.FinetuningResourceWithStreamingResponse(client.finetuning)
 
 
 class AsyncPremAIWithStreamedResponse:
     def __init__(self, client: AsyncPremAI) -> None:
         self.chat = chat.AsyncChatResourceWithStreamingResponse(client.chat)
         self.models = models.AsyncModelsResourceWithStreamingResponse(client.models)
+        self.projects = projects.AsyncProjectsResourceWithStreamingResponse(client.projects)
+        self.datasets = datasets.AsyncDatasetsResourceWithStreamingResponse(client.datasets)
+        self.snapshots = snapshots.AsyncSnapshotsResourceWithStreamingResponse(client.snapshots)
+        self.recommendations = recommendations.AsyncRecommendationsResourceWithStreamingResponse(client.recommendations)
+        self.finetuning = finetuning.AsyncFinetuningResourceWithStreamingResponse(client.finetuning)
 
 
 Client = PremAI
