@@ -88,7 +88,7 @@ from premai.types import RecommendationGenerateResponse, RecommendationGetRespon
 Methods:
 
 - <code title="post /api/v1/public/recommendations/generate">client.recommendations.<a href="./src/premai/resources/recommendations.py">generate</a>(\*\*<a href="src/premai/types/recommendation_generate_params.py">params</a>) -> <a href="./src/premai/types/recommendation_generate_response.py">RecommendationGenerateResponse</a></code>
-- <code title="get /api/v1/public/recommendations/{snapshotId}">client.recommendations.<a href="./src/premai/resources/recommendations.py">get</a>(snapshot_id, \*\*<a href="src/premai/types/recommendation_get_params.py">params</a>) -> <a href="./src/premai/types/recommendation_get_response.py">RecommendationGetResponse</a></code>
+- <code title="get /api/v1/public/recommendations/{snapshotId}">client.recommendations.<a href="./src/premai/resources/recommendations.py">get</a>(snapshot_id) -> <a href="./src/premai/types/recommendation_get_response.py">RecommendationGetResponse</a></code>
 
 # Finetuning
 

@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 
-from typing import Optional
 from typing_extensions import Required, TypedDict
 
 __all__ = ["RecommendationGenerateParams"]
@@ -10,6 +9,3 @@ __all__ = ["RecommendationGenerateParams"]
 
 class RecommendationGenerateParams(TypedDict, total=False):
     snapshot_id: Required[str]
-
-    reasoning: Optional[bool]
-    """false for standard models, true for reasoning models"""

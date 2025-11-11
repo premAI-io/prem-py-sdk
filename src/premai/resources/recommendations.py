@@ -2,13 +2,10 @@
 
 from __future__ import annotations
 
-from typing import Optional
-from typing_extensions import Literal
-
 import httpx
 
-from ..types import recommendation_get_params, recommendation_generate_params
-from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
+from ..types import recommendation_generate_params
+from .._types import Body, Query, Headers, NotGiven, not_given
 from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
@@ -49,7 +46,6 @@ class RecommendationsResource(SyncAPIResource):
         self,
         *,
         snapshot_id: str,
-        reasoning: Optional[bool] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -61,8 +57,6 @@ class RecommendationsResource(SyncAPIResource):
         Generate model recommendations for a snapshot
 
         Args:
-          reasoning: false for standard models, true for reasoning models
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -74,11 +68,7 @@ class RecommendationsResource(SyncAPIResource):
         return self._post(
             "/api/v1/public/recommendations/generate",
             body=maybe_transform(
-                {
-                    "snapshot_id": snapshot_id,
-                    "reasoning": reasoning,
-                },
-                recommendation_generate_params.RecommendationGenerateParams,
+                {"snapshot_id": snapshot_id}, recommendation_generate_params.RecommendationGenerateParams
             ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
@@ -90,7 +80,6 @@ class RecommendationsResource(SyncAPIResource):
         self,
         snapshot_id: str,
         *,
-        reasoning: Literal["true", "false"] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -115,11 +104,7 @@ class RecommendationsResource(SyncAPIResource):
         return self._get(
             f"/api/v1/public/recommendations/{snapshot_id}",
             options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=maybe_transform({"reasoning": reasoning}, recommendation_get_params.RecommendationGetParams),
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=RecommendationGetResponse,
         )
@@ -149,7 +134,6 @@ class AsyncRecommendationsResource(AsyncAPIResource):
         self,
         *,
         snapshot_id: str,
-        reasoning: Optional[bool] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -161,8 +145,6 @@ class AsyncRecommendationsResource(AsyncAPIResource):
         Generate model recommendations for a snapshot
 
         Args:
-          reasoning: false for standard models, true for reasoning models
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -174,11 +156,7 @@ class AsyncRecommendationsResource(AsyncAPIResource):
         return await self._post(
             "/api/v1/public/recommendations/generate",
             body=await async_maybe_transform(
-                {
-                    "snapshot_id": snapshot_id,
-                    "reasoning": reasoning,
-                },
-                recommendation_generate_params.RecommendationGenerateParams,
+                {"snapshot_id": snapshot_id}, recommendation_generate_params.RecommendationGenerateParams
             ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
@@ -190,7 +168,6 @@ class AsyncRecommendationsResource(AsyncAPIResource):
         self,
         snapshot_id: str,
         *,
-        reasoning: Literal["true", "false"] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -215,13 +192,7 @@ class AsyncRecommendationsResource(AsyncAPIResource):
         return await self._get(
             f"/api/v1/public/recommendations/{snapshot_id}",
             options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=await async_maybe_transform(
-                    {"reasoning": reasoning}, recommendation_get_params.RecommendationGetParams
-                ),
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=RecommendationGetResponse,
         )

@@ -2,12 +2,12 @@
 
 from __future__ import annotations
 
-from typing import Iterable, Optional
+from typing import Iterable
 
 import httpx
 
 from ..types import finetuning_create_params
-from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
+from .._types import Body, Query, Headers, NotGiven, not_given
 from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
@@ -50,7 +50,6 @@ class FinetuningResource(SyncAPIResource):
         experiments: Iterable[finetuning_create_params.Experiment],
         name: str,
         snapshot_id: str,
-        reasoning: Optional[bool] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -77,7 +76,6 @@ class FinetuningResource(SyncAPIResource):
                     "experiments": experiments,
                     "name": name,
                     "snapshot_id": snapshot_id,
-                    "reasoning": reasoning,
                 },
                 finetuning_create_params.FinetuningCreateParams,
             ),
@@ -147,7 +145,6 @@ class AsyncFinetuningResource(AsyncAPIResource):
         experiments: Iterable[finetuning_create_params.Experiment],
         name: str,
         snapshot_id: str,
-        reasoning: Optional[bool] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -174,7 +171,6 @@ class AsyncFinetuningResource(AsyncAPIResource):
                     "experiments": experiments,
                     "name": name,
                     "snapshot_id": snapshot_id,
-                    "reasoning": reasoning,
                 },
                 finetuning_create_params.FinetuningCreateParams,
             ),

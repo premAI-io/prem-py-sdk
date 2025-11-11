@@ -37,8 +37,6 @@ class FinetuningGetResponse(BaseModel):
 
     name: str
 
-    reasoning: bool
-
     snapshot_id: str
 
     status: Literal["processing", "completed", "failed"]

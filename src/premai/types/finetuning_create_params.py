@@ -15,8 +15,6 @@ class FinetuningCreateParams(TypedDict, total=False):
 
     snapshot_id: Required[str]
 
-    reasoning: Optional[bool]
-
 
 class Experiment(TypedDict, total=False):
     base_model_id: Required[str]

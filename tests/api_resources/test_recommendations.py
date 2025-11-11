@@ -9,10 +9,7 @@ import pytest
 
 from premai import PremAI, AsyncPremAI
 from tests.utils import assert_matches_type
-from premai.types import (
-    RecommendationGetResponse,
-    RecommendationGenerateResponse,
-)
+from premai.types import RecommendationGetResponse, RecommendationGenerateResponse
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
@@ -25,15 +22,6 @@ class TestRecommendations:
     def test_method_generate(self, client: PremAI) -> None:
         recommendation = client.recommendations.generate(
             snapshot_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-        )
-        assert_matches_type(RecommendationGenerateResponse, recommendation, path=["response"])
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    def test_method_generate_with_all_params(self, client: PremAI) -> None:
-        recommendation = client.recommendations.generate(
-            snapshot_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            reasoning=True,
         )
         assert_matches_type(RecommendationGenerateResponse, recommendation, path=["response"])
 
@@ -67,16 +55,7 @@ class TestRecommendations:
     @parametrize
     def test_method_get(self, client: PremAI) -> None:
         recommendation = client.recommendations.get(
-            snapshot_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-        )
-        assert_matches_type(RecommendationGetResponse, recommendation, path=["response"])
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    def test_method_get_with_all_params(self, client: PremAI) -> None:
-        recommendation = client.recommendations.get(
-            snapshot_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            reasoning="true",
+            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
         assert_matches_type(RecommendationGetResponse, recommendation, path=["response"])
 
@@ -84,7 +63,7 @@ class TestRecommendations:
     @parametrize
     def test_raw_response_get(self, client: PremAI) -> None:
         response = client.recommendations.with_raw_response.get(
-            snapshot_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
 
         assert response.is_closed is True
@@ -96,7 +75,7 @@ class TestRecommendations:
     @parametrize
     def test_streaming_response_get(self, client: PremAI) -> None:
         with client.recommendations.with_streaming_response.get(
-            snapshot_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -111,7 +90,7 @@ class TestRecommendations:
     def test_path_params_get(self, client: PremAI) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `snapshot_id` but received ''"):
             client.recommendations.with_raw_response.get(
-                snapshot_id="",
+                "",
             )
 
 
@@ -125,15 +104,6 @@ class TestAsyncRecommendations:
     async def test_method_generate(self, async_client: AsyncPremAI) -> None:
         recommendation = await async_client.recommendations.generate(
             snapshot_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-        )
-        assert_matches_type(RecommendationGenerateResponse, recommendation, path=["response"])
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    async def test_method_generate_with_all_params(self, async_client: AsyncPremAI) -> None:
-        recommendation = await async_client.recommendations.generate(
-            snapshot_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            reasoning=True,
         )
         assert_matches_type(RecommendationGenerateResponse, recommendation, path=["response"])
 
@@ -167,16 +137,7 @@ class TestAsyncRecommendations:
     @parametrize
     async def test_method_get(self, async_client: AsyncPremAI) -> None:
         recommendation = await async_client.recommendations.get(
-            snapshot_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-        )
-        assert_matches_type(RecommendationGetResponse, recommendation, path=["response"])
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    async def test_method_get_with_all_params(self, async_client: AsyncPremAI) -> None:
-        recommendation = await async_client.recommendations.get(
-            snapshot_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            reasoning="true",
+            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
         assert_matches_type(RecommendationGetResponse, recommendation, path=["response"])
 
@@ -184,7 +145,7 @@ class TestAsyncRecommendations:
     @parametrize
     async def test_raw_response_get(self, async_client: AsyncPremAI) -> None:
         response = await async_client.recommendations.with_raw_response.get(
-            snapshot_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
 
         assert response.is_closed is True
@@ -196,7 +157,7 @@ class TestAsyncRecommendations:
     @parametrize
     async def test_streaming_response_get(self, async_client: AsyncPremAI) -> None:
         async with async_client.recommendations.with_streaming_response.get(
-            snapshot_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -211,5 +172,5 @@ class TestAsyncRecommendations:
     async def test_path_params_get(self, async_client: AsyncPremAI) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `snapshot_id` but received ''"):
             await async_client.recommendations.with_raw_response.get(
-                snapshot_id="",
+                "",
             )

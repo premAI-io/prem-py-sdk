@@ -19,7 +19,6 @@ from .snapshot_create_response import SnapshotCreateResponse as SnapshotCreateRe
 from .chat_completions_response import ChatCompletionsResponse as ChatCompletionsResponse
 from .model_check_status_params import ModelCheckStatusParams as ModelCheckStatusParams
 from .project_get_tree_response import ProjectGetTreeResponse as ProjectGetTreeResponse
-from .recommendation_get_params import RecommendationGetParams as RecommendationGetParams
 from .finetuning_create_response import FinetuningCreateResponse as FinetuningCreateResponse
 from .model_check_status_response import ModelCheckStatusResponse as ModelCheckStatusResponse
 from .recommendation_get_response import RecommendationGetResponse as RecommendationGetResponse

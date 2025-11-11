@@ -60,6 +60,11 @@ class SnapshotsResource(SyncAPIResource):
         Create snapshot from dataset with train/validation split
 
         Args:
+          dataset_id: Dataset ID to snapshot. The dataset must belong to the authenticated workspace.
+
+          split_percentage: Percentage of datapoints to assign to training. Remaining datapoints go to
+              validation.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -88,8 +93,8 @@ class SnapshotsResource(SyncAPIResource):
         *,
         label: str,
         project_id: str,
-        training_file: FileTypes | Omit = omit,
-        validation_file: FileTypes | Omit = omit,
+        training_file: FileTypes,
+        validation_file: FileTypes,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -101,9 +106,15 @@ class SnapshotsResource(SyncAPIResource):
         Create snapshot from separate training and validation files
 
         Args:
-          training_file: JSONL training file
+          label: Snapshot name shown in the dashboard once the snapshot is created.
 
-          validation_file: JSONL validation file
+          project_id: Project ID that will own the generated snapshot. Must match an existing project.
+
+          training_file: Required JSONL training file. Upload line-delimited messages that will form the
+              training split.
+
+          validation_file: Required JSONL validation file. Upload line-delimited messages reserved for
+              validation.
 
           extra_headers: Send extra headers
 
@@ -173,6 +184,11 @@ class AsyncSnapshotsResource(AsyncAPIResource):
         Create snapshot from dataset with train/validation split
 
         Args:
+          dataset_id: Dataset ID to snapshot. The dataset must belong to the authenticated workspace.
+
+          split_percentage: Percentage of datapoints to assign to training. Remaining datapoints go to
+              validation.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -201,8 +217,8 @@ class AsyncSnapshotsResource(AsyncAPIResource):
         *,
         label: str,
         project_id: str,
-        training_file: FileTypes | Omit = omit,
-        validation_file: FileTypes | Omit = omit,
+        training_file: FileTypes,
+        validation_file: FileTypes,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -214,9 +230,15 @@ class AsyncSnapshotsResource(AsyncAPIResource):
         Create snapshot from separate training and validation files
 
         Args:
-          training_file: JSONL training file
+          label: Snapshot name shown in the dashboard once the snapshot is created.
 
-          validation_file: JSONL validation file
+          project_id: Project ID that will own the generated snapshot. Must match an existing project.
+
+          training_file: Required JSONL training file. Upload line-delimited messages that will form the
+              training split.
+
+          validation_file: Required JSONL validation file. Upload line-delimited messages reserved for
+              validation.
 
           extra_headers: Send extra headers
 
