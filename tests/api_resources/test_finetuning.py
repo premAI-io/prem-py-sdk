@@ -36,25 +36,6 @@ class TestFinetuning:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_method_create_with_all_params(self, client: PremAI) -> None:
-        finetuning = client.finetuning.create(
-            experiments=[
-                {
-                    "base_model_id": "base_model_id",
-                    "batch_size": 1,
-                    "learning_rate_multiplier": 1,
-                    "n_epochs": 1,
-                    "lora": True,
-                }
-            ],
-            name="x",
-            snapshot_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            reasoning=True,
-        )
-        assert_matches_type(FinetuningCreateResponse, finetuning, path=["response"])
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
     def test_raw_response_create(self, client: PremAI) -> None:
         response = client.finetuning.with_raw_response.create(
             experiments=[
@@ -159,25 +140,6 @@ class TestAsyncFinetuning:
             ],
             name="x",
             snapshot_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-        )
-        assert_matches_type(FinetuningCreateResponse, finetuning, path=["response"])
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    async def test_method_create_with_all_params(self, async_client: AsyncPremAI) -> None:
-        finetuning = await async_client.finetuning.create(
-            experiments=[
-                {
-                    "base_model_id": "base_model_id",
-                    "batch_size": 1,
-                    "learning_rate_multiplier": 1,
-                    "n_epochs": 1,
-                    "lora": True,
-                }
-            ],
-            name="x",
-            snapshot_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            reasoning=True,
         )
         assert_matches_type(FinetuningCreateResponse, finetuning, path=["response"])
 

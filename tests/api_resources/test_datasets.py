@@ -107,18 +107,9 @@ class TestDatasets:
     @parametrize
     def test_method_create_from_jsonl(self, client: PremAI) -> None:
         dataset = client.datasets.create_from_jsonl(
-            name="x",
-            project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-        )
-        assert_matches_type(DatasetCreateFromJSONLResponse, dataset, path=["response"])
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    def test_method_create_from_jsonl_with_all_params(self, client: PremAI) -> None:
-        dataset = client.datasets.create_from_jsonl(
-            name="x",
-            project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             file=b"raw file contents",
+            name="x",
+            project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
         assert_matches_type(DatasetCreateFromJSONLResponse, dataset, path=["response"])
 
@@ -126,6 +117,7 @@ class TestDatasets:
     @parametrize
     def test_raw_response_create_from_jsonl(self, client: PremAI) -> None:
         response = client.datasets.with_raw_response.create_from_jsonl(
+            file=b"raw file contents",
             name="x",
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
@@ -139,6 +131,7 @@ class TestDatasets:
     @parametrize
     def test_streaming_response_create_from_jsonl(self, client: PremAI) -> None:
         with client.datasets.with_streaming_response.create_from_jsonl(
+            file=b"raw file contents",
             name="x",
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         ) as response:
@@ -167,14 +160,13 @@ class TestDatasets:
             name="x",
             pairs_to_generate=1,
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            chunk_size=1000,
+            answer_format="answer_format",
+            example_answers=["string"],
+            example_questions=["string"],
             files=[b"raw file contents"],
-            pair_type="qa",
-            question_answer_guidance="question_answer_guidance",
-            rules_and_constraints="rules_and_constraints",
-            system_prompt="system_prompt",
+            question_format="question_format",
+            rules=["string"],
             temperature=0,
-            user_instructions="user_instructions",
             website_urls=["https://example.com"],
             youtube_urls=["https://example.com"],
         )
@@ -343,18 +335,9 @@ class TestAsyncDatasets:
     @parametrize
     async def test_method_create_from_jsonl(self, async_client: AsyncPremAI) -> None:
         dataset = await async_client.datasets.create_from_jsonl(
-            name="x",
-            project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-        )
-        assert_matches_type(DatasetCreateFromJSONLResponse, dataset, path=["response"])
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    async def test_method_create_from_jsonl_with_all_params(self, async_client: AsyncPremAI) -> None:
-        dataset = await async_client.datasets.create_from_jsonl(
-            name="x",
-            project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             file=b"raw file contents",
+            name="x",
+            project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
         assert_matches_type(DatasetCreateFromJSONLResponse, dataset, path=["response"])
 
@@ -362,6 +345,7 @@ class TestAsyncDatasets:
     @parametrize
     async def test_raw_response_create_from_jsonl(self, async_client: AsyncPremAI) -> None:
         response = await async_client.datasets.with_raw_response.create_from_jsonl(
+            file=b"raw file contents",
             name="x",
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
@@ -375,6 +359,7 @@ class TestAsyncDatasets:
     @parametrize
     async def test_streaming_response_create_from_jsonl(self, async_client: AsyncPremAI) -> None:
         async with async_client.datasets.with_streaming_response.create_from_jsonl(
+            file=b"raw file contents",
             name="x",
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         ) as response:
@@ -403,14 +388,13 @@ class TestAsyncDatasets:
             name="x",
             pairs_to_generate=1,
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            chunk_size=1000,
+            answer_format="answer_format",
+            example_answers=["string"],
+            example_questions=["string"],
             files=[b"raw file contents"],
-            pair_type="qa",
-            question_answer_guidance="question_answer_guidance",
-            rules_and_constraints="rules_and_constraints",
-            system_prompt="system_prompt",
+            question_format="question_format",
+            rules=["string"],
             temperature=0,
-            user_instructions="user_instructions",
             website_urls=["https://example.com"],
             youtube_urls=["https://example.com"],
         )

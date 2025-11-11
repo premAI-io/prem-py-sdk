@@ -92,9 +92,9 @@ class DatasetsResource(SyncAPIResource):
     def create_from_jsonl(
         self,
         *,
+        file: FileTypes,
         name: str,
         project_id: str,
-        file: FileTypes | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -102,11 +102,17 @@ class DatasetsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> DatasetCreateFromJSONLResponse:
-        """
-        Create dataset from JSONL file
+        """Create dataset from JSONL file
 
         Args:
-          file: JSONL file
+          file: Required JSONL upload.
+
+        Each line should be a JSON object containing a "messages"
+              array (system/user/assistant) used to seed the dataset.
+
+          name: Human-readable name shown in the dashboard once the dataset is created.
+
+          project_id: Project ID that will own the dataset. Must match a project you created.
 
           extra_headers: Send extra headers
 
@@ -118,9 +124,9 @@ class DatasetsResource(SyncAPIResource):
         """
         body = deepcopy_minimal(
             {
+                "file": file,
                 "name": name,
                 "project_id": project_id,
-                "file": file,
             }
         )
         files = extract_files(cast(Mapping[str, object], body), paths=[["file"]])
@@ -144,14 +150,13 @@ class DatasetsResource(SyncAPIResource):
         name: str,
         pairs_to_generate: int,
         project_id: str,
-        chunk_size: int | Omit = omit,
+        answer_format: str | Omit = omit,
+        example_answers: SequenceNotStr[str] | Omit = omit,
+        example_questions: SequenceNotStr[str] | Omit = omit,
         files: SequenceNotStr[FileTypes] | Omit = omit,
-        pair_type: Literal["qa", "cot", "summary"] | Omit = omit,
-        question_answer_guidance: str | Omit = omit,
-        rules_and_constraints: str | Omit = omit,
-        system_prompt: str | Omit = omit,
+        question_format: str | Omit = omit,
+        rules: SequenceNotStr[str] | Omit = omit,
         temperature: Optional[float] | Omit = omit,
-        user_instructions: str | Omit = omit,
         website_urls: SequenceNotStr[str] | Omit = omit,
         youtube_urls: SequenceNotStr[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -165,25 +170,23 @@ class DatasetsResource(SyncAPIResource):
         Create synthetic dataset
 
         Args:
-          chunk_size: Text chunk size for processing
+          answer_format: Answer format template
+
+          example_answers: Example answers
+
+          example_questions: Example questions
 
           files: Optional: PDF, DOCX, etc.
 
-          pair_type: Type of pairs to generate
+          question_format: Question format template
 
-          question_answer_guidance: Focus on...
-
-          rules_and_constraints: Avoid...
-
-          system_prompt: You are a helpful assistant...
+          rules: Array of rules and constraints
 
           temperature: 0.0-1.0, controls randomness
 
-          user_instructions: Generate Q&A pairs about...
+          website_urls: Array of website URLs
 
-          website_urls: Website URLs as array
-
-          youtube_urls: YouTube URLs as array
+          youtube_urls: Array of YouTube URLs
 
           extra_headers: Send extra headers
 
@@ -198,14 +201,13 @@ class DatasetsResource(SyncAPIResource):
                 "name": name,
                 "pairs_to_generate": pairs_to_generate,
                 "project_id": project_id,
-                "chunk_size": chunk_size,
+                "answer_format": answer_format,
+                "example_answers": example_answers,
+                "example_questions": example_questions,
                 "files": files,
-                "pair_type": pair_type,
-                "question_answer_guidance": question_answer_guidance,
-                "rules_and_constraints": rules_and_constraints,
-                "system_prompt": system_prompt,
+                "question_format": question_format,
+                "rules": rules,
                 "temperature": temperature,
-                "user_instructions": user_instructions,
                 "website_urls": website_urls,
                 "youtube_urls": youtube_urls,
             }
@@ -324,9 +326,9 @@ class AsyncDatasetsResource(AsyncAPIResource):
     async def create_from_jsonl(
         self,
         *,
+        file: FileTypes,
         name: str,
         project_id: str,
-        file: FileTypes | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -334,11 +336,17 @@ class AsyncDatasetsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> DatasetCreateFromJSONLResponse:
-        """
-        Create dataset from JSONL file
+        """Create dataset from JSONL file
 
         Args:
-          file: JSONL file
+          file: Required JSONL upload.
+
+        Each line should be a JSON object containing a "messages"
+              array (system/user/assistant) used to seed the dataset.
+
+          name: Human-readable name shown in the dashboard once the dataset is created.
+
+          project_id: Project ID that will own the dataset. Must match a project you created.
 
           extra_headers: Send extra headers
 
@@ -350,9 +358,9 @@ class AsyncDatasetsResource(AsyncAPIResource):
         """
         body = deepcopy_minimal(
             {
+                "file": file,
                 "name": name,
                 "project_id": project_id,
-                "file": file,
             }
         )
         files = extract_files(cast(Mapping[str, object], body), paths=[["file"]])
@@ -376,14 +384,13 @@ class AsyncDatasetsResource(AsyncAPIResource):
         name: str,
         pairs_to_generate: int,
         project_id: str,
-        chunk_size: int | Omit = omit,
+        answer_format: str | Omit = omit,
+        example_answers: SequenceNotStr[str] | Omit = omit,
+        example_questions: SequenceNotStr[str] | Omit = omit,
         files: SequenceNotStr[FileTypes] | Omit = omit,
-        pair_type: Literal["qa", "cot", "summary"] | Omit = omit,
-        question_answer_guidance: str | Omit = omit,
-        rules_and_constraints: str | Omit = omit,
-        system_prompt: str | Omit = omit,
+        question_format: str | Omit = omit,
+        rules: SequenceNotStr[str] | Omit = omit,
         temperature: Optional[float] | Omit = omit,
-        user_instructions: str | Omit = omit,
         website_urls: SequenceNotStr[str] | Omit = omit,
         youtube_urls: SequenceNotStr[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -397,25 +404,23 @@ class AsyncDatasetsResource(AsyncAPIResource):
         Create synthetic dataset
 
         Args:
-          chunk_size: Text chunk size for processing
+          answer_format: Answer format template
+
+          example_answers: Example answers
+
+          example_questions: Example questions
 
           files: Optional: PDF, DOCX, etc.
 
-          pair_type: Type of pairs to generate
+          question_format: Question format template
 
-          question_answer_guidance: Focus on...
-
-          rules_and_constraints: Avoid...
-
-          system_prompt: You are a helpful assistant...
+          rules: Array of rules and constraints
 
           temperature: 0.0-1.0, controls randomness
 
-          user_instructions: Generate Q&A pairs about...
+          website_urls: Array of website URLs
 
-          website_urls: Website URLs as array
-
-          youtube_urls: YouTube URLs as array
+          youtube_urls: Array of YouTube URLs
 
           extra_headers: Send extra headers
 
@@ -430,14 +435,13 @@ class AsyncDatasetsResource(AsyncAPIResource):
                 "name": name,
                 "pairs_to_generate": pairs_to_generate,
                 "project_id": project_id,
-                "chunk_size": chunk_size,
+                "answer_format": answer_format,
+                "example_answers": example_answers,
+                "example_questions": example_questions,
                 "files": files,
-                "pair_type": pair_type,
-                "question_answer_guidance": question_answer_guidance,
-                "rules_and_constraints": rules_and_constraints,
-                "system_prompt": system_prompt,
+                "question_format": question_format,
+                "rules": rules,
                 "temperature": temperature,
-                "user_instructions": user_instructions,
                 "website_urls": website_urls,
                 "youtube_urls": youtube_urls,
             }

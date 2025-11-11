@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from typing import Optional
-from typing_extensions import Literal, Required, TypedDict
+from typing_extensions import Required, TypedDict
 
 from .._types import FileTypes, SequenceNotStr
 
@@ -17,32 +17,29 @@ class DatasetCreateSyntheticParams(TypedDict, total=False):
 
     project_id: Required[str]
 
-    chunk_size: int
-    """Text chunk size for processing"""
+    answer_format: str
+    """Answer format template"""
+
+    example_answers: SequenceNotStr[str]
+    """Example answers"""
+
+    example_questions: SequenceNotStr[str]
+    """Example questions"""
 
     files: SequenceNotStr[FileTypes]
     """Optional: PDF, DOCX, etc."""
 
-    pair_type: Literal["qa", "cot", "summary"]
-    """Type of pairs to generate"""
+    question_format: str
+    """Question format template"""
 
-    question_answer_guidance: str
-    """Focus on..."""
-
-    rules_and_constraints: str
-    """Avoid..."""
-
-    system_prompt: str
-    """You are a helpful assistant..."""
+    rules: SequenceNotStr[str]
+    """Array of rules and constraints"""
 
     temperature: Optional[float]
     """0.0-1.0, controls randomness"""
 
-    user_instructions: str
-    """Generate Q&A pairs about..."""
-
     website_urls: SequenceNotStr[str]
-    """Website URLs as array"""
+    """Array of website URLs"""
 
     youtube_urls: SequenceNotStr[str]
-    """YouTube URLs as array"""
+    """Array of YouTube URLs"""

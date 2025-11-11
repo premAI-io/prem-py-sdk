@@ -11,11 +11,22 @@ __all__ = ["SnapshotCreateFromFilesParams"]
 
 class SnapshotCreateFromFilesParams(TypedDict, total=False):
     label: Required[str]
+    """Snapshot name shown in the dashboard once the snapshot is created."""
 
     project_id: Required[str]
+    """Project ID that will own the generated snapshot.
 
-    training_file: FileTypes
-    """JSONL training file"""
+    Must match an existing project.
+    """
 
-    validation_file: FileTypes
-    """JSONL validation file"""
+    training_file: Required[FileTypes]
+    """Required JSONL training file.
+
+    Upload line-delimited messages that will form the training split.
+    """
+
+    validation_file: Required[FileTypes]
+    """Required JSONL validation file.
+
+    Upload line-delimited messages reserved for validation.
+    """
