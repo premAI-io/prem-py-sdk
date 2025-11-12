@@ -16,6 +16,46 @@ from .models import (
     ModelsResourceWithStreamingResponse,
     AsyncModelsResourceWithStreamingResponse,
 )
+from .datasets import (
+    DatasetsResource,
+    AsyncDatasetsResource,
+    DatasetsResourceWithRawResponse,
+    AsyncDatasetsResourceWithRawResponse,
+    DatasetsResourceWithStreamingResponse,
+    AsyncDatasetsResourceWithStreamingResponse,
+)
+from .projects import (
+    ProjectsResource,
+    AsyncProjectsResource,
+    ProjectsResourceWithRawResponse,
+    AsyncProjectsResourceWithRawResponse,
+    ProjectsResourceWithStreamingResponse,
+    AsyncProjectsResourceWithStreamingResponse,
+)
+from .snapshots import (
+    SnapshotsResource,
+    AsyncSnapshotsResource,
+    SnapshotsResourceWithRawResponse,
+    AsyncSnapshotsResourceWithRawResponse,
+    SnapshotsResourceWithStreamingResponse,
+    AsyncSnapshotsResourceWithStreamingResponse,
+)
+from .finetuning import (
+    FinetuningResource,
+    AsyncFinetuningResource,
+    FinetuningResourceWithRawResponse,
+    AsyncFinetuningResourceWithRawResponse,
+    FinetuningResourceWithStreamingResponse,
+    AsyncFinetuningResourceWithStreamingResponse,
+)
+from .recommendations import (
+    RecommendationsResource,
+    AsyncRecommendationsResource,
+    RecommendationsResourceWithRawResponse,
+    AsyncRecommendationsResourceWithRawResponse,
+    RecommendationsResourceWithStreamingResponse,
+    AsyncRecommendationsResourceWithStreamingResponse,
+)
 
 __all__ = [
     "ChatResource",
@@ -30,4 +70,34 @@ __all__ = [
     "AsyncModelsResourceWithRawResponse",
     "ModelsResourceWithStreamingResponse",
     "AsyncModelsResourceWithStreamingResponse",
+    "ProjectsResource",
+    "AsyncProjectsResource",
+    "ProjectsResourceWithRawResponse",
+    "AsyncProjectsResourceWithRawResponse",
+    "ProjectsResourceWithStreamingResponse",
+    "AsyncProjectsResourceWithStreamingResponse",
+    "DatasetsResource",
+    "AsyncDatasetsResource",
+    "DatasetsResourceWithRawResponse",
+    "AsyncDatasetsResourceWithRawResponse",
+    "DatasetsResourceWithStreamingResponse",
+    "AsyncDatasetsResourceWithStreamingResponse",
+    "SnapshotsResource",
+    "AsyncSnapshotsResource",
+    "SnapshotsResourceWithRawResponse",
+    "AsyncSnapshotsResourceWithRawResponse",
+    "SnapshotsResourceWithStreamingResponse",
+    "AsyncSnapshotsResourceWithStreamingResponse",
+    "RecommendationsResource",
+    "AsyncRecommendationsResource",
+    "RecommendationsResourceWithRawResponse",
+    "AsyncRecommendationsResourceWithRawResponse",
+    "RecommendationsResourceWithStreamingResponse",
+    "AsyncRecommendationsResourceWithStreamingResponse",
+    "FinetuningResource",
+    "AsyncFinetuningResource",
+    "FinetuningResourceWithRawResponse",
+    "AsyncFinetuningResourceWithRawResponse",
+    "FinetuningResourceWithStreamingResponse",
+    "AsyncFinetuningResourceWithStreamingResponse",
 ]
