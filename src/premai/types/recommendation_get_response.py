@@ -3,47 +3,64 @@
 from typing import List, Optional
 from typing_extensions import Literal
 
-from pydantic import Field as FieldInfo
-
 from .._models import BaseModel
 
 __all__ = [
     "RecommendationGetResponse",
+    "RecommendedExperiment",
     "RecommendedModel",
     "RecommendedModelFullHyperparameters",
     "RecommendedModelLoraHyperparameters",
 ]
 
 
+class RecommendedExperiment(BaseModel):
+    base_model_id: str
+
+    batch_size: int
+
+    learning_rate_multiplier: float
+
+    lora: bool
+
+    n_epochs: int
+
+    reason_for_recommendation: Optional[str] = None
+
+    recommended: bool
+
+
 class RecommendedModelFullHyperparameters(BaseModel):
-    batch_size: int = FieldInfo(alias="batchSize")
+    batch_size: int
 
-    learning_rate_multiplier: float = FieldInfo(alias="learningRateMultiplier")
+    learning_rate_multiplier: float
 
-    n_epochs: int = FieldInfo(alias="nEpochs")
+    n_epochs: int
 
 
 class RecommendedModelLoraHyperparameters(BaseModel):
-    batch_size: int = FieldInfo(alias="batchSize")
+    batch_size: int
 
-    learning_rate_multiplier: float = FieldInfo(alias="learningRateMultiplier")
+    learning_rate_multiplier: float
 
-    n_epochs: int = FieldInfo(alias="nEpochs")
+    n_epochs: int
 
 
 class RecommendedModel(BaseModel):
-    base_model_id: str = FieldInfo(alias="baseModelId")
+    base_model_id: str
 
-    full_hyperparameters: RecommendedModelFullHyperparameters
+    full_hyperparameters: Optional[RecommendedModelFullHyperparameters] = None
 
-    lora_hyperparameters: RecommendedModelLoraHyperparameters
+    lora_hyperparameters: Optional[RecommendedModelLoraHyperparameters] = None
 
-    reason_for_recommendation: Optional[str] = FieldInfo(alias="reasonForRecommendation", default=None)
+    reason_for_recommendation: Optional[str] = None
 
     recommended: bool
 
 
 class RecommendationGetResponse(BaseModel):
+    recommended_experiments: Optional[List[RecommendedExperiment]] = None
+
     recommended_models: Optional[List[RecommendedModel]] = None
 
     snapshot_id: str

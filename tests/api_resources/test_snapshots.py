@@ -9,10 +9,7 @@ import pytest
 
 from premai import PremAI, AsyncPremAI
 from tests.utils import assert_matches_type
-from premai.types import (
-    SnapshotCreateResponse,
-    SnapshotCreateFromFilesResponse,
-)
+from premai.types import SnapshotCreateResponse
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
@@ -63,49 +60,6 @@ class TestSnapshots:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    def test_method_create_from_files(self, client: PremAI) -> None:
-        snapshot = client.snapshots.create_from_files(
-            label="x",
-            project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            training_file=b"raw file contents",
-            validation_file=b"raw file contents",
-        )
-        assert_matches_type(SnapshotCreateFromFilesResponse, snapshot, path=["response"])
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    def test_raw_response_create_from_files(self, client: PremAI) -> None:
-        response = client.snapshots.with_raw_response.create_from_files(
-            label="x",
-            project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            training_file=b"raw file contents",
-            validation_file=b"raw file contents",
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        snapshot = response.parse()
-        assert_matches_type(SnapshotCreateFromFilesResponse, snapshot, path=["response"])
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    def test_streaming_response_create_from_files(self, client: PremAI) -> None:
-        with client.snapshots.with_streaming_response.create_from_files(
-            label="x",
-            project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            training_file=b"raw file contents",
-            validation_file=b"raw file contents",
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            snapshot = response.parse()
-            assert_matches_type(SnapshotCreateFromFilesResponse, snapshot, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
 
 class TestAsyncSnapshots:
     parametrize = pytest.mark.parametrize(
@@ -152,48 +106,5 @@ class TestAsyncSnapshots:
 
             snapshot = await response.parse()
             assert_matches_type(SnapshotCreateResponse, snapshot, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    async def test_method_create_from_files(self, async_client: AsyncPremAI) -> None:
-        snapshot = await async_client.snapshots.create_from_files(
-            label="x",
-            project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            training_file=b"raw file contents",
-            validation_file=b"raw file contents",
-        )
-        assert_matches_type(SnapshotCreateFromFilesResponse, snapshot, path=["response"])
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    async def test_raw_response_create_from_files(self, async_client: AsyncPremAI) -> None:
-        response = await async_client.snapshots.with_raw_response.create_from_files(
-            label="x",
-            project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            training_file=b"raw file contents",
-            validation_file=b"raw file contents",
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        snapshot = await response.parse()
-        assert_matches_type(SnapshotCreateFromFilesResponse, snapshot, path=["response"])
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    async def test_streaming_response_create_from_files(self, async_client: AsyncPremAI) -> None:
-        async with async_client.snapshots.with_streaming_response.create_from_files(
-            label="x",
-            project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            training_file=b"raw file contents",
-            validation_file=b"raw file contents",
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            snapshot = await response.parse()
-            assert_matches_type(SnapshotCreateFromFilesResponse, snapshot, path=["response"])
 
         assert cast(Any, response.is_closed) is True
