@@ -69,13 +69,12 @@ Methods:
 Types:
 
 ```python
-from premai.types import SnapshotCreateResponse, SnapshotCreateFromFilesResponse
+from premai.types import SnapshotCreateResponse
 ```
 
 Methods:
 
 - <code title="post /api/v1/public/snapshots/create">client.snapshots.<a href="./src/premai/resources/snapshots.py">create</a>(\*\*<a href="src/premai/types/snapshot_create_params.py">params</a>) -> <a href="./src/premai/types/snapshot_create_response.py">SnapshotCreateResponse</a></code>
-- <code title="post /api/v1/public/snapshots/create-from-files">client.snapshots.<a href="./src/premai/resources/snapshots.py">create_from_files</a>(\*\*<a href="src/premai/types/snapshot_create_from_files_params.py">params</a>) -> <a href="./src/premai/types/snapshot_create_from_files_response.py">SnapshotCreateFromFilesResponse</a></code>
 
 # Recommendations
 
