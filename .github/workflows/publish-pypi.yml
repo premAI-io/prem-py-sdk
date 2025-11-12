@@ -41,4 +41,3 @@ jobs:
         shell: bash
         run: |
           curl -X POST --data '{"text":"❌ Studio PyPI SDK Deployed Failed"}' ${{ secrets.SLACK_DEV_PLATFORM_WEBHOOK_URL }}
-
