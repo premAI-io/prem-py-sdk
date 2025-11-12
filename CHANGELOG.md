@@ -1,5 +1,25 @@
 # Changelog
 
+## 0.16.0 (2025-11-12)
+
+Full Changelog: [v0.15.4...v0.16.0](https://github.com/premAI-io/prem-py-sdk/compare/v0.15.4...v0.16.0)
+
+### Features
+
+* **api:** api update ([61861df](https://github.com/premAI-io/prem-py-sdk/commit/61861df8576ea457eede8dd8f03218bc6e34c415))
+* **api:** manual updates ([7dc859c](https://github.com/premAI-io/prem-py-sdk/commit/7dc859cd5e92af76bdc200fcb68da5ca0ac1548c))
+
+
+### Bug Fixes
+
+* compat with Python 3.14 ([9c232f5](https://github.com/premAI-io/prem-py-sdk/commit/9c232f5bd19c653ddf8031fdba1847393ab2ff3a))
+* **compat:** update signatures of `model_dump` and `model_dump_json` for Pydantic v1 ([9d70dd2](https://github.com/premAI-io/prem-py-sdk/commit/9d70dd2f7b8db1bff67c32f22147cb1858b8ea71))
+
+
+### Chores
+
+* **package:** drop Python 3.8 support ([fdef2f0](https://github.com/premAI-io/prem-py-sdk/commit/fdef2f084a745daf108f1fd4879a8bf933e1062d))
+
 ## 0.15.4 (2025-11-05)
 
 Full Changelog: [v0.15.3...v0.15.4](https://github.com/premAI-io/prem-py-sdk/compare/v0.15.3...v0.15.4)
