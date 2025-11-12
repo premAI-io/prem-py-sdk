@@ -29,3 +29,16 @@ jobs:
           bash ./bin/publish-pypi
         env:
           PYPI_TOKEN: ${{ secrets.PREM_AI_PYPI_TOKEN || secrets.PYPI_TOKEN }}
+
+      - name: Notify Slack on Release Success
+        if: success()
+        shell: bash
+        run: |
+          curl -X POST --data '{"text":"✅ Studio PyPI SDK Deployed Successfully"}' ${{ secrets.SLACK_DEV_PLATFORM_WEBHOOK_URL }}
+
+      - name: Notify Slack on Release Failure
+        if: failure()
+        shell: bash
+        run: |
+          curl -X POST --data '{"text":"❌ Studio PyPI SDK Deployed Failed"}' ${{ secrets.SLACK_DEV_PLATFORM_WEBHOOK_URL }}
+
