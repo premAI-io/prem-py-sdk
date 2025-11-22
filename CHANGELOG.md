@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.17.2 (2025-11-22)
+
+Full Changelog: [v0.17.1...v0.17.2](https://github.com/premAI-io/prem-py-sdk/compare/v0.17.1...v0.17.2)
+
+### Chores
+
+* add Python 3.14 classifier and testing ([cd3f2b5](https://github.com/premAI-io/prem-py-sdk/commit/cd3f2b5fd3ac2681b3774605412dc0f54aa68e0e))
+
 ## 0.17.1 (2025-11-12)
 
 Full Changelog: [v0.17.0...v0.17.1](https://github.com/premAI-io/prem-py-sdk/compare/v0.17.0...v0.17.1)
