@@ -26,3 +26,5 @@ class Experiment(TypedDict, total=False):
     n_epochs: Required[int]
 
     lora: Optional[bool]
+
+    refinetune_from_experiment_id: str

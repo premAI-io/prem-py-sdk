@@ -1,11 +1,17 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Optional
+from typing import List, Optional
 from typing_extensions import Literal
 
 from .._models import BaseModel
 
-__all__ = ["DatasetGetResponse"]
+__all__ = ["DatasetGetResponse", "Snapshot"]
+
+
+class Snapshot(BaseModel):
+    id: str
+
+    created_at: str
 
 
 class DatasetGetResponse(BaseModel):
@@ -22,3 +28,5 @@ class DatasetGetResponse(BaseModel):
     status: Literal["processing", "completed", "failed"]
 
     updated_at: str
+
+    snapshots: Optional[List[Snapshot]] = None
