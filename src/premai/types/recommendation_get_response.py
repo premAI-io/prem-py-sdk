@@ -21,13 +21,13 @@ class RecommendedExperiment(BaseModel):
 
     learning_rate_multiplier: float
 
-    lora: bool
-
     n_epochs: int
 
     reason_for_recommendation: Optional[str] = None
 
     recommended: bool
+
+    training_type: Literal["full", "lora", "qlora"]
 
 
 class RecommendedModelFullHyperparameters(BaseModel):

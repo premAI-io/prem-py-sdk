@@ -27,6 +27,7 @@ class TestFinetuning:
                     "batch_size": 1,
                     "learning_rate_multiplier": 1,
                     "n_epochs": 1,
+                    "training_type": "full",
                 }
             ],
             name="x",
@@ -44,6 +45,7 @@ class TestFinetuning:
                     "batch_size": 1,
                     "learning_rate_multiplier": 1,
                     "n_epochs": 1,
+                    "training_type": "full",
                 }
             ],
             name="x",
@@ -65,6 +67,7 @@ class TestFinetuning:
                     "batch_size": 1,
                     "learning_rate_multiplier": 1,
                     "n_epochs": 1,
+                    "training_type": "full",
                 }
             ],
             name="x",
@@ -136,6 +139,7 @@ class TestAsyncFinetuning:
                     "batch_size": 1,
                     "learning_rate_multiplier": 1,
                     "n_epochs": 1,
+                    "training_type": "full",
                 }
             ],
             name="x",
@@ -153,6 +157,7 @@ class TestAsyncFinetuning:
                     "batch_size": 1,
                     "learning_rate_multiplier": 1,
                     "n_epochs": 1,
+                    "training_type": "full",
                 }
             ],
             name="x",
@@ -174,6 +179,7 @@ class TestAsyncFinetuning:
                     "batch_size": 1,
                     "learning_rate_multiplier": 1,
                     "n_epochs": 1,
+                    "training_type": "full",
                 }
             ],
             name="x",

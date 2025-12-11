@@ -21,11 +21,11 @@ class Experiment(BaseModel):
 
     learning_rate_multiplier: float
 
-    lora: bool
-
     n_epochs: int
 
     status: Literal["pending", "queued", "running", "deploying", "succeeded", "failed", "deleted"]
+
+    training_type: Literal["full", "lora", "qlora"]
 
     api_model_id: Optional[str] = FieldInfo(alias="model_id", default=None)
 
