@@ -50,6 +50,11 @@ class Choice(BaseModel):
 
 
 class Usage(BaseModel):
+    """Statistics about token usage for this request and response.
+
+    May be omitted in error cases or when not available.
+    """
+
     completion_tokens: int
     """The number of tokens generated in the completion response.
 

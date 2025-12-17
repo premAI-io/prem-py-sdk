@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import os
-from typing import Any, Mapping
+from typing import TYPE_CHECKING, Any, Mapping
 from typing_extensions import Self, override
 
 import httpx
@@ -20,8 +20,8 @@ from ._types import (
     not_given,
 )
 from ._utils import is_given, get_async_library
+from ._compat import cached_property
 from ._version import __version__
-from .resources import chat, models, datasets, projects, snapshots, finetuning, recommendations
 from ._streaming import Stream as Stream, AsyncStream as AsyncStream
 from ._exceptions import PremAIError, APIStatusError
 from ._base_client import (
@@ -30,20 +30,20 @@ from ._base_client import (
     AsyncAPIClient,
 )
 
+if TYPE_CHECKING:
+    from .resources import chat, models, datasets, projects, snapshots, finetuning, recommendations
+    from .resources.chat import ChatResource, AsyncChatResource
+    from .resources.models import ModelsResource, AsyncModelsResource
+    from .resources.datasets import DatasetsResource, AsyncDatasetsResource
+    from .resources.projects import ProjectsResource, AsyncProjectsResource
+    from .resources.snapshots import SnapshotsResource, AsyncSnapshotsResource
+    from .resources.finetuning import FinetuningResource, AsyncFinetuningResource
+    from .resources.recommendations import RecommendationsResource, AsyncRecommendationsResource
+
 __all__ = ["Timeout", "Transport", "ProxiesTypes", "RequestOptions", "PremAI", "AsyncPremAI", "Client", "AsyncClient"]
 
 
 class PremAI(SyncAPIClient):
-    chat: chat.ChatResource
-    models: models.ModelsResource
-    projects: projects.ProjectsResource
-    datasets: datasets.DatasetsResource
-    snapshots: snapshots.SnapshotsResource
-    recommendations: recommendations.RecommendationsResource
-    finetuning: finetuning.FinetuningResource
-    with_raw_response: PremAIWithRawResponse
-    with_streaming_response: PremAIWithStreamedResponse
-
     # client options
     api_key: str
 
@@ -98,15 +98,55 @@ class PremAI(SyncAPIClient):
             _strict_response_validation=_strict_response_validation,
         )
 
-        self.chat = chat.ChatResource(self)
-        self.models = models.ModelsResource(self)
-        self.projects = projects.ProjectsResource(self)
-        self.datasets = datasets.DatasetsResource(self)
-        self.snapshots = snapshots.SnapshotsResource(self)
-        self.recommendations = recommendations.RecommendationsResource(self)
-        self.finetuning = finetuning.FinetuningResource(self)
-        self.with_raw_response = PremAIWithRawResponse(self)
-        self.with_streaming_response = PremAIWithStreamedResponse(self)
+    @cached_property
+    def chat(self) -> ChatResource:
+        from .resources.chat import ChatResource
+
+        return ChatResource(self)
+
+    @cached_property
+    def models(self) -> ModelsResource:
+        from .resources.models import ModelsResource
+
+        return ModelsResource(self)
+
+    @cached_property
+    def projects(self) -> ProjectsResource:
+        from .resources.projects import ProjectsResource
+
+        return ProjectsResource(self)
+
+    @cached_property
+    def datasets(self) -> DatasetsResource:
+        from .resources.datasets import DatasetsResource
+
+        return DatasetsResource(self)
+
+    @cached_property
+    def snapshots(self) -> SnapshotsResource:
+        from .resources.snapshots import SnapshotsResource
+
+        return SnapshotsResource(self)
+
+    @cached_property
+    def recommendations(self) -> RecommendationsResource:
+        from .resources.recommendations import RecommendationsResource
+
+        return RecommendationsResource(self)
+
+    @cached_property
+    def finetuning(self) -> FinetuningResource:
+        from .resources.finetuning import FinetuningResource
+
+        return FinetuningResource(self)
+
+    @cached_property
+    def with_raw_response(self) -> PremAIWithRawResponse:
+        return PremAIWithRawResponse(self)
+
+    @cached_property
+    def with_streaming_response(self) -> PremAIWithStreamedResponse:
+        return PremAIWithStreamedResponse(self)
 
     @property
     @override
@@ -214,16 +254,6 @@ class PremAI(SyncAPIClient):
 
 
 class AsyncPremAI(AsyncAPIClient):
-    chat: chat.AsyncChatResource
-    models: models.AsyncModelsResource
-    projects: projects.AsyncProjectsResource
-    datasets: datasets.AsyncDatasetsResource
-    snapshots: snapshots.AsyncSnapshotsResource
-    recommendations: recommendations.AsyncRecommendationsResource
-    finetuning: finetuning.AsyncFinetuningResource
-    with_raw_response: AsyncPremAIWithRawResponse
-    with_streaming_response: AsyncPremAIWithStreamedResponse
-
     # client options
     api_key: str
 
@@ -278,15 +308,55 @@ class AsyncPremAI(AsyncAPIClient):
             _strict_response_validation=_strict_response_validation,
         )
 
-        self.chat = chat.AsyncChatResource(self)
-        self.models = models.AsyncModelsResource(self)
-        self.projects = projects.AsyncProjectsResource(self)
-        self.datasets = datasets.AsyncDatasetsResource(self)
-        self.snapshots = snapshots.AsyncSnapshotsResource(self)
-        self.recommendations = recommendations.AsyncRecommendationsResource(self)
-        self.finetuning = finetuning.AsyncFinetuningResource(self)
-        self.with_raw_response = AsyncPremAIWithRawResponse(self)
-        self.with_streaming_response = AsyncPremAIWithStreamedResponse(self)
+    @cached_property
+    def chat(self) -> AsyncChatResource:
+        from .resources.chat import AsyncChatResource
+
+        return AsyncChatResource(self)
+
+    @cached_property
+    def models(self) -> AsyncModelsResource:
+        from .resources.models import AsyncModelsResource
+
+        return AsyncModelsResource(self)
+
+    @cached_property
+    def projects(self) -> AsyncProjectsResource:
+        from .resources.projects import AsyncProjectsResource
+
+        return AsyncProjectsResource(self)
+
+    @cached_property
+    def datasets(self) -> AsyncDatasetsResource:
+        from .resources.datasets import AsyncDatasetsResource
+
+        return AsyncDatasetsResource(self)
+
+    @cached_property
+    def snapshots(self) -> AsyncSnapshotsResource:
+        from .resources.snapshots import AsyncSnapshotsResource
+
+        return AsyncSnapshotsResource(self)
+
+    @cached_property
+    def recommendations(self) -> AsyncRecommendationsResource:
+        from .resources.recommendations import AsyncRecommendationsResource
+
+        return AsyncRecommendationsResource(self)
+
+    @cached_property
+    def finetuning(self) -> AsyncFinetuningResource:
+        from .resources.finetuning import AsyncFinetuningResource
+
+        return AsyncFinetuningResource(self)
+
+    @cached_property
+    def with_raw_response(self) -> AsyncPremAIWithRawResponse:
+        return AsyncPremAIWithRawResponse(self)
+
+    @cached_property
+    def with_streaming_response(self) -> AsyncPremAIWithStreamedResponse:
+        return AsyncPremAIWithStreamedResponse(self)
 
     @property
     @override
@@ -394,47 +464,199 @@ class AsyncPremAI(AsyncAPIClient):
 
 
 class PremAIWithRawResponse:
+    _client: PremAI
+
     def __init__(self, client: PremAI) -> None:
-        self.chat = chat.ChatResourceWithRawResponse(client.chat)
-        self.models = models.ModelsResourceWithRawResponse(client.models)
-        self.projects = projects.ProjectsResourceWithRawResponse(client.projects)
-        self.datasets = datasets.DatasetsResourceWithRawResponse(client.datasets)
-        self.snapshots = snapshots.SnapshotsResourceWithRawResponse(client.snapshots)
-        self.recommendations = recommendations.RecommendationsResourceWithRawResponse(client.recommendations)
-        self.finetuning = finetuning.FinetuningResourceWithRawResponse(client.finetuning)
+        self._client = client
+
+    @cached_property
+    def chat(self) -> chat.ChatResourceWithRawResponse:
+        from .resources.chat import ChatResourceWithRawResponse
+
+        return ChatResourceWithRawResponse(self._client.chat)
+
+    @cached_property
+    def models(self) -> models.ModelsResourceWithRawResponse:
+        from .resources.models import ModelsResourceWithRawResponse
+
+        return ModelsResourceWithRawResponse(self._client.models)
+
+    @cached_property
+    def projects(self) -> projects.ProjectsResourceWithRawResponse:
+        from .resources.projects import ProjectsResourceWithRawResponse
+
+        return ProjectsResourceWithRawResponse(self._client.projects)
+
+    @cached_property
+    def datasets(self) -> datasets.DatasetsResourceWithRawResponse:
+        from .resources.datasets import DatasetsResourceWithRawResponse
+
+        return DatasetsResourceWithRawResponse(self._client.datasets)
+
+    @cached_property
+    def snapshots(self) -> snapshots.SnapshotsResourceWithRawResponse:
+        from .resources.snapshots import SnapshotsResourceWithRawResponse
+
+        return SnapshotsResourceWithRawResponse(self._client.snapshots)
+
+    @cached_property
+    def recommendations(self) -> recommendations.RecommendationsResourceWithRawResponse:
+        from .resources.recommendations import RecommendationsResourceWithRawResponse
+
+        return RecommendationsResourceWithRawResponse(self._client.recommendations)
+
+    @cached_property
+    def finetuning(self) -> finetuning.FinetuningResourceWithRawResponse:
+        from .resources.finetuning import FinetuningResourceWithRawResponse
+
+        return FinetuningResourceWithRawResponse(self._client.finetuning)
 
 
 class AsyncPremAIWithRawResponse:
+    _client: AsyncPremAI
+
     def __init__(self, client: AsyncPremAI) -> None:
-        self.chat = chat.AsyncChatResourceWithRawResponse(client.chat)
-        self.models = models.AsyncModelsResourceWithRawResponse(client.models)
-        self.projects = projects.AsyncProjectsResourceWithRawResponse(client.projects)
-        self.datasets = datasets.AsyncDatasetsResourceWithRawResponse(client.datasets)
-        self.snapshots = snapshots.AsyncSnapshotsResourceWithRawResponse(client.snapshots)
-        self.recommendations = recommendations.AsyncRecommendationsResourceWithRawResponse(client.recommendations)
-        self.finetuning = finetuning.AsyncFinetuningResourceWithRawResponse(client.finetuning)
+        self._client = client
+
+    @cached_property
+    def chat(self) -> chat.AsyncChatResourceWithRawResponse:
+        from .resources.chat import AsyncChatResourceWithRawResponse
+
+        return AsyncChatResourceWithRawResponse(self._client.chat)
+
+    @cached_property
+    def models(self) -> models.AsyncModelsResourceWithRawResponse:
+        from .resources.models import AsyncModelsResourceWithRawResponse
+
+        return AsyncModelsResourceWithRawResponse(self._client.models)
+
+    @cached_property
+    def projects(self) -> projects.AsyncProjectsResourceWithRawResponse:
+        from .resources.projects import AsyncProjectsResourceWithRawResponse
+
+        return AsyncProjectsResourceWithRawResponse(self._client.projects)
+
+    @cached_property
+    def datasets(self) -> datasets.AsyncDatasetsResourceWithRawResponse:
+        from .resources.datasets import AsyncDatasetsResourceWithRawResponse
+
+        return AsyncDatasetsResourceWithRawResponse(self._client.datasets)
+
+    @cached_property
+    def snapshots(self) -> snapshots.AsyncSnapshotsResourceWithRawResponse:
+        from .resources.snapshots import AsyncSnapshotsResourceWithRawResponse
+
+        return AsyncSnapshotsResourceWithRawResponse(self._client.snapshots)
+
+    @cached_property
+    def recommendations(self) -> recommendations.AsyncRecommendationsResourceWithRawResponse:
+        from .resources.recommendations import AsyncRecommendationsResourceWithRawResponse
+
+        return AsyncRecommendationsResourceWithRawResponse(self._client.recommendations)
+
+    @cached_property
+    def finetuning(self) -> finetuning.AsyncFinetuningResourceWithRawResponse:
+        from .resources.finetuning import AsyncFinetuningResourceWithRawResponse
+
+        return AsyncFinetuningResourceWithRawResponse(self._client.finetuning)
 
 
 class PremAIWithStreamedResponse:
+    _client: PremAI
+
     def __init__(self, client: PremAI) -> None:
-        self.chat = chat.ChatResourceWithStreamingResponse(client.chat)
-        self.models = models.ModelsResourceWithStreamingResponse(client.models)
-        self.projects = projects.ProjectsResourceWithStreamingResponse(client.projects)
-        self.datasets = datasets.DatasetsResourceWithStreamingResponse(client.datasets)
-        self.snapshots = snapshots.SnapshotsResourceWithStreamingResponse(client.snapshots)
-        self.recommendations = recommendations.RecommendationsResourceWithStreamingResponse(client.recommendations)
-        self.finetuning = finetuning.FinetuningResourceWithStreamingResponse(client.finetuning)
+        self._client = client
+
+    @cached_property
+    def chat(self) -> chat.ChatResourceWithStreamingResponse:
+        from .resources.chat import ChatResourceWithStreamingResponse
+
+        return ChatResourceWithStreamingResponse(self._client.chat)
+
+    @cached_property
+    def models(self) -> models.ModelsResourceWithStreamingResponse:
+        from .resources.models import ModelsResourceWithStreamingResponse
+
+        return ModelsResourceWithStreamingResponse(self._client.models)
+
+    @cached_property
+    def projects(self) -> projects.ProjectsResourceWithStreamingResponse:
+        from .resources.projects import ProjectsResourceWithStreamingResponse
+
+        return ProjectsResourceWithStreamingResponse(self._client.projects)
+
+    @cached_property
+    def datasets(self) -> datasets.DatasetsResourceWithStreamingResponse:
+        from .resources.datasets import DatasetsResourceWithStreamingResponse
+
+        return DatasetsResourceWithStreamingResponse(self._client.datasets)
+
+    @cached_property
+    def snapshots(self) -> snapshots.SnapshotsResourceWithStreamingResponse:
+        from .resources.snapshots import SnapshotsResourceWithStreamingResponse
+
+        return SnapshotsResourceWithStreamingResponse(self._client.snapshots)
+
+    @cached_property
+    def recommendations(self) -> recommendations.RecommendationsResourceWithStreamingResponse:
+        from .resources.recommendations import RecommendationsResourceWithStreamingResponse
+
+        return RecommendationsResourceWithStreamingResponse(self._client.recommendations)
+
+    @cached_property
+    def finetuning(self) -> finetuning.FinetuningResourceWithStreamingResponse:
+        from .resources.finetuning import FinetuningResourceWithStreamingResponse
+
+        return FinetuningResourceWithStreamingResponse(self._client.finetuning)
 
 
 class AsyncPremAIWithStreamedResponse:
+    _client: AsyncPremAI
+
     def __init__(self, client: AsyncPremAI) -> None:
-        self.chat = chat.AsyncChatResourceWithStreamingResponse(client.chat)
-        self.models = models.AsyncModelsResourceWithStreamingResponse(client.models)
-        self.projects = projects.AsyncProjectsResourceWithStreamingResponse(client.projects)
-        self.datasets = datasets.AsyncDatasetsResourceWithStreamingResponse(client.datasets)
-        self.snapshots = snapshots.AsyncSnapshotsResourceWithStreamingResponse(client.snapshots)
-        self.recommendations = recommendations.AsyncRecommendationsResourceWithStreamingResponse(client.recommendations)
-        self.finetuning = finetuning.AsyncFinetuningResourceWithStreamingResponse(client.finetuning)
+        self._client = client
+
+    @cached_property
+    def chat(self) -> chat.AsyncChatResourceWithStreamingResponse:
+        from .resources.chat import AsyncChatResourceWithStreamingResponse
+
+        return AsyncChatResourceWithStreamingResponse(self._client.chat)
+
+    @cached_property
+    def models(self) -> models.AsyncModelsResourceWithStreamingResponse:
+        from .resources.models import AsyncModelsResourceWithStreamingResponse
+
+        return AsyncModelsResourceWithStreamingResponse(self._client.models)
+
+    @cached_property
+    def projects(self) -> projects.AsyncProjectsResourceWithStreamingResponse:
+        from .resources.projects import AsyncProjectsResourceWithStreamingResponse
+
+        return AsyncProjectsResourceWithStreamingResponse(self._client.projects)
+
+    @cached_property
+    def datasets(self) -> datasets.AsyncDatasetsResourceWithStreamingResponse:
+        from .resources.datasets import AsyncDatasetsResourceWithStreamingResponse
+
+        return AsyncDatasetsResourceWithStreamingResponse(self._client.datasets)
+
+    @cached_property
+    def snapshots(self) -> snapshots.AsyncSnapshotsResourceWithStreamingResponse:
+        from .resources.snapshots import AsyncSnapshotsResourceWithStreamingResponse
+
+        return AsyncSnapshotsResourceWithStreamingResponse(self._client.snapshots)
+
+    @cached_property
+    def recommendations(self) -> recommendations.AsyncRecommendationsResourceWithStreamingResponse:
+        from .resources.recommendations import AsyncRecommendationsResourceWithStreamingResponse
+
+        return AsyncRecommendationsResourceWithStreamingResponse(self._client.recommendations)
+
+    @cached_property
+    def finetuning(self) -> finetuning.AsyncFinetuningResourceWithStreamingResponse:
+        from .resources.finetuning import AsyncFinetuningResourceWithStreamingResponse
+
+        return AsyncFinetuningResourceWithStreamingResponse(self._client.finetuning)
 
 
 Client = PremAI

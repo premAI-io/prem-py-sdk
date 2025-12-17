@@ -145,6 +145,11 @@ class Message(TypedDict, total=False):
 
 
 class ResponseFormat(TypedDict, total=False):
+    """Specifies the format of the model's output.
+
+    Use "json_schema" to constrain responses to valid JSON matching the provided schema.
+    """
+
     json_schema: Required[Dict[str, Optional[object]]]
 
     type: Required[Literal["text", "json_schema"]]

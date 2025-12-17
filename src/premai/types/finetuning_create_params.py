@@ -2,8 +2,8 @@
 
 from __future__ import annotations
 
-from typing import Iterable, Optional
-from typing_extensions import Required, TypedDict
+from typing import Iterable
+from typing_extensions import Literal, Required, TypedDict
 
 __all__ = ["FinetuningCreateParams", "Experiment"]
 
@@ -25,4 +25,6 @@ class Experiment(TypedDict, total=False):
 
     n_epochs: Required[int]
 
-    lora: Optional[bool]
+    training_type: Required[Literal["full", "lora", "qlora"]]
+
+    refinetune_from_experiment_id: str

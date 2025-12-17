@@ -1,5 +1,32 @@
 # Changelog
 
+## 0.18.0 (2025-12-17)
+
+Full Changelog: [v0.17.1...v0.18.0](https://github.com/premAI-io/prem-py-sdk/compare/v0.17.1...v0.18.0)
+
+### Features
+
+* **api:** api update ([4acc952](https://github.com/premAI-io/prem-py-sdk/commit/4acc9520f013f842e35287ae744b246d9c458aaa))
+* **api:** api update ([6f76efa](https://github.com/premAI-io/prem-py-sdk/commit/6f76efa1d450bea68a662a46573a4c9de702b9e5))
+* **api:** api update ([c88fc6e](https://github.com/premAI-io/prem-py-sdk/commit/c88fc6eb36aec61e945a5ec884350df1b528034a))
+
+
+### Bug Fixes
+
+* ensure streams are always closed ([580df3e](https://github.com/premAI-io/prem-py-sdk/commit/580df3e9bf3caf2573b8e2f2543daf7eb5177306))
+* **types:** allow pyright to infer TypedDict types within SequenceNotStr ([e45af07](https://github.com/premAI-io/prem-py-sdk/commit/e45af07ba4063c71236c7159013feab00e145cb6))
+
+
+### Chores
+
+* add missing docstrings ([eb69dc3](https://github.com/premAI-io/prem-py-sdk/commit/eb69dc36f03eda65f7f635f300d6ecdeb8b2db87))
+* add Python 3.14 classifier and testing ([cd3f2b5](https://github.com/premAI-io/prem-py-sdk/commit/cd3f2b5fd3ac2681b3774605412dc0f54aa68e0e))
+* **deps:** mypy 1.18.1 has a regression, pin to 1.17 ([195f115](https://github.com/premAI-io/prem-py-sdk/commit/195f1157aee825a299646f7a316e75f37de80ad3))
+* **docs:** use environment variables for authentication in code snippets ([d695e31](https://github.com/premAI-io/prem-py-sdk/commit/d695e31797b82b4966e62556baf41885fbbea914))
+* **internal:** add missing files argument to base client ([670c3b7](https://github.com/premAI-io/prem-py-sdk/commit/670c3b7a03a91bf8112c831a3c29ebef9ebf6b99))
+* speedup initial import ([9af143f](https://github.com/premAI-io/prem-py-sdk/commit/9af143f35c98cf412bc9c6bd32b4dded65de4828))
+* update lockfile ([5d11aaa](https://github.com/premAI-io/prem-py-sdk/commit/5d11aaae185cb236887ce3f16038aa6559e3aa36))
+
 ## 0.17.1 (2025-11-12)
 
 Full Changelog: [v0.17.0...v0.17.1](https://github.com/premAI-io/prem-py-sdk/compare/v0.17.0...v0.17.1)
