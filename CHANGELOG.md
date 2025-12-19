@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.18.1 (2025-12-19)
+
+Full Changelog: [v0.18.0...v0.18.1](https://github.com/premAI-io/prem-py-sdk/compare/v0.18.0...v0.18.1)
+
+### Bug Fixes
+
+* use async_to_httpx_files in patch method ([7bd3548](https://github.com/premAI-io/prem-py-sdk/commit/7bd3548afd4d96da5a1e7d7f22bc50058fcd3b37))
+
+
+### Chores
+
+* **internal:** add `--fix` argument to lint script ([a95638d](https://github.com/premAI-io/prem-py-sdk/commit/a95638d43a696a02386f07fefe44e1408e215b21))
+
 ## 0.18.0 (2025-12-17)
 
 Full Changelog: [v0.17.1...v0.18.0](https://github.com/premAI-io/prem-py-sdk/compare/v0.17.1...v0.18.0)
