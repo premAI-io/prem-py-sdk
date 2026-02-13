@@ -1,5 +1,30 @@
 # Changelog
 
+## 0.19.0 (2026-02-13)
+
+Full Changelog: [v0.18.0...v0.19.0](https://github.com/premAI-io/prem-py-sdk/compare/v0.18.0...v0.19.0)
+
+### Features
+
+* **client:** add custom JSON encoder for extended type support ([eb2d7b7](https://github.com/premAI-io/prem-py-sdk/commit/eb2d7b744dff8c44bb484cfd4820a4350d825357))
+* **client:** add support for binary request streaming ([9466982](https://github.com/premAI-io/prem-py-sdk/commit/946698216030bd5acd200e0ce5fbd13a73b410fb))
+
+
+### Bug Fixes
+
+* use async_to_httpx_files in patch method ([7bd3548](https://github.com/premAI-io/prem-py-sdk/commit/7bd3548afd4d96da5a1e7d7f22bc50058fcd3b37))
+
+
+### Chores
+
+* **ci:** upgrade `actions/github-script` ([73a662c](https://github.com/premAI-io/prem-py-sdk/commit/73a662c56b6f503c1ff93edcc9f565455206cf40))
+* format all `api.md` files ([5529be3](https://github.com/premAI-io/prem-py-sdk/commit/5529be3d14c76efbbc5bff43b8f7508acd6808d0))
+* **internal:** add `--fix` argument to lint script ([a95638d](https://github.com/premAI-io/prem-py-sdk/commit/a95638d43a696a02386f07fefe44e1408e215b21))
+* **internal:** bump dependencies ([0af674a](https://github.com/premAI-io/prem-py-sdk/commit/0af674a3ed7ed4c359b724c5ec3bce1aa322c93b))
+* **internal:** codegen related update ([cc1b9e5](https://github.com/premAI-io/prem-py-sdk/commit/cc1b9e544afd377d859e2a1b6786f39a8ac813ff))
+* **internal:** fix lint error on Python 3.14 ([2e55198](https://github.com/premAI-io/prem-py-sdk/commit/2e55198ea7007dfe5a2f700ebc813082655cce03))
+* **internal:** update `actions/checkout` version ([c114b72](https://github.com/premAI-io/prem-py-sdk/commit/c114b72b135d3f299c442a31545793bcedfa5be7))
+
 ## 0.18.0 (2025-12-17)
 
 Full Changelog: [v0.17.1...v0.18.0](https://github.com/premAI-io/prem-py-sdk/compare/v0.17.1...v0.18.0)
